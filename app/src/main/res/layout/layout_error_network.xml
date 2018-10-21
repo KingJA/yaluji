@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:gravity="center"
+              android:id="@+id/ll_error"
+              android:orientation="vertical">
+
+    <ImageView
+        android:layout_marginBottom="18dp"
+        android:background="@mipmap/bg_status_network_error"
+        android:layout_width="160dp"
+        android:layout_height="110dp"/>
+
+    <com.kingja.supershapeview.view.SuperShapeTextView
+        style="@style/font_f_18"
+        android:layout_marginLeft="56dp"
+        android:layout_marginRight="56dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp"
+        android:gravity="center"
+        android:text="刷新"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:super_cornerRadius="100dp"
+        app:super_solidColor="@color/red_hi"/>
+
+
+</LinearLayout>

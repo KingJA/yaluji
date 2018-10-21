@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <FrameLayout
+        android:id="@+id/fl_home"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:paddingBottom="4dp"
+        android:background="@color/white_hi"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:id="@+id/ll_tab_duck"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_tab_duck"
+                android:background="@mipmap/ic_tab_duck_sel"
+                android:layout_width="36dp"
+                android:layout_height="33dp"/>
+
+            <TextView
+                android:id="@+id/tv_tab_duck"
+                style="@style/font_orange_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="首页"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/ll_tab_deer"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_tab_deer"
+                android:background="@mipmap/ic_tab_deer_nor"
+                android:layout_width="36dp"
+                android:layout_height="33dp"/>
+
+            <TextView
+                android:id="@+id/tv_tab_deer"
+                style="@style/font_3_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="券包"/>
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/ll_tab_chick"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1">
+
+            <ImageView
+                android:id="@+id/iv_tab_chick"
+                android:background="@mipmap/ic_tab_chick_nor"
+                android:layout_width="36dp"
+                android:layout_height="33dp"/>
+
+            <TextView
+                android:id="@+id/tv_tab_chick"
+                style="@style/font_3_16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="我的"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

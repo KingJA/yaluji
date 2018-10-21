@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+
+    <color name="red_hi">#EA1022</color>
+    <color name="orange_hi">#FF7A40</color>
+    <color name="delete_hi">#EC4D3D</color>
+    <color name="orange_light_hi">#f9986b</color>
+    <color name="orange_hi_light">#FCD2BC</color>
+    <color name="green_hi">#64C99F</color>
+    <color name="gray_hi">#CCCCCC</color>
+    <color name="yellow_hi">#F5EDCF</color>
+    <color name="c_gold">#958543</color>
+    <color name="bg_hi">#F6F6F6</color>
+    <color name="blue_hi">#7097ED</color>
+    <color name="bg_orange">#EF8D34</color>
+    <color name="white_hi">#ffffff</color>
+    <color name="tran_hi">#00000000</color>
+    <color name="c_3">#333333</color>
+    <color name="c_6">#666666</color>
+    <color name="c_9">#999999</color>
+    <color name="half_hi">#33ffffff</color>
+    <color name="diver">#dbdbdc</color>
+    <color name="black_hi">#000000</color>
+
+
+
+
+    <color name="custom_header_text">#85B100</color>
+    <color name="custom_selected">#A8D324</color>
+    <color name="custom_background">#F0F8DB</color>
+    <color name="custom_background_today">#FF9105</color>
+    <color name="custom_background_disabled">#F0F8DB</color>
+    <color name="custom_text_selected">#FFFFFFFF</color>
+    <color name="custom_text_inactive">#7f778088</color>
+</resources>

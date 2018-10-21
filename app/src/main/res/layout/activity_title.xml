@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/rl_title_root"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@color/white_hi">
+
+        <LinearLayout
+            android:id="@+id/ll_title_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:background="@drawable/sel_t2g"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="16dp"
+                android:src="@mipmap/ic_back"/>
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/tv_title_title"
+            style="@style/font_3_18"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="标题"/>
+
+        <LinearLayout
+            android:id="@+id/ll_title_menu"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentRight="true"
+            android:background="@drawable/sel_t2g"
+            android:gravity="center"
+            android:visibility="gone">
+
+            <ImageView
+                android:id="@+id/iv_menu"
+                android:layout_width="20dp"
+                android:layout_height="20dp"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_right_text"
+            style="@style/font_3_15"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:text="操作"
+            android:visibility="gone"/>
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/fl_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>
