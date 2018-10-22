@@ -6,6 +6,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.injector.module.ActivityModule;
 import com.kingja.yaluji.page.forgetpassword.ForgetPasswordActivity;
 import com.kingja.yaluji.page.login.LoginActivity;
+import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
 import com.kingja.yaluji.page.nickname.ModifyNicknameActivity;
 import com.kingja.yaluji.page.order.list.TicketListFragment;
 import com.kingja.yaluji.page.order.orderdetail.TicketDetailActivity;
@@ -24,4 +25,5 @@ public interface BaseCompnent {
     void inject(RegisterActivity target);
     void inject(PersonalActivity target);
     void inject(ModifyNicknameActivity target);
+    void inject(ModifyPasswordActivity target);
 }

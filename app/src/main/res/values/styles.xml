@@ -8,9 +8,9 @@
         <item name="windowNoTitle">true</item>
     </style>
     <!--<style name="AppTheme.Fullscreen.Translucent">-->
-        <!--<item name="android:windowBackground">@android:color/transparent</item>-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
-        <!--<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>-->
+    <!--<item name="android:windowBackground">@android:color/transparent</item>-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--<item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>-->
     <!--</style>-->
 
     <style name="PhotoTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -33,76 +33,79 @@
     </style>
 
     <!--<style name="AppTheme.NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">-->
-        <!--<item name="colorPrimary">@color/red_hi</item>-->
-        <!--<item name="colorPrimaryDark">@color/red_hi</item>-->
-        <!--<item name="windowActionBar">false</item>-->
-        <!--<item name="windowNoTitle">true</item>-->
+    <!--<item name="colorPrimary">@color/red_hi</item>-->
+    <!--<item name="colorPrimaryDark">@color/red_hi</item>-->
+    <!--<item name="windowActionBar">false</item>-->
+    <!--<item name="windowNoTitle">true</item>-->
     <!--</style>-->
 
     <!--<style name="AppTheme.Fullscreen">-->
-        <!--<item name="android:windowNoTitle">true</item>-->
-        <!--<item name="android:windowFullscreen">true</item>-->
-        <!--<item name="android:windowIsTranslucent">true</item>-->
+    <!--<item name="android:windowNoTitle">true</item>-->
+    <!--<item name="android:windowFullscreen">true</item>-->
+    <!--<item name="android:windowIsTranslucent">true</item>-->
     <!--</style>-->
 
     <!--<style name="RectCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">-->
-        <!--<item name="android:button">@drawable/selector_cb</item>-->
-        <!--<item name="android:layout_marginLeft">4dp</item>-->
-        <!--<item name="android:layout_marginRight">4dp</item>-->
+    <!--<item name="android:button">@drawable/selector_cb</item>-->
+    <!--<item name="android:layout_marginLeft">4dp</item>-->
+    <!--<item name="android:layout_marginRight">4dp</item>-->
     <!--</style>-->
 
     <!--<style name="CircleCheckbox" parent="@android:style/Widget.CompoundButton.CheckBox">-->
-        <!--<item name="android:button">@drawable/selector_cb_circle</item>-->
+    <!--<item name="android:button">@drawable/selector_cb_circle</item>-->
     <!--</style>-->
 
     <!--<style name="MyEditTextLine" parent="Theme.AppCompat.Light">-->
-        <!--<item name="colorControlNormal">@color/gray_hi</item>-->
-        <!--<item name="colorControlActivated">@color/red_hi</item>-->
+    <!--<item name="colorControlNormal">@color/gray_hi</item>-->
+    <!--<item name="colorControlActivated">@color/red_hi</item>-->
     <!--</style>-->
 
     <!--<style name="Action_Button">-->
-        <!--<item name="android:background">@drawable/shape_button_action</item>-->
-        <!--<item name="android:textColor">@color/white_hi</item>-->
-        <!--<item name="android:textSize">16sp</item>-->
-        <!--<item name="android:gravity">center</item>-->
-        <!--<item name="android:padding">10dp</item>-->
-        <!--<item name="android:layout_width">match_parent</item>-->
-        <!--<item name="android:layout_height">wrap_content</item>-->
+    <!--<item name="android:background">@drawable/shape_button_action</item>-->
+    <!--<item name="android:textColor">@color/white_hi</item>-->
+    <!--<item name="android:textSize">16sp</item>-->
+    <!--<item name="android:gravity">center</item>-->
+    <!--<item name="android:padding">10dp</item>-->
+    <!--<item name="android:layout_width">match_parent</item>-->
+    <!--<item name="android:layout_height">wrap_content</item>-->
     <!--</style>-->
 
     <!--<style name="BgNullEditText">-->
-        <!--<item name="android:background">@null</item>-->
-        <!--<item name="android:textColor">@color/c_3</item>-->
-        <!--<item name="android:textSize">15sp</item>-->
-        <!--<item name="android:singleLine">true</item>-->
+    <!--<item name="android:background">@null</item>-->
+    <!--<item name="android:textColor">@color/c_3</item>-->
+    <!--<item name="android:textSize">15sp</item>-->
+    <!--<item name="android:singleLine">true</item>-->
     <!--</style>-->
 
     <!--<style name="KProgressBar">-->
-        <!--<item name="android:indeterminateOnly">false</item>-->
-        <!--<item name="android:progressDrawable">@drawable/pb_horizontal</item>-->
-        <!--<item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>-->
-        <!--<item name="android:minHeight">8dp</item>-->
-        <!--<item name="android:maxHeight">8dp</item>-->
+    <!--<item name="android:indeterminateOnly">false</item>-->
+    <!--<item name="android:progressDrawable">@drawable/pb_horizontal</item>-->
+    <!--<item name="android:indeterminateDrawable">@android:drawable/progress_indeterminate_horizontal</item>-->
+    <!--<item name="android:minHeight">8dp</item>-->
+    <!--<item name="android:maxHeight">8dp</item>-->
     <!--</style>-->
     <!--<style name="CustomAlertDialog" parent="@android:style/Theme.Dialog">-->
-        <!--<item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>-->
-        <!--<item name="android:windowNoTitle">true</item>-->
+    <!--<item name="android:windowBackground">@drawable/shape_lnull_bwhite_r8</item>-->
+    <!--<item name="android:windowNoTitle">true</item>-->
     <!--</style>-->
 
     <style name="Padding_20_12">
-    <item name="android:paddingRight">20dp</item>
-    <item name="android:paddingLeft">20dp</item>
-    <item name="android:paddingTop">12dp</item>
-    <item name="android:paddingBottom">12dp</item>
-    <item name="android:background">@color/white_hi</item>
+        <item name="android:paddingRight">20dp</item>
+        <item name="android:paddingLeft">20dp</item>
+        <item name="android:paddingTop">12dp</item>
+        <item name="android:paddingBottom">12dp</item>
+        <item name="android:background">@color/white_hi</item>
     </style>
 
-    <style name="Arrow_Right">
-    <item name="android:layout_width">15dp</item>
-    <item name="android:layout_height">18dp</item>
-    <item name="android:layout_alignParentRight">true</item>
-    <item name="android:layout_centerVertical">true</item>
-    <item name="android:background">@mipmap/ic_arrow_right</item>
+    <style name="Arrow_Right" parent="Arrow">
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_centerVertical">true</item>
+    </style>
+
+    <style name="Arrow">
+        <item name="android:layout_width">15dp</item>
+        <item name="android:layout_height">18dp</item>
+        <item name="android:background">@mipmap/ic_arrow_right</item>
     </style>
 
     <style name="Action_Button">
@@ -134,6 +137,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+
     <style name="Padding_12_12">
         <item name="android:background">@color/white_hi</item>
         <item name="android:padding">12sp</item>
@@ -142,11 +146,22 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
-    <style name="Padding_16">
-        <item name="android:padding">16sp</item>
+    <style name="Et_3_13">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/c_3</item>
+        <item name="android:hint">@color/c_c</item>
+        <item name="android:textSize">13sp</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="Padding_16">
         <item name="android:gravity">center_vertical</item>
+        <item name="android:padding">16dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/white_hi</item>
     </style>
 </resources>
 

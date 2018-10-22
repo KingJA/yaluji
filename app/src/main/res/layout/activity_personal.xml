@@ -15,7 +15,7 @@
 
 
         <TextView
-            style="@style/font_3_14"
+            style="@style/font_3_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -42,10 +42,7 @@
                 android:scaleType="centerCrop"
                 app:super_cornerRadius="36dp"/>
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:background="@mipmap/ic_arrow_right"/>
+            <ImageView style="@style/Arrow"/>
 
         </LinearLayout>
     </RelativeLayout>
@@ -61,7 +58,7 @@
 
 
         <TextView
-            style="@style/font_3_14"
+            style="@style/font_3_15"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -82,10 +79,7 @@
                 android:layout_marginRight="8dp"
                 android:text="蒜末先生"/>
 
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="18dp"
-                android:background="@mipmap/arrow_right"/>
+            <ImageView style="@style/Arrow"/>
 
         </LinearLayout>
     </RelativeLayout>
