@@ -35,22 +35,27 @@ import retrofit2.http.Part;
  * 修改备注：
  */
 public interface UserService {
+    /*注册OK*/
+    @FormUrlEncoded
+    @POST("/app/user/register")
+    Observable<HttpResult<Object>> register(@Field("mobile") String mobile, @Field("passwd") String password,
+                                            @Field("code") String code);
+
     /*登录OK*/
     @FormUrlEncoded
     @POST("/app/user/login")
     Observable<HttpResult<Login>> login(@Field("mobile") String mobile, @Field("password") String password, @Field
             ("deviceId") String deviceId, @Field("deviceName") String deviceName, @Field("osName") String osName);
 
+
+    /*==============================================*/
+
     /*发送验证码OK*/
     @FormUrlEncoded
     @POST("/app/user/smsmessage")
     Observable<HttpResult<String>> sms(@Field("mobile") String mobile, @Field("flag") int flag);
 
-    /*注册OK*/
-    @FormUrlEncoded
-    @POST("/app/user/register")
-    Observable<HttpResult<Object>> register(@Field("mobile") String mobile, @Field("passwd") String password,
-                                            @Field("code") String code);
+
 
     /*修改密码*/
     @FormUrlEncoded

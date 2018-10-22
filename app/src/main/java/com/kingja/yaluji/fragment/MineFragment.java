@@ -18,6 +18,8 @@ import com.kingja.yaluji.event.RefreshNicknameEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.page.login.LoginActivity;
+import com.kingja.yaluji.page.personal.PersonalActivity;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.SpSir;
 import com.orhanobut.logger.Logger;
@@ -95,16 +97,16 @@ public class MineFragment extends BaseFragment  {
             tvNickname.setText(nickname);
             tvQuit.setVisibility(View.VISIBLE);
             llMinePersonal.setOnClickListener(v -> {
-//                GoUtil.goActivity(getActivity(), PersonalActivity.class);
+                GoUtil.goActivity(getActivity(), PersonalActivity.class);
             });
         } else {
             //未登录
             tvQuit.setVisibility(View.GONE);
             tvNickname.setText("注册/登录");
-//            ivMineHead.setImageResource(R.mipmap.ic_logo);
-//            llMinePersonal.setOnClickListener(v -> {
-//                GoUtil.goActivity(getActivity(), LoginActivity.class);
-//            });
+            ivMineHead.setImageResource(R.mipmap.ic_logo);
+            llMinePersonal.setOnClickListener(v -> {
+                GoUtil.goActivity(getActivity(), LoginActivity.class);
+            });
         }
     }
 

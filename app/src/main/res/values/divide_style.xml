@@ -3,7 +3,7 @@
     <style name="div_hor_gray">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/gray_hi</item>
+        <item name="android:background">@color/diver</item>
     </style>
 
     <style name="div_hor_6_gray">

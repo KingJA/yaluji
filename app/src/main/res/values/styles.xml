@@ -61,7 +61,7 @@
     <!--</style>-->
 
     <!--<style name="Action_Button">-->
-        <!--<item name="android:background">@drawable/shape_button</item>-->
+        <!--<item name="android:background">@drawable/shape_button_action</item>-->
         <!--<item name="android:textColor">@color/white_hi</item>-->
         <!--<item name="android:textSize">16sp</item>-->
         <!--<item name="android:gravity">center</item>-->
@@ -98,11 +98,55 @@
     </style>
 
     <style name="Arrow_Right">
-    <item name="android:layout_width">7dp</item>
-    <item name="android:layout_height">11dp</item>
+    <item name="android:layout_width">15dp</item>
+    <item name="android:layout_height">18dp</item>
     <item name="android:layout_alignParentRight">true</item>
     <item name="android:layout_centerVertical">true</item>
     <item name="android:background">@mipmap/ic_arrow_right</item>
+    </style>
+
+    <style name="Action_Button">
+        <item name="android:background">@drawable/shape_button_action</item>
+        <item name="android:textColor">@color/white_hi</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="Forbidden_Button">
+        <item name="android:background">@drawable/shape_button_forbiden</item>
+        <item name="android:textColor">@color/c_9</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+
+    <style name="Et_3_15">
+        <item name="android:background">@null</item>
+        <item name="android:textColor">@color/c_3</item>
+        <item name="android:hint">@color/c_c</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <style name="Padding_12_12">
+        <item name="android:background">@color/white_hi</item>
+        <item name="android:padding">12sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Padding_16">
+        <item name="android:padding">16sp</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center_vertical</item>
     </style>
 </resources>
 
