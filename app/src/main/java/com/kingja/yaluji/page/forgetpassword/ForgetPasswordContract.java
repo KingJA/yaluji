@@ -1,7 +1,8 @@
 package com.kingja.yaluji.page.forgetpassword;
 
-import com.kingja.qiang.base.BasePresenter;
-import com.kingja.qiang.base.BaseView;
+
+import com.kingja.yaluji.base.BasePresenter;
+import com.kingja.yaluji.base.BaseView;
 
 /**
  * Description：TODO

@@ -1,10 +1,7 @@
 package com.kingja.yaluji.page.forgetpassword;
 
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.supershapeview.view.SuperShapeTextView;
@@ -30,37 +27,31 @@ import butterknife.OnClick;
  * Email:kingjavip@gmail.com
  */
 public class ForgetPasswordActivity extends BaseTitleActivity implements ForgetPasswordContract.View {
-    @BindView(R.id.et_forgetpwd_mobile)
+    @BindView(R.id.et_mobile)
     EditText etForgetpwdMobile;
-    @BindView(R.id.et_forgetpwd_code)
+    @BindView(R.id.et_code)
     EditText etForgetpwdCode;
-    @BindView(R.id.stv_forgetpwd_getCode)
+    @BindView(R.id.stv_coutDown)
     SuperShapeTextView stvForgetpwdGetCode;
-    @BindView(R.id.et_forgetpwd_password)
+    @BindView(R.id.et_password)
     EditText etForgetpwdPassword;
-    @BindView(R.id.iv_forgetpwd_showPassword)
-    ImageView ivForgetpwdShowPassword;
-    @BindView(R.id.tv_forgetpwd_confirm)
+    @BindView(R.id.tv_confirm)
     TextView tvForgetpwdConfirm;
     private CountTimer countTimer;
     private boolean isShow;
     @Inject
     ForgetPasswordPresenter forgetPasswordPresenter;
 
-    @OnClick({R.id.stv_forgetpwd_getCode, R.id.iv_forgetpwd_showPassword, R.id.tv_forgetpwd_confirm})
+    @OnClick({R.id.stv_coutDown,R.id.tv_confirm})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.stv_forgetpwd_getCode:
+            case R.id.stv_coutDown:
                 String mobile = etForgetpwdMobile.getText().toString().trim();
                 if (CheckUtil.checkPhoneFormat(mobile)) {
                     getCode(mobile);
                 }
                 break;
-            case R.id.iv_forgetpwd_showPassword:
-                switchPasswrodShowd();
-
-                break;
-            case R.id.tv_forgetpwd_confirm:
+            case R.id.tv_confirm:
                 Forgetpwd();
                 break;
             default:
@@ -74,16 +65,6 @@ public class ForgetPasswordActivity extends BaseTitleActivity implements ForgetP
     @Override
     public void initVariable() {
 
-    }
-
-    private void switchPasswrodShowd() {
-        isShow = !isShow;
-        if (isShow) {
-            etForgetpwdPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-        } else {
-            etForgetpwdPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
-        }
-        etForgetpwdPassword.setSelection(etForgetpwdPassword.getText().length());
     }
 
     private void Forgetpwd() {

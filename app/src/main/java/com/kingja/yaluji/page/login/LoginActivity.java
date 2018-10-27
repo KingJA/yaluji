@@ -40,12 +40,6 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
     EditText etLoginName;
     @BindView(R.id.et_login_password)
     EditText etLoginPassword;
-    @BindView(R.id.tv_login_confirm)
-    TextView tvLoginConfirm;
-    @BindView(R.id.tv_login_register)
-    TextView etLoginRegister;
-    @BindView(R.id.tv_login_findPassword)
-    TextView etLoginFindPassword;
 
     @Override
     public void initVariable() {

@@ -2,9 +2,10 @@ package com.kingja.yaluji.page.register;
 
 import android.support.annotation.NonNull;
 
-import com.kingja.qiang.model.api.UserApi;
-import com.kingja.qiang.model.entiy.ResultObserver;
-import com.kingja.qiang.util.ToastUtil;
+
+import com.kingja.yaluji.model.api.UserApi;
+import com.kingja.yaluji.model.entiy.ResultObserver;
+import com.kingja.yaluji.util.ToastUtil;
 
 import javax.inject.Inject;
 

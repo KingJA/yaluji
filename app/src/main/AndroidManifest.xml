@@ -17,6 +17,14 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <!--登录-->
+        <activity
+            android:name=".page.login.LoginActivity"/>
+        <!--注册-->
+        <activity
+            android:name=".page.register.RegisterActivity"/>
+        <!--找回密码-->
+        <activity android:name=".page.forgetpassword.ForgetPasswordActivity"/>
     </application>
 
 </manifest>

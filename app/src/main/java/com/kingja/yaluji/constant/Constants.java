@@ -8,7 +8,7 @@ package com.kingja.yaluji.constant;
  * 修改备注：
  */
 public class Constants {
-    public static final String BASE_URL = "http://api.singlook.net";
+    public static final String BASE_URL = "http://ylj.singlook.net";
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_SIZE_5 = 5;
     public static final int PAGE_FIRST = 1;

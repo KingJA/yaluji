@@ -19,7 +19,7 @@
                 android:text="账号"/>
 
             <EditText
-                android:id="@+id/et_forgetpwd_mobile"
+                android:id="@+id/et_login_name"
                 style="@style/Et_3_15"
                 android:hint="请输入手机号码"
                 android:inputType="number"/>
@@ -39,7 +39,7 @@
                 android:text="密码"/>
 
             <EditText
-                android:id="@+id/et_forgetpwd_repeat"
+                android:id="@+id/et_login_password"
                 style="@style/Et_3_15"
                 android:hint="请输入密码"
                 android:inputType="textPassword"/>
@@ -50,7 +50,7 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_forgetpwd_confirm"
+        android:id="@+id/tv_login_confirm"
         style="@style/Action_Button"
         android:layout_marginTop="26dp"
         android:text="确定"/>
@@ -61,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
+            android:id="@+id/tv_login_register"
             style="@style/font_orange_13"
             android:text="免费注册"
             android:layout_width="wrap_content"
@@ -73,6 +74,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
         <TextView
+            android:id="@+id/tv_login_findPassword"
             style="@style/font_orange_13"
             android:text="找回密码"
             android:layout_width="wrap_content"

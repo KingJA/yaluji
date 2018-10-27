@@ -17,7 +17,9 @@ import com.kingja.yaluji.fragment.HomeFragment;
 import com.kingja.yaluji.fragment.MineFragment;
 import com.kingja.yaluji.fragment.TicketFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.page.login.LoginActivity;
 import com.kingja.yaluji.util.AppManager;
+import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,7 +74,6 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
-        EventBus.getDefault().register(this);
     }
 
 
@@ -179,9 +180,4 @@ public class HomeActivity extends BaseTitleActivity {
         }
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void reLogin(ResetLoginStatusEvent resetLoginStatusEvent) {
-        AppManager.getAppManager().finishAllActivity();
-//        GoUtil.goActivity(this, LoginActivity.class);
-    }
 }
