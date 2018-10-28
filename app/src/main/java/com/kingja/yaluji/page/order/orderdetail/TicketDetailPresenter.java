@@ -40,7 +40,7 @@ public class TicketDetailPresenter implements TicketDetailContract.Presenter {
 
     @Override
     public void getOrderDetail(String orderId) {
-        mApi.getUserService().getOrderDetail(orderId).subscribeOn(Schedulers.io()).observeOn
+        mApi.getApiService().getOrderDetail(orderId).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<OrderDetail>(mView) {
                     @Override

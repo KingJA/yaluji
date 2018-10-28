@@ -25,6 +25,10 @@
             android:name=".page.register.RegisterActivity"/>
         <!--找回密码-->
         <activity android:name=".page.forgetpassword.ForgetPasswordActivity"/>
+        <activity android:name=".page.headimg.PersonalActivity"/>
+        <activity android:name=".page.modifynickname.ModifyNicknameActivity"/>
+        <activity android:name=".activity.ContactUsActivity"/>
+        <activity android:name=".page.modifypassword.ModifyPasswordActivity"/>
     </application>
 
 </manifest>

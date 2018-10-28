@@ -11,4 +11,8 @@ import android.widget.ImageView;
  */
 public interface IImageLoader {
     void loadImage(Context context, String url, int resourceId, ImageView view);
+
+    void loadRoundImage(Context context, String url, int resourceId, ImageView view,int connerWidth);
+
+    void loadCircleImage(Context context, String url, int resourceId, ImageView view);
 }

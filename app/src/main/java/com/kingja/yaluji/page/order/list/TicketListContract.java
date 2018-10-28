@@ -4,6 +4,7 @@ package com.kingja.yaluji.page.order.list;
 import com.kingja.yaluji.base.BasePresenter;
 import com.kingja.yaluji.base.BaseView;
 import com.kingja.yaluji.model.entiy.Order;
+import com.kingja.yaluji.model.entiy.Ticket;
 
 import java.util.List;
 
@@ -15,11 +16,11 @@ import java.util.List;
  */
 public interface TicketListContract {
     interface View extends BaseView {
-        void onGetOrdersSuccess(List<Order> orders);
+        void onGetTicketListSuccess(List<Ticket> orders);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getOrders(Integer page, Integer pageSize, Integer status);
+        void getTicketList(Integer page, Integer pageSize, Integer status);
 
     }
 }

@@ -12,19 +12,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.yaluji.base.BaseTitleActivity;
-import com.kingja.yaluji.event.ResetLoginStatusEvent;
-import com.kingja.yaluji.fragment.HomeFragment;
+import com.kingja.yaluji.page.home.HomeFragment;
 import com.kingja.yaluji.fragment.MineFragment;
 import com.kingja.yaluji.fragment.TicketFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
-import com.kingja.yaluji.page.login.LoginActivity;
-import com.kingja.yaluji.util.AppManager;
-import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.ToastUtil;
-
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;

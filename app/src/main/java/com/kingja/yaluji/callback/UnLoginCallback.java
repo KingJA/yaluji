@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.page.login.LoginActivity;
 import com.kingja.yaluji.util.GoUtil;
 
 
@@ -24,7 +25,7 @@ public class UnLoginCallback extends Callback {
     }
     @Override
     protected boolean onReloadEvent(Context context, View view) {
-//        GoUtil.goActivity((Activity) context, LoginActivity.class);
+        GoUtil.goActivity((Activity) context, LoginActivity.class);
         return true;
     }
 }

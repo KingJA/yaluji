@@ -1,0 +1,74 @@
+package com.kingja.yaluji.adapter;
+
+import android.content.Context;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.kingja.supershapeview.view.SuperShapeTextView;
+import com.kingja.yaluji.R;
+import com.kingja.yaluji.model.entiy.Order;
+import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.util.ToastUtil;
+import com.kingja.yaluji.view.DrawHelperLayout;
+
+import java.util.List;
+
+/**
+ * Description:TODO
+ * Create Time:2018/1/22 16:01
+ * Author:KingJA
+ * Email:kingjavip@gmail.com
+ */
+public class TicketAdapter extends BaseLvAdapter<Ticket> {
+    //    订单状态 1待使用 2已使用 8已取消
+    public TicketAdapter(Context context, List<Ticket> list) {
+        super(context, list);
+    }
+
+    @Override
+    public View simpleGetView(final int position, View convertView, ViewGroup parent) {
+        ViewHolder viewHolder;
+        if (convertView == null) {
+            convertView = View.inflate(context, R.layout.item_ticket, null);
+            viewHolder = new ViewHolder(convertView);
+            convertView.setTag(viewHolder);
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
+        }
+//        viewHolder.tv_ticket_payamount.setText(String.valueOf(list.get(position).getPayamount()));
+//        viewHolder.tv_ticket_subject.setText(list.get(position).getSubject());
+//        viewHolder.tv_ticket_quantity.setText(String.valueOf(list.get(position).getQuantity()));
+//        viewHolder.tv_ticket_visitDate.setText(list.get(position).getVisitDate());
+        viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
+            ToastUtil.showText(list.get(position).getId());
+        });
+        return convertView;
+    }
+
+    @Override
+    public int getCount() {
+        return 10;
+    }
+
+    public class ViewHolder {
+        public final View root;
+        TextView tv_ticket_payamount;
+        TextView tv_ticket_subject;
+        TextView tv_ticket_quantity;
+        TextView tv_ticket_visitDate;
+        DrawHelperLayout drawHelperLayout;
+        ImageView iv_order_stamp;
+
+        public ViewHolder(View root) {
+            this.root = root;
+            drawHelperLayout = root.findViewById(R.id.drawHelperLayout);
+            tv_ticket_payamount = root.findViewById(R.id.tv_ticket_payamount);
+            tv_ticket_subject = root.findViewById(R.id.tv_ticket_subject);
+            tv_ticket_quantity = root.findViewById(R.id.tv_ticket_quantity);
+            tv_ticket_visitDate = root.findViewById(R.id.tv_ticket_visitDate);
+            iv_order_stamp = root.findViewById(R.id.iv_order_stamp);
+        }
+    }
+}

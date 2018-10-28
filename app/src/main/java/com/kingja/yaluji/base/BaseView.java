@@ -12,17 +12,31 @@ public interface BaseView {
 
     public default void hideLoading() {
     }
+
     public default void showError() {
     }
+
     public default void showLoadingCallback() {
     }
+
     public default void showEmptyCallback() {
     }
 
     public default void showErrorCallback() {
     }
 
+    public default void showUnLoginCallback() {
+    }
+
 
     public default void showSuccessCallback() {
+    }
+
+    public default void showErrorMessage(int code, String message) {
+
+    }
+
+    public default boolean ifRegisterLoadSir() {
+        return false;
     }
 }

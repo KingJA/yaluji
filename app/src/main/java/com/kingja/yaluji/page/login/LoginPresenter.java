@@ -31,7 +31,7 @@ public class LoginPresenter implements LoginContract.Presenter {
     @Override
     public void login(String mobile, String password, String deviceId, String deviceName,
                       String osName) {
-        mApi.getUserService().login(mobile, password, deviceId, deviceName, osName).subscribeOn(Schedulers.io())
+        mApi.getApiService().login(mobile, password, deviceId, deviceName, osName).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Login>(mView) {
                     @Override

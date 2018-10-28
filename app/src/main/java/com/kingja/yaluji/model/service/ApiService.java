@@ -2,16 +2,19 @@ package com.kingja.yaluji.model.service;
 
 import android.icu.util.VersionInfo;
 
+import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.City;
 import com.kingja.yaluji.model.entiy.HotSearch;
 import com.kingja.yaluji.model.entiy.HttpResult;
 import com.kingja.yaluji.model.entiy.Login;
+import com.kingja.yaluji.model.entiy.LunBoTu;
 import com.kingja.yaluji.model.entiy.Message;
 import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.SceneryIntroduce;
 import com.kingja.yaluji.model.entiy.ScenicType;
+import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.model.entiy.TicketDetail;
 import com.kingja.yaluji.model.entiy.Visitor;
 import com.kingja.yaluji.model.entiy.WeixinPayResult;
@@ -34,7 +37,16 @@ import retrofit2.http.Part;
  * 创建时间：2016/6/12 16:32
  * 修改备注：
  */
-public interface UserService {
+public interface ApiService {
+    /*获取轮播图*/
+    @POST("/app/banner/indexlist")
+    Observable<HttpResult<List<LunBoTu>>> getLunBoTuList();
+
+    /*获取美文雷暴*/
+    @POST("/app/article/indexarticle")
+    Observable<HttpResult<List<ArticleSimpleItem>>> getArticleList();
+
+
     /*注册OK*/
     @FormUrlEncoded
     @POST("/app/user/register")
@@ -119,8 +131,8 @@ public interface UserService {
     /*获取订单列表*/
     @FormUrlEncoded
     @POST("/app/order/list")
-    Observable<HttpResult<List<Order>>> getOrders(@Field("page") Integer page, @Field("pageSize") Integer pageSize,
-                                                  @Field("status") Integer status);
+    Observable<HttpResult<List<Ticket>>> getOrders(@Field("page") Integer page, @Field("pageSize") Integer pageSize,
+                                                   @Field("status") Integer status);
 
     /*获取订单详情*/
     @FormUrlEncoded

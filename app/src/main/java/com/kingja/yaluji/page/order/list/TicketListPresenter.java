@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.ResultObserver;
+import com.kingja.yaluji.model.entiy.Ticket;
 
 import java.util.List;
 
@@ -42,13 +43,13 @@ public class TicketListPresenter implements TicketListContract.Presenter {
     }
 
     @Override
-    public void getOrders(Integer page, Integer pageSize, Integer status) {
-        mApi.getUserService().getOrders(page, pageSize, status).subscribeOn(Schedulers.io()).observeOn
+    public void getTicketList(Integer page, Integer pageSize, Integer status) {
+        mApi.getApiService().getOrders(page, pageSize, status).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<Order>>(mView) {
+                (new ResultObserver<List<Ticket>>(mView) {
                     @Override
-                    protected void onSuccess(List<Order> orders) {
-                        mView.onGetOrdersSuccess(orders);
+                    protected void onSuccess(List<Ticket> ticketList) {
+                        mView.onGetTicketListSuccess(ticketList);
                     }
                 });
     }

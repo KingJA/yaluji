@@ -1,11 +1,9 @@
 package com.kingja.yaluji.base;
 
-import android.support.v4.content.ContextCompat;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kingja.loadsir.callback.Callback;
@@ -13,7 +11,7 @@ import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.callback.EmptyCallback;
-import com.kingja.yaluji.callback.ErrorNetworkCallback;
+import com.kingja.yaluji.callback.ErrorMessageCallback;
 import com.kingja.yaluji.callback.LoadingCallback;
 import com.kingja.yaluji.injector.component.AppComponent;
 
@@ -32,14 +30,14 @@ public abstract class BaseTitleActivity extends BaseActivity {
     private TextView mTvTitle;
     private Unbinder bind;
     protected LoadService mBaseLoadService;
-    private RelativeLayout mRlTitleRoot;
+    private LinearLayout mLlTitleRoot;
     private LinearLayout mLlBack;
 
     @Override
     public View getContentId() {
         rootView = View.inflate(this, R.layout.activity_title, null);
         FrameLayout flContent = rootView.findViewById(R.id.fl_content);
-        mRlTitleRoot = rootView.findViewById(R.id.rl_title_root);
+        mLlTitleRoot = rootView.findViewById(R.id.ll_title_root);
         mTvTitle = rootView.findViewById(R.id.tv_title_title);
         mLlBack = rootView.findViewById(R.id.ll_title_back);
         mTvTitle.setText(getContentTitle() == null ? "" : getContentTitle());
@@ -62,7 +60,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
 
         }
         if (ifHideTitle()) {
-            mRlTitleRoot.setVisibility(View.GONE);
+            mLlTitleRoot.setVisibility(View.GONE);
         }
         if (ifHideBack()) {
             mLlBack.setVisibility(View.GONE);
@@ -70,9 +68,6 @@ public abstract class BaseTitleActivity extends BaseActivity {
         return rootView;
     }
 
-    protected boolean ifRegisterLoadSir() {
-        return false;
-    }
 
     @Override
     public void showLoadingCallback() {
@@ -86,7 +81,7 @@ public abstract class BaseTitleActivity extends BaseActivity {
 
     @Override
     public void showErrorCallback() {
-        mBaseLoadService.showCallback(ErrorNetworkCallback.class);
+        mBaseLoadService.showCallback(ErrorMessageCallback.class);
     }
 
     @Override

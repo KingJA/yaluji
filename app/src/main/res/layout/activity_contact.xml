@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_hi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+
+        <com.kingja.supershapeview.view.SuperShapeTextView
+            android:id="@+id/stv_contact_phone"
+            style="@style/font_f_15"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="28dp"
+            android:gravity="center"
+            android:padding="12dp"
+            android:text="专属服务电话:0577-88218708"
+            app:super_cornerRadius="50dp"
+            app:super_solidColor="@color/orange_hi"/>
+
+        <TextView
+            style="@style/font_9_14"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="服务时间:周一至周六 9:00-18:00"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_version"
+        style="@style/font_9_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text=""/>
+</RelativeLayout>

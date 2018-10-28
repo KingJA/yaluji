@@ -12,7 +12,7 @@ import com.kingja.yaluji.R;
  * Email:kingjavip@gmail.com
  */
 
-public class ErrorNetworkCallback extends Callback {
+public class ErrorMessageCallback extends Callback {
     @Override
     protected int onCreateView() {
         return R.layout.layout_error_network;

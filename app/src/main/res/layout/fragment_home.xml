@@ -1,12 +1,203 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+<com.kingja.yaluji.view.RefreshSwipeRefreshLayout
+    android:id="@+id/rsl"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="鸭说"/>
+    <ScrollView
+        android:fillViewport="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--轮播图及搜索框-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp">
+
+
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/vp"
+                    android:layout_width="match_parent"
+                    android:layout_height="180dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal"
+                    android:paddingLeft="48dp"
+                    android:paddingRight="12dp">
+
+                    <LinearLayout
+                        android:id="@+id/ll_search"
+                        android:layout_width="0dp"
+                        android:layout_height="30dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="1"
+                        android:background="@mipmap/bg_et_shadow"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="11dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="16dp"
+                            android:background="@mipmap/ic_search"/>
+
+                        <TextView
+                            style="@style/font_6_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="12dp"
+                            android:text="搜索目的地/景区"/>
+
+
+                    </LinearLayout>
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true">
+
+                        <ImageView
+
+                            android:id="@+id/iv_msg"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginTop="4dp"
+                            android:background="@mipmap/ic_msg"/>
+
+                        <TextView
+                            android:id="@+id/tv_msgCount"
+                            style="@style/font_red_10"
+                            android:layout_width="12dp"
+                            android:layout_height="12dp"
+                            android:layout_marginLeft="12dp"
+                            android:background="@drawable/shape_circle_white"
+                            android:gravity="center"
+                            android:text="99"
+                            android:visibility="gone"/>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_dot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+
+                </LinearLayout>
+
+            </RelativeLayout>
+            <!--3个按钮-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_article"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/bg_btn_duck"/>
+
+                    <TextView
+                        style="@style/font_3_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="美文"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_ticket"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/bg_btn_deer"/>
+
+                    <TextView
+                        style="@style/font_3_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="优惠券"/>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:paddingBottom="8dp"
+                    android:paddingTop="8dp">
+
+                    <ImageView
+                        android:id="@+id/iv_question"
+                        android:layout_width="48dp"
+                        android:layout_height="48dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@mipmap/bg_btn_chick"/>
+
+                    <TextView
+                        style="@style/font_3_12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="有奖问答"/>
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_6_gray"/>
+            <!--美文列表-->
+            <com.kingja.yaluji.view.FixedListView
+                android:id="@+id/flv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="10dp"
+                android:paddingTop="10dp"
+                tools:listitem="@layout/item_article_simple"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+</com.kingja.yaluji.view.RefreshSwipeRefreshLayout>

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kingja.supershapeview.view.SuperShapeImageView;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.activity.ContactUsActivity;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.event.MsgCountEvent;
@@ -18,8 +19,11 @@ import com.kingja.yaluji.event.RefreshNicknameEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.page.headimg.PersonalActivity;
 import com.kingja.yaluji.page.login.LoginActivity;
+import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
 import com.kingja.yaluji.util.GoUtil;
+import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.SpSir;
 import com.orhanobut.logger.Logger;
 
@@ -96,7 +100,7 @@ public class MineFragment extends BaseFragment  {
             tvNickname.setText(nickname);
             tvQuit.setVisibility(View.VISIBLE);
             llMinePersonal.setOnClickListener(v -> {
-//                GoUtil.goActivity(getActivity(), PersonalActivity.class);
+                GoUtil.goActivity(getActivity(), PersonalActivity.class);
             });
         } else {
             //未登录
@@ -135,15 +139,15 @@ public class MineFragment extends BaseFragment  {
                 break;
             case R.id.rl_mine_personal:
                 //个人信息
-//                LoginChecker.goActivity(getActivity(), PersonalActivity.class);
+                LoginChecker.goActivity(getActivity(), PersonalActivity.class);
                 break;
             case R.id.rl_mine_password:
                 //修改密码
-//                LoginChecker.goActivity(getActivity(), ModifyPasswordActivity.class);
+                LoginChecker.goActivity(getActivity(), ModifyPasswordActivity.class);
                 break;
             case R.id.rl_mine_contract:
                 //联系我们
-//                GoUtil.goActivity(getActivity(), ContactUsActivity.class);
+                GoUtil.goActivity(getActivity(), ContactUsActivity.class);
                 break;
             case R.id.tv_quit:
                 //退出登录

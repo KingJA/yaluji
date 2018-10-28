@@ -5,7 +5,7 @@ package com.kingja.yaluji.model.api;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.model.entiy.HttpResult;
 import com.kingja.yaluji.model.entiy.Login;
-import com.kingja.yaluji.model.service.UserService;
+import com.kingja.yaluji.model.service.ApiService;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,7 +27,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class UserApi {
 
-    private UserService userService;
+    private ApiService apiService;
 
     public UserApi() {
         HttpLoggingInterceptor httpLoggingInterceptor = new HttpLoggingInterceptor();
@@ -36,7 +36,8 @@ public class UserApi {
                 .connectTimeout(60, TimeUnit.SECONDS)
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
-//                .addInterceptor(new TokenHeadInterceptor())
+                .addInterceptor(new TokenHeadInterceptor())
+//                .addInterceptor(httpLoggingInterceptor)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
@@ -44,21 +45,21 @@ public class UserApi {
                 .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                 .client(client)
                 .build();
-        userService = retrofit.create(UserService.class);
+        apiService = retrofit.create(ApiService.class);
     }
 
-    public UserService getUserService() {
-        return userService;
+    public ApiService getApiService() {
+        return apiService;
     }
 
     public Observable<HttpResult<Login>> login(String userName, String password, String deviceId, String deviceName,
                                                String osName) {
-        return userService.login(userName, password, deviceId, deviceName, osName).subscribeOn(Schedulers.io())
+        return apiService.login(userName, password, deviceId, deviceName, osName).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 
     public Observable<HttpResult<Object>> register(String mobile, String password, String code) {
-        return userService.register(mobile, password, code).subscribeOn(Schedulers.io())
+        return apiService.register(mobile, password, code).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread());
     }
 

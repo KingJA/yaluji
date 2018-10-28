@@ -100,7 +100,10 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/white_hi</item>
     </style>
-
+    <style name="font_f_14">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/white_hi</item>
+    </style>
     <style name="font_f_12">
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/white_hi</item>
@@ -135,7 +138,10 @@
         <item name="android:textSize">33sp</item>
         <item name="android:textColor">@color/white_hi</item>
     </style>
-
+    <style name="font_f_30">
+        <item name="android:textSize">30sp</item>
+        <item name="android:textColor">@color/white_hi</item>
+    </style>
     <style name="font_f_17">
         <item name="android:textSize">17sp</item>
         <item name="android:textColor">@color/white_hi</item>
@@ -187,5 +193,8 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_c</item>
     </style>
-
+    <style name="font_red_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/red_hi</item>
+    </style>
 </resources>

@@ -30,7 +30,7 @@ public class AllOrderAdapter extends BaseLvAdapter<Order> {
     public View simpleGetView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
         if (convertView == null) {
-            convertView = View.inflate(context, R.layout.item_order_all, null);
+            convertView = View.inflate(context, R.layout.item_ticket, null);
             viewHolder = new ViewHolder(convertView);
             convertView.setTag(viewHolder);
         } else {

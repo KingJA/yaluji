@@ -9,7 +9,7 @@ import com.kingja.loadsir.core.LoadSir;
 import com.kingja.yaluji.callback.EmptyMsgCallback;
 import com.kingja.yaluji.callback.EmptyOrderCallback;
 import com.kingja.yaluji.callback.EmptyVisitorCallback;
-import com.kingja.yaluji.callback.ErrorNetworkCallback;
+import com.kingja.yaluji.callback.ErrorMessageCallback;
 import com.kingja.yaluji.callback.LoadingCallback;
 import com.kingja.yaluji.callback.UnLoginCallback;
 import com.kingja.yaluji.constant.Constants;
@@ -75,7 +75,7 @@ public class App extends MultiDexApplication {
 
     private void initLoadSir() {
         LoadSir.beginBuilder()
-                .addCallback(new ErrorNetworkCallback())
+                .addCallback(new ErrorMessageCallback())
                 .addCallback(new LoadingCallback())
                 .addCallback(new EmptyOrderCallback())
                 .addCallback(new EmptyMsgCallback())

@@ -9,9 +9,16 @@
 
     <ImageView
         android:layout_marginBottom="18dp"
-        android:background="@mipmap/bg_status_network_error"
+        android:background="@mipmap/ic_callback_error_network"
         android:layout_width="160dp"
         android:layout_height="110dp"/>
+
+    <TextView
+        android:id="@+id/tv_layout_errorMsg"
+        android:layout_marginBottom="36dp"
+        android:text="哎呀，网络发生异常"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <com.kingja.supershapeview.view.SuperShapeTextView
         style="@style/font_f_18"

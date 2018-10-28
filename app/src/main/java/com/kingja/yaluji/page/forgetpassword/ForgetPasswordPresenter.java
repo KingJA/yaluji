@@ -40,7 +40,7 @@ public class ForgetPasswordPresenter implements ForgetPasswordContract.Presenter
 
     @Override
     public void modifyPassword(String mobile, String password, String code) {
-        mApi.getUserService().forgetPassword(mobile, password,code).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe
+        mApi.getApiService().forgetPassword(mobile, password,code).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<Object>(mView) {
                     @Override
                     protected void onSuccess(Object object) {
@@ -51,7 +51,7 @@ public class ForgetPasswordPresenter implements ForgetPasswordContract.Presenter
 
     @Override
     public void getCode(String mobile, int flag) {
-        mApi.getUserService().sms(mobile, flag).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe
+        mApi.getApiService().sms(mobile, flag).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<String>(mView) {
                     @Override
                     protected void onSuccess(String code) {

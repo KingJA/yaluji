@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import com.kingja.yaluji.page.login.LoginActivity;
+
 
 /**
  * Description:TODO
@@ -16,7 +18,7 @@ public class LoginChecker {
     public static void goActivity(Activity context, Class targetActivity) {
         if (TextUtils.isEmpty(SpSir.getInstance().getToken())) {
             DialogUtil.showConfirmDialog(context, "亲，您还未登录，是否马上登录", (dialog, which) -> {
-//                GoUtil.goActivity(context, LoginActivity.class);
+                GoUtil.goActivity(context, LoginActivity.class);
             });
         }else{
             GoUtil.goActivity(context,targetActivity);
@@ -26,7 +28,7 @@ public class LoginChecker {
     public static void goActivity(Activity context, Intent intent) {
         if (TextUtils.isEmpty(SpSir.getInstance().getToken())) {
             DialogUtil.showConfirmDialog(context, "亲，您还未登录，是否马上登录", (dialog, which) -> {
-//                GoUtil.goActivity(context, LoginActivity.class);
+                GoUtil.goActivity(context, LoginActivity.class);
             });
         }else{
             context.startActivity(intent);

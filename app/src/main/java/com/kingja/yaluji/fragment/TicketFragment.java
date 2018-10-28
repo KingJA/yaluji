@@ -7,9 +7,9 @@ import android.support.v4.view.ViewPager;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.TicketPageAdapter;
 import com.kingja.yaluji.base.BaseFragment;
+import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.page.order.list.TicketListFragment;
-import com.kingja.yaluji.util.IndicatorUtil;
 
 import butterknife.BindView;
 
@@ -44,8 +44,8 @@ public class TicketFragment extends BaseFragment {
         tabOrder.addTab(tabOrder.newTab().setText(items[0]));
         tabOrder.addTab(tabOrder.newTab().setText(items[1]));
 //        tabOrder.post(() -> IndicatorUtil.setIndicator(tabOrder, 50, 50));
-        mFragmentArr[0] = new TicketListFragment();
-        mFragmentArr[1] = new TicketListFragment();
+        mFragmentArr[0] = TicketListFragment.newInstance(Status.TicketStatus.WAIT_USE);
+        mFragmentArr[1] = TicketListFragment.newInstance(Status.TicketStatus.ALL);
         TicketPageAdapter mTicketPageAdapter = new TicketPageAdapter(getChildFragmentManager(), mFragmentArr,
                 items);
         vpContentOrder.setAdapter(mTicketPageAdapter);
