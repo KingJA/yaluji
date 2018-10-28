@@ -196,5 +196,8 @@
     <style name="font_red_10">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/red_hi</item>
+    </style>  <style name="font_red_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/red_hi</item>
     </style>
 </resources>

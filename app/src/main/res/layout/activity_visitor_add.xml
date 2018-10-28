@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/bg_hi"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="12dp">
+
+        <com.kingja.yaluji.view.RequiredTextView
+            style="@style/font_3_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="姓名"/>
+
+        <EditText
+            android:id="@+id/et_visitor_name"
+            style="@style/font_9_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@null"
+            android:hint="与证件保持一致"/>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="12dp">
+
+        <com.kingja.yaluji.view.RequiredTextView
+            style="@style/font_3_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="手机号"/>
+
+        <EditText
+            android:id="@+id/et_visitor_phone"
+            style="@style/font_9_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@null"
+            android:hint="填写手机号"
+            android:inputType="number"/>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="12dp">
+
+        <TextView
+            style="@style/font_3_14"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="身份证"/>
+
+        <EditText
+            android:id="@+id/et_visitor_idcode"
+            style="@style/font_9_12"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:background="@null"
+            android:hint="请输入身份证号"/>
+
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_visitor_confirm"
+        style="@style/Action_Button"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="48dp"
+        android:text="确定"/>
+</LinearLayout>

@@ -29,6 +29,10 @@
         <activity android:name=".page.modifynickname.ModifyNicknameActivity"/>
         <activity android:name=".activity.ContactUsActivity"/>
         <activity android:name=".page.modifypassword.ModifyPasswordActivity"/>
+        <activity android:name=".page.visitor.list.VisitorListActivity"/>
+        <activity android:name=".page.visitor.add.VisitorAddActivity"/>
+        <activity android:name=".page.visitor.edit.VisitorEditActivity"/>
+        <activity android:name=".page.visitor.prefect.VisitorPrefectActivity"/>
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.page.headimg.PersonalActivity;
 import com.kingja.yaluji.page.login.LoginActivity;
 import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
+import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.SpSir;
@@ -135,7 +136,7 @@ public class MineFragment extends BaseFragment  {
                 break;
             case R.id.rl_mine_visitor:
                 //游客信息
-//                LoginChecker.goActivity(getActivity(), VisitorListActivity.class);
+                LoginChecker.goActivity(getActivity(), VisitorListActivity.class);
                 break;
             case R.id.rl_mine_personal:
                 //个人信息

@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kingja.yaluji.view.DrawHelperLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/drawHelperLayout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white_hi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tv_visitor_name"
+            style="@style/font_3_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="张三"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="手机号码"/>
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3">
+
+                <TextView
+                    android:id="@+id/tv_visitor_phone"
+                    style="@style/font_6_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="18888888888"/>
+
+                <ImageView
+                    android:id="@+id/iv_visitor_edit"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@mipmap/ic_edit"/>
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="身份证号"/>
+
+            <TextView
+                android:id="@+id/tv_visitor_idcard"
+                style="@style/font_6_13"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="330388111111221111">
+            </TextView>
+
+
+        </LinearLayout>
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:id="@+id/ll_visitor_default"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingTop="12dp">
+
+
+            <ImageView
+                android:id="@+id/iv_visitor_default"
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_marginRight="12dp"
+                android:background="@mipmap/ic_default_nor"/>
+
+            <TextView
+                android:id="@+id/tv_visitor_default"
+                style="@style/font_red_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:text="设为默认">
+            </TextView>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_slide_delete">
+
+        <TextView
+            android:id="@+id/tv_visitor_delete"
+            style="@style/font_f_13"
+            android:layout_width="78dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="删除"/>
+
+    </LinearLayout>
+</com.kingja.yaluji.view.DrawHelperLayout>

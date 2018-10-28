@@ -13,6 +13,10 @@ import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
 import com.kingja.yaluji.page.order.list.TicketListFragment;
 import com.kingja.yaluji.page.order.orderdetail.TicketDetailActivity;
 import com.kingja.yaluji.page.register.RegisterActivity;
+import com.kingja.yaluji.page.visitor.add.VisitorAddActivity;
+import com.kingja.yaluji.page.visitor.edit.VisitorEditActivity;
+import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
+import com.kingja.yaluji.page.visitor.prefect.VisitorPrefectActivity;
 
 import dagger.Component;
 
@@ -28,4 +32,8 @@ public interface BaseCompnent {
     void inject(ModifyNicknameActivity target);
     void inject(HomeFragment target);
     void inject(ModifyPasswordActivity target);
+    void inject(VisitorAddActivity target);
+    void inject(VisitorEditActivity target);
+    void inject(VisitorListActivity target);
+    void inject(VisitorPrefectActivity target);
 }
