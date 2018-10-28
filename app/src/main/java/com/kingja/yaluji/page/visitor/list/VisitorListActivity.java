@@ -2,20 +2,14 @@ package com.kingja.yaluji.page.visitor.list;
 
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-import com.kingja.loadsir.callback.Callback;
-import com.kingja.loadsir.core.LoadService;
-import com.kingja.loadsir.core.LoadSir;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.VisitorAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
-import com.kingja.yaluji.callback.EmptyMsgCallback;
-import com.kingja.yaluji.callback.EmptyVisitorCallback;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.event.AddVisitorEvent;
 import com.kingja.yaluji.event.RefreshVisitorsEvent;
@@ -35,7 +29,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.OnItemClick;
+import butterknife.OnClick;
 
 /**
  * Description:游客列表
@@ -51,9 +45,18 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
     VisitorPresenter visitorPresenter;
     private VisitorAdapter mVisitorAdapter;
     private List<Visitor> visitors = new ArrayList<>();
-    private LoadService loadService;
     private boolean fromTitketDetail;
 
+    @OnClick({R.id.tv_addVisitor})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.tv_addVisitor:
+                GoUtil.goActivity(VisitorListActivity.this, VisitorAddActivity.class);
+                break;
+            default:
+                break;
+        }
+    }
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
@@ -89,20 +92,11 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
         visitorPresenter.attachView(this);
         mVisitorAdapter = new VisitorAdapter(this, visitors);
         lvMsg.setAdapter(mVisitorAdapter);
-        loadService = LoadSir.getDefault().register(lvMsg, (Callback.OnReloadListener) v -> initNet());
     }
 
-    @OnItemClick(R.id.lv_msg)
-    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
-
-
-    }
 
     @Override
     protected void initData() {
-        setRightClick("新增游客", v -> {
-            GoUtil.goActivity(VisitorListActivity.this, VisitorAddActivity.class);
-        });
         mVisitorAdapter.setOnVistorOperListener(this);
     }
 
@@ -123,11 +117,10 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
 
     @Override
     public void onGetVisitorsSuccess(List<Visitor> visitors) {
-        if (visitors.size() == 0) {
-            loadService.showCallback(EmptyMsgCallback.class);
-        } else {
-            loadService.showSuccess();
+        if (visitors!=null&&visitors.size() > 0) {
             mVisitorAdapter.setData(visitors);
+        } else {
+           showEmptyCallback();
         }
     }
 
@@ -135,7 +128,7 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
     public void onDeleteVisitorSuccess(int position) {
         mVisitorAdapter.removeItem(position);
         if (mVisitorAdapter.getCount() == 0) {
-            loadService.showCallback(EmptyVisitorCallback.class);
+            showEmptyCallback();
         }
 
     }
@@ -177,5 +170,10 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
             EventBus.getDefault().post(new AddVisitorEvent(visitor));
             finish();
         }
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

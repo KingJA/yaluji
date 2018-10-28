@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
 
 import com.kingja.loadsir.core.LoadSir;
+import com.kingja.yaluji.callback.EmptyCallback;
 import com.kingja.yaluji.callback.EmptyMsgCallback;
 import com.kingja.yaluji.callback.EmptyOrderCallback;
 import com.kingja.yaluji.callback.EmptyVisitorCallback;
@@ -75,6 +76,7 @@ public class App extends MultiDexApplication {
 
     private void initLoadSir() {
         LoadSir.beginBuilder()
+                .addCallback(new EmptyCallback())
                 .addCallback(new ErrorMessageCallback())
                 .addCallback(new LoadingCallback())
                 .addCallback(new EmptyOrderCallback())

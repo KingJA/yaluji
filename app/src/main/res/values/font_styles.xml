@@ -166,7 +166,10 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/orange_hi</item>
     </style>
-
+    <style name="font_orange_15">
+        <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/orange_hi</item>
+    </style>
 
     <style name="font_orange_12">
         <item name="android:textSize">12sp</item>

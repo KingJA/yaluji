@@ -10,9 +10,20 @@
     <ListView
         android:id="@+id/lv_msg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="#F3F4F8"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@color/bg_hi"
         android:dividerHeight="6dp"
         tools:listitem="@layout/item_visitor"/>
+
+    <TextView
+        android:id="@+id/tv_addVisitor"
+        style="@style/font_f_15"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/orange_hi"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="新增游客"/>
 
 </LinearLayout>
