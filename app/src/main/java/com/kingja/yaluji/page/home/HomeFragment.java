@@ -21,7 +21,9 @@ import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.LunBoTu;
+import com.kingja.yaluji.page.article.list.ArticleListActivity;
 import com.kingja.yaluji.util.AppUtil;
+import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
@@ -32,6 +34,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -70,6 +73,21 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     private List<LunBoTu> lunBoTuList = new ArrayList<>();
     private List<View> points = new ArrayList<>();
     private int lunBoTuListSize;
+
+    @OnClick({R.id.iv_article, R.id.iv_ticket, R.id.iv_question})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.iv_article:
+                GoUtil.goActivity(getActivity(),ArticleListActivity.class);
+                break;
+            case R.id.iv_ticket:
+                break;
+            case R.id.iv_question:
+                break;
+            default:
+                break;
+        }
+    }
 
     @Override
     protected void initVariable() {

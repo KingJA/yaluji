@@ -2,6 +2,7 @@ package com.kingja.yaluji.model.service;
 
 import android.icu.util.VersionInfo;
 
+import com.kingja.yaluji.model.entiy.Article;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.City;
 import com.kingja.yaluji.model.entiy.HotSearch;
@@ -9,11 +10,11 @@ import com.kingja.yaluji.model.entiy.HttpResult;
 import com.kingja.yaluji.model.entiy.Login;
 import com.kingja.yaluji.model.entiy.LunBoTu;
 import com.kingja.yaluji.model.entiy.Message;
-import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.SceneryIntroduce;
 import com.kingja.yaluji.model.entiy.ScenicType;
+import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.model.entiy.TicketDetail;
 import com.kingja.yaluji.model.entiy.Visitor;
@@ -23,6 +24,8 @@ import java.util.List;
 
 import io.reactivex.Observable;
 import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.Headers;
@@ -66,7 +69,6 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/app/user/smsmessage")
     Observable<HttpResult<String>> sms(@Field("mobile") String mobile, @Field("flag") int flag);
-
 
 
     /*修改密码*/
@@ -131,8 +133,8 @@ public interface ApiService {
     /*获取订单列表*/
     @FormUrlEncoded
     @POST("/app/order/list")
-    Observable<HttpResult<List<Ticket>>> getOrders(@Field("page") Integer page, @Field("pageSize") Integer pageSize,
-                                                   @Field("status") Integer status);
+    Observable<HttpResult<List<Order>>> getOrders(@Field("page") Integer page, @Field("pageSize") Integer pageSize,
+                                                  @Field("status") Integer status);
 
     /*获取订单详情*/
     @FormUrlEncoded
@@ -144,15 +146,10 @@ public interface ApiService {
     @POST("/app/message/confirm")
     Observable<HttpResult<Object>> confirmMsg(@Field("messageId") String messageId, @Field("flag") Integer flag);
 
-//
-//    /*获取产品列表*/
-//    @FormUrlEncoded
-//    @POST("/app/product/list")
-//    Observable<HttpResult<List<Ticket>>> getTickets(@Field("areaId") String areaId, @Field("productTypeId") String
-//            productTypeId, @Field("useDates") String useDates, @Field("discountRate") String discountRate, @Field
-//                                                            ("keyword") String keyword, @Field("page") Integer page,
-//                                                    @Field("pageSize") Integer pageSize, @Field("status") Integer
-//                                                            status);
+
+    /*获取优惠券列表*/
+    @POST("/app/product/list")
+    Observable<HttpResult<List<Ticket>>> getTicketList(@Body RequestBody requestBody);
 
     /*获取热搜*/
     @FormUrlEncoded
@@ -207,5 +204,8 @@ public interface ApiService {
     Observable<HttpResult<VersionInfo>> checkUpdate(@Field("version") String version, @Field("flag") int flag);
 
 
+    /*获取美文列表*/
+    @POST("/app/article/list")
+    Observable<HttpResult<List<Article>>> getArticleList(@Body RequestBody requestBody);
     //=================================================================================
 }

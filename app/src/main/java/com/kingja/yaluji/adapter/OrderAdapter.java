@@ -6,10 +6,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.model.entiy.Order;
-import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.DrawHelperLayout;
 
@@ -21,9 +19,9 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketAdapter extends BaseLvAdapter<Ticket> {
+public class OrderAdapter extends BaseLvAdapter<Order> {
     //    订单状态 1待使用 2已使用 8已取消
-    public TicketAdapter(Context context, List<Ticket> list) {
+    public OrderAdapter(Context context, List<Order> list) {
         super(context, list);
     }
 

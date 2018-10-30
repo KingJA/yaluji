@@ -2,11 +2,9 @@ package com.kingja.yaluji.page.order.list;
 
 import android.support.annotation.NonNull;
 
-
 import com.kingja.yaluji.model.api.UserApi;
-import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.ResultObserver;
-import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.model.entiy.Order;
 
 import java.util.List;
 
@@ -22,18 +20,18 @@ import io.reactivex.schedulers.Schedulers;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketListPresenter implements TicketListContract.Presenter {
+public class OrderListPresenter implements OrderListContract.Presenter {
     private UserApi mApi;
-    private TicketListContract.View mView;
+    private OrderListContract.View mView;
 
 
     @Inject
-    public TicketListPresenter(UserApi mApi) {
+    public OrderListPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
     @Override
-    public void attachView(@NonNull TicketListContract.View view) {
+    public void attachView(@NonNull OrderListContract.View view) {
         this.mView = view;
     }
 
@@ -46,10 +44,10 @@ public class TicketListPresenter implements TicketListContract.Presenter {
     public void getTicketList(Integer page, Integer pageSize, Integer status) {
         mApi.getApiService().getOrders(page, pageSize, status).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<Ticket>>(mView) {
+                (new ResultObserver<List<Order>>(mView) {
                     @Override
-                    protected void onSuccess(List<Ticket> ticketList) {
-                        mView.onGetTicketListSuccess(ticketList);
+                    protected void onSuccess(List<Order> orderList) {
+                        mView.onGetTicketListSuccess(orderList);
                     }
                 });
     }

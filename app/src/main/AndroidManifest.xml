@@ -33,6 +33,8 @@
         <activity android:name=".page.visitor.add.VisitorAddActivity"/>
         <activity android:name=".page.visitor.edit.VisitorEditActivity"/>
         <activity android:name=".page.visitor.prefect.VisitorPrefectActivity"/>
+        <activity android:name=".page.ticket.list.TicketListActivity"/>
+        <activity android:name=".page.article.list.ArticleListActivity"/>
     </application>
 
 </manifest>

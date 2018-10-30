@@ -2,29 +2,33 @@ package com.kingja.yaluji.model.entiy;
 
 /**
  * Description:TODO
- * Create Time:2018/7/5 13:05
+ * Create Time:2018/10/28 21:03
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
 public class Order {
-    //订单id
+
+    /**
+     * id : string,订单id
+     * orderNo : string,订单号
+     * quantity : integer,抢票数
+     * subject : string,订单标题
+     * status : integer,订单状态 1待使用 2已使用 8已取消
+     * payamount : double,抵用金额
+     * visitDate : string,使用期限
+     * productid : string,优惠券id
+     * statusText : string,状态的中文字典
+     */
+
     private String id;
-    //订单号
     private String orderNo;
-    //景区头图
-    private String headimg;
-    //景区区域文本
-    private String areaText;
-    //购票数
-    private Integer quantity;
-    //订单标题
+    private int quantity;
     private String subject;
-    //订单状态0待支付 1待使用 2已使用 8已取消
-    private Integer status;
-    //订单金额
-    private Double payamount;
-    //出游日期yyyy-MM-dd
+    private int status;
+    private double payamount;
     private String visitDate;
+    private String productid;
+    private String statusText;
 
     public String getId() {
         return id;
@@ -42,27 +46,11 @@ public class Order {
         this.orderNo = orderNo;
     }
 
-    public String getHeadimg() {
-        return headimg;
-    }
-
-    public void setHeadimg(String headimg) {
-        this.headimg = headimg;
-    }
-
-    public String getAreaText() {
-        return areaText;
-    }
-
-    public void setAreaText(String areaText) {
-        this.areaText = areaText;
-    }
-
-    public Integer getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
@@ -74,19 +62,19 @@ public class Order {
         this.subject = subject;
     }
 
-    public Integer getStatus() {
+    public int getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(int status) {
         this.status = status;
     }
 
-    public Double getPayamount() {
+    public double getPayamount() {
         return payamount;
     }
 
-    public void setPayamount(Double payamount) {
+    public void setPayamount(double payamount) {
         this.payamount = payamount;
     }
 
@@ -96,5 +84,21 @@ public class Order {
 
     public void setVisitDate(String visitDate) {
         this.visitDate = visitDate;
+    }
+
+    public String getProductid() {
+        return productid;
+    }
+
+    public void setProductid(String productid) {
+        this.productid = productid;
+    }
+
+    public String getStatusText() {
+        return statusText;
+    }
+
+    public void setStatusText(String statusText) {
+        this.statusText = statusText;
     }
 }

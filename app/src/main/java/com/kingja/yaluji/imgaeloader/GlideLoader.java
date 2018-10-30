@@ -35,7 +35,7 @@ public class GlideLoader implements IImageLoader {
 
     @Override
     public void loadRoundImage(Context context, String url, int resourceId, ImageView view, int connerWidth) {
-        LogUtil.e(TAG,"图片地址:"+Constants.BASE_URL + url);
+//        LogUtil.e(TAG,"图片地址:"+Constants.BASE_URL + url);
         Glide.with(context)
                 .load(Constants.BASE_URL + url)
                 .placeholder(resourceId == -1 ? R.mipmap.ic_img_placeholder : resourceId)

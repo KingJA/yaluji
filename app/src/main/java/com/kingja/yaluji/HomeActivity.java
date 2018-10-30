@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.page.home.HomeFragment;
 import com.kingja.yaluji.fragment.MineFragment;
-import com.kingja.yaluji.fragment.TicketFragment;
+import com.kingja.yaluji.fragment.OrderFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.util.ToastUtil;
 
@@ -88,7 +88,7 @@ public class HomeActivity extends BaseTitleActivity {
     protected void initView() {
         supportFragmentManager = getSupportFragmentManager();
         fragmentMap.put(FRAGMENT_HOME, currentFragment = new HomeFragment());
-        fragmentMap.put(FRAGMENT_MESSAGE, new TicketFragment());
+        fragmentMap.put(FRAGMENT_MESSAGE, new OrderFragment());
         fragmentMap.put(FRAGMENT_MINE, new MineFragment());
         getSupportFragmentManager().beginTransaction().add(R.id.fl_home, currentFragment).commit();
     }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:orientation="vertical">
+
+    <com.kingja.yaluji.view.RefreshSwipeRefreshLayout
+        android:id="@+id/srl"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.kingja.yaluji.view.PullToBottomListView
+            android:background="@color/bg_hi"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:id="@+id/plv"
+            android:listSelector="@android:color/transparent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/tran_hi"
+            android:dividerHeight="0dp"
+            tools:listitem="@layout/item_article_small"/>
+    </com.kingja.yaluji.view.RefreshSwipeRefreshLayout>
+</LinearLayout>

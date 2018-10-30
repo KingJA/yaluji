@@ -1,12 +1,13 @@
-package com.kingja.yaluji.page.order.list;
+package com.kingja.yaluji.page.ticket.list;
 
 
 import com.kingja.yaluji.base.BasePresenter;
 import com.kingja.yaluji.base.BaseView;
-import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.Ticket;
 
 import java.util.List;
+
+import okhttp3.RequestBody;
 
 /**
  * Description：TODO
@@ -16,11 +17,11 @@ import java.util.List;
  */
 public interface TicketListContract {
     interface View extends BaseView {
-        void onGetTicketListSuccess(List<Ticket> orders);
+        void onGetTicketListSuccess(List<Ticket> ticketList);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getTicketList(Integer page, Integer pageSize, Integer status);
+        void getTicketList(RequestBody requestBody);
 
     }
 }

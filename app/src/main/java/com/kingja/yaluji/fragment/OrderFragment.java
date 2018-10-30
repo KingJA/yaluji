@@ -9,7 +9,7 @@ import com.kingja.yaluji.adapter.TicketPageAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.injector.component.AppComponent;
-import com.kingja.yaluji.page.order.list.TicketListFragment;
+import com.kingja.yaluji.page.order.list.OrderListFragment;
 
 import butterknife.BindView;
 
@@ -19,7 +19,7 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketFragment extends BaseFragment {
+public class OrderFragment extends BaseFragment {
     @BindView(R.id.tab_order)
     TabLayout tabOrder;
     @BindView(R.id.vp_content_order)
@@ -44,8 +44,8 @@ public class TicketFragment extends BaseFragment {
         tabOrder.addTab(tabOrder.newTab().setText(items[0]));
         tabOrder.addTab(tabOrder.newTab().setText(items[1]));
 //        tabOrder.post(() -> IndicatorUtil.setIndicator(tabOrder, 50, 50));
-        mFragmentArr[0] = TicketListFragment.newInstance(Status.TicketStatus.WAIT_USE);
-        mFragmentArr[1] = TicketListFragment.newInstance(Status.TicketStatus.ALL);
+        mFragmentArr[0] = OrderListFragment.newInstance(Status.TicketStatus.WAIT_USE);
+        mFragmentArr[1] = OrderListFragment.newInstance(Status.TicketStatus.ALL);
         TicketPageAdapter mTicketPageAdapter = new TicketPageAdapter(getChildFragmentManager(), mFragmentArr,
                 items);
         vpContentOrder.setAdapter(mTicketPageAdapter);

@@ -8,8 +8,6 @@ import android.widget.TextView;
 
 import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.kingja.yaluji.R;
-import com.kingja.yaluji.constant.Status;
-import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.model.entiy.Order;
 
 import java.util.List;

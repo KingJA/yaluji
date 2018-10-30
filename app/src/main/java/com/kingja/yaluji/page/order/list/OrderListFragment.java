@@ -5,17 +5,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
 import com.kingja.yaluji.R;
-import com.kingja.yaluji.adapter.TicketAdapter;
-import com.kingja.yaluji.base.App;
+import com.kingja.yaluji.adapter.OrderAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
-import com.kingja.yaluji.callback.EmptyOrderCallback;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
-import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
@@ -24,7 +21,6 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,20 +34,20 @@ import butterknife.BindView;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketListFragment extends BaseFragment implements TicketListContract.View, SwipeRefreshLayout
+public class OrderListFragment extends BaseFragment implements OrderListContract.View, SwipeRefreshLayout
         .OnRefreshListener {
     @BindView(R.id.lv)
     ListView lv;
     @BindView(R.id.srl)
     RefreshSwipeRefreshLayout srl;
-    private List<Ticket> ticketList = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<>();
     @Inject
-    TicketListPresenter ticketListPresenter;
-    private TicketAdapter mTicketAdapter;
+    OrderListPresenter orderListPresenter;
+    private OrderAdapter mOrderAdapter;
     private int ticketStatus;
 
-    public static TicketListFragment newInstance(int ticketStatus) {
-        TicketListFragment fragment = new TicketListFragment();
+    public static OrderListFragment newInstance(int ticketStatus) {
+        OrderListFragment fragment = new OrderListFragment();
         Bundle args = new Bundle();
         args.putInt(Constants.Extra.TicketStatus, ticketStatus);
         fragment.setArguments(args);
@@ -73,7 +69,7 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
-        ticketListPresenter.attachView(this);
+        orderListPresenter.attachView(this);
     }
 
     @Override
@@ -85,15 +81,15 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
     protected void initData() {
         srl.setOnRefreshListener(this);
         srl.setProgressViewEndTarget(true, AppUtil.dp2px(60));
-        mTicketAdapter = new TicketAdapter(getActivity(), ticketList);
-        lv.setAdapter(mTicketAdapter);
+        mOrderAdapter = new OrderAdapter(getActivity(), orderList);
+        lv.setAdapter(mOrderAdapter);
     }
 
 
     @Override
     protected void initNet() {
         if (LoginChecker.isLogin()) {
-            ticketListPresenter.getTicketList(Constants.PAGE_FIRST, Constants.PAGE_SIZE, ticketStatus);
+            orderListPresenter.getTicketList(Constants.PAGE_FIRST, Constants.PAGE_SIZE, ticketStatus);
         } else {
             showUnLoginCallback();
         }
@@ -120,9 +116,9 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
     }
 
     @Override
-    public void onGetTicketListSuccess(List<Ticket> ticketList) {
-        if (ticketList != null && ticketList.size() == 0) {
-            mTicketAdapter.setData(ticketList);
+    public void onGetTicketListSuccess(List<Order> orderList) {
+        if (orderList != null && orderList.size() == 0) {
+            mOrderAdapter.setData(orderList);
         } else {
             showEmptyCallback();
         }
