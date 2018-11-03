@@ -31,6 +31,8 @@ public class Constants {
 
     public interface Extra {
         String TicketStatus = "TicketStatus";
+        String ProductId = "ProductId";
+        String FromTitketDetail = "FromTitketDetail";
     }
 
 }

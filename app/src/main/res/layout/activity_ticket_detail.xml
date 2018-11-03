@@ -1,0 +1,532 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/white_hi"
+              android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <!--头部-->
+
+            <ImageView
+                android:id="@+id/iv_detail_headImg"
+                android:layout_width="match_parent"
+                android:layout_height="152dp"
+                android:scaleType="centerCrop"/>
+            <!--标题-->
+            <com.kingja.yaluji.view.StringTextView
+                android:id="@+id/tv_detail_ticketName"
+                style="@style/font_3_17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="16dp"
+                android:text="雁荡山8折抵值券"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp">
+
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_6_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="门市价"/>
+
+                <com.kingja.yaluji.view.DeleteTextView
+                    style="@style/font_6_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"/>
+
+                <com.kingja.yaluji.view.DeleteTextView
+                    android:id="@+id/tv_detail_marketPrice"
+                    style="@style/font_6_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="12dp"
+                    android:text="35"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_6_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:text="可抵用"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_orange_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_detail_buyPrice"
+                    style="@style/font_orange_22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="25"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_6_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:text="元"/>
+            </LinearLayout>
+
+            <View style="@style/div_hor_6_gray"/>
+
+            <!--景区简介-->
+            <RelativeLayout
+                android:id="@+id/rl_ticket_introduce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="10dp">
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_6_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="景区简介"/>
+
+                <ImageView
+                    android:layout_centerVertical="true"
+                    android:layout_alignParentRight="true"
+                    android:background="@mipmap/ic_arrow_right"
+                    android:layout_width="10dp"
+                    android:layout_height="10dp"/>
+
+
+            </RelativeLayout>
+
+            <View style="@style/div_hor_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:text="使用日期："/>
+
+                        <com.kingja.yaluji.view.StringTextView
+                            android:id="@+id/tv_detail_visitDate"
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="2018-07-25"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:text="低值金额："/>
+
+                        <com.kingja.yaluji.view.StringTextView
+                            android:id="@+id/tv_detail_buyPrice_small"
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="25"/>
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="元"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:text="景区地址："/>
+
+                        <com.kingja.yaluji.view.StringTextView
+                            android:id="@+id/tv_detail_areaText"
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="温州乐清"/>
+
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="8dp">
+
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:text="入园时间："/>
+
+                        <com.kingja.yaluji.view.StringTextView
+                            android:id="@+id/tv_detail_visitTime"
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="09:00"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp">
+
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:text="使用方式："/>
+
+                        <com.kingja.yaluji.view.StringTextView
+                            android:id="@+id/tv_detail_visitMethod"
+                            style="@style/font_orange_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="景区售票窗口直接抵用"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp">
+
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_6_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:text="抵用说明："/>
+
+                        <com.kingja.yaluji.view.StringTextView
+                            android:id="@+id/tv_detail_useRemarks"
+                            style="@style/font_orange_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="景区售票窗口直接抵用"/>
+
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.kingja.yaluji.view.StringTextView
+                            style="@style/font_3_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="4dp"
+                            android:text="备注："/>
+
+                        <com.kingja.yaluji.view.StringTextView
+                            android:id="@+id/tv_detail_remarks"
+                            style="@style/font_3_12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="换票入园换票入园换票入园换票入园换票入园换票入园换票入园换票入园"/>
+
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <View style="@style/div_hor_6_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_3_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:text="游客信息"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_9_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="需"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_orange_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1位"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_9_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="位出行游客信息，用于入园身份验证"/>
+            </LinearLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_ticket_detail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="12dp"
+                android:layout_marginRight="12dp"/>
+
+            <com.kingja.supershapeview.view.SuperShapeLinearLayout
+                android:id="@+id/ssll_visitor_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingLeft="24dp"
+                android:paddingRight="24dp"
+                android:paddingTop="12dp"
+                android:visibility="gone"
+                app:super_cornerRadius="4dp"
+                app:super_solidColor="@color/bg_hi">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.kingja.yaluji.view.StringTextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="姓名"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_visitor_name"
+                        style="@style/font_3_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text=""/>
+                </LinearLayout>
+
+                <View
+                    style="@style/div_hor_gray"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.kingja.yaluji.view.StringTextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="手机号"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_visitor_phone"
+                        style="@style/font_3_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text=""/>
+                </LinearLayout>
+
+                <View
+                    style="@style/div_hor_gray"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.kingja.yaluji.view.StringTextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="身份证号"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_visitor_idcode"
+                        style="@style/font_3_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text=""/>
+                </LinearLayout>
+
+            </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <View style="@style/div_hor_gray"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <com.kingja.yaluji.view.ChangeNumberView
+            android:id="@+id/ccv_ticket_detail"
+            android:layout_width="120dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="12dp"/>
+
+        <TextView
+            android:visibility="visible"
+            android:id="@+id/tv_detail_get"
+            android:gravity="center"
+            android:text="已领完"
+            style="@style/font_f_20"
+            android:background="@color/gray_hi"
+            android:layout_alignParentRight="true"
+            android:layout_width="132dp"
+            android:layout_height="match_parent"/>
+
+     <LinearLayout
+         android:visibility="gone"
+         android:id="@+id/ll_detail_get"
+         android:orientation="vertical"
+         android:gravity="center"
+         android:background="@mipmap/bg_ticket_detail"
+         android:layout_alignParentRight="true"
+         android:layout_width="132dp"
+         android:layout_height="match_parent">
+
+         <LinearLayout
+             android:layout_marginBottom="2dp"
+             android:gravity="center_vertical"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+             <ImageView
+                 android:layout_marginRight="6dp"
+                 android:background="@mipmap/ic_ticket"
+                 android:layout_width="18dp"
+                 android:layout_height="15dp"/>
+
+             <com.kingja.yaluji.view.StringTextView
+                 style="@style/font_f_17"
+                 android:text="领券"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+
+
+         </LinearLayout>
+
+         <LinearLayout
+             android:gravity="center_vertical"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content">
+             <com.kingja.yaluji.view.StringTextView
+                 style="@style/font_f_10"
+                 android:text="已抢"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <com.kingja.yaluji.view.StringTextView
+                 android:id="@+id/tv_detail_sellCount"
+                 style="@style/font_f_10"
+                 android:text="10"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <com.kingja.yaluji.view.StringTextView
+                 style="@style/font_f_10"
+                 android:text="/"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+
+             <com.kingja.yaluji.view.StringTextView
+                 android:id="@+id/tv_detail_totalCount"
+                 style="@style/font_f_10"
+                 android:text="20"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <com.kingja.yaluji.view.StringTextView
+                 android:layout_marginRight="4dp"
+                 style="@style/font_f_10"
+                 android:text="张"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <com.kingja.yaluji.view.StringTextView
+                 style="@style/font_f_10"
+                 android:text="限抢"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+
+             <com.kingja.yaluji.view.StringTextView
+                 android:id="@+id/tv_detail_buyLimit"
+                 style="@style/font_f_10"
+                 android:text="2"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+             <com.kingja.yaluji.view.StringTextView
+                 style="@style/font_f_10"
+                 android:text="张"
+                 android:layout_width="wrap_content"
+                 android:layout_height="wrap_content"/>
+         </LinearLayout>
+
+     </LinearLayout>
+
+
+    </RelativeLayout>
+</LinearLayout>

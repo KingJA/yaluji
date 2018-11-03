@@ -8,11 +8,9 @@ package com.kingja.yaluji.constant;
  */
 public class Status {
     public interface SellStatus {
-        //在售
+        //在抢
         int SELLING = 1;
-        //待售
-        int UNSELLING = 0;
-        //售完
+        //抢完
         int SELLOUT = 2;
         //结束
         int OVER = 3;

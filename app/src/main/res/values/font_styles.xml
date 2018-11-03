@@ -114,7 +114,10 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/white_hi</item>
     </style>
-
+    <style name="font_f_10">
+        <item name="android:textSize">10sp</item>
+        <item name="android:textColor">@color/white_hi</item>
+    </style>
     <style name="font_f_20">
         <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/white_hi</item>
@@ -181,7 +184,10 @@
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/orange_hi</item>
     </style>
-
+    <style name="font_orange_11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/orange_hi</item>
+    </style>
     <style name="font_orange_16">
         <item name="android:textSize">16sp</item>
         <item name="android:textColor">@color/orange_hi</item>
@@ -189,6 +195,10 @@
 
     <style name="font_orange_22">
         <item name="android:textSize">23sp</item>
+        <item name="android:textColor">@color/orange_hi</item>
+    </style>
+    <style name="font_orange_20">
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/orange_hi</item>
     </style>
 

@@ -156,7 +156,7 @@ public interface ApiService {
     @POST("/app/product/hotsearch")
     Observable<HttpResult<List<HotSearch>>> getHotSearch(@Field("limit") int areaId);
 
-    /*获取产品详情*/
+    /*获取优惠券详情*/
     @FormUrlEncoded
     @POST("/app/product/details")
     Observable<HttpResult<TicketDetail>> getTicketDetail(@Field("productId") String productId);

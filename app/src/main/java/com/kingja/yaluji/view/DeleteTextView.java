@@ -13,7 +13,7 @@ import android.util.AttributeSet;
  * Email:kingjavip@gmail.com
  */
 
-public class DeleteTextView extends AppCompatTextView {
+public class DeleteTextView extends StringTextView {
 
     private int mAdditionalPadding;
 

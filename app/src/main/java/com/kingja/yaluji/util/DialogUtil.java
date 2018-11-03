@@ -8,6 +8,7 @@ import android.support.v4.content.ContextCompat;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.page.login.LoginActivity;
 
 /**
  * Description:TODO
@@ -65,5 +66,10 @@ public class DialogUtil {
                 .onPositive(positiveCallback)
                 .onNegative(negativecallback)
                 .show();
+    }
+    public static void showLoginActivity(Activity context) {
+        DialogUtil.showConfirmDialog(context, "亲，您还未登录，是否马上登录", (dialog, which) -> {
+            GoUtil.goActivity(context, LoginActivity.class);
+        });
     }
 }

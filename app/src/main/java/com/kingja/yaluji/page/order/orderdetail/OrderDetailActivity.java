@@ -10,7 +10,7 @@ import com.kingja.yaluji.model.entiy.OrderDetail;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketDetailActivity extends BaseTitleActivity implements TicketDetailContract.View {
+public class OrderDetailActivity extends BaseTitleActivity implements TicketDetailContract.View {
     @Override
     public void initVariable() {
 
@@ -113,7 +113,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
 //    }
 //
 //    public static void goActivity(Context context, String orderId) {
-//        Intent intent = new Intent(context, TicketDetailActivity.class);
+//        Intent intent = new Intent(context, OrderDetailActivity.class);
 //        intent.putExtra("orderId", orderId);
 //        context.startActivity(intent);
 //    }

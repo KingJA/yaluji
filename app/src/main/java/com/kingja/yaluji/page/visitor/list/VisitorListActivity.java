@@ -60,7 +60,7 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
-        fromTitketDetail = getIntent().getBooleanExtra("fromTitketDetail", false);
+        fromTitketDetail = getIntent().getBooleanExtra(Constants.Extra.FromTitketDetail, false);
     }
 
     @Override
@@ -119,18 +119,12 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
     public void onGetVisitorsSuccess(List<Visitor> visitors) {
         if (visitors!=null&&visitors.size() > 0) {
             mVisitorAdapter.setData(visitors);
-        } else {
-           showEmptyCallback();
         }
     }
 
     @Override
     public void onDeleteVisitorSuccess(int position) {
         mVisitorAdapter.removeItem(position);
-        if (mVisitorAdapter.getCount() == 0) {
-            showEmptyCallback();
-        }
-
     }
 
     @Override
@@ -170,10 +164,5 @@ public class VisitorListActivity extends BaseTitleActivity implements VisitorCon
             EventBus.getDefault().post(new AddVisitorEvent(visitor));
             finish();
         }
-    }
-
-    @Override
-    public boolean ifRegisterLoadSir() {
-        return true;
     }
 }

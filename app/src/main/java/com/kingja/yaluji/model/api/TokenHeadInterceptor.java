@@ -20,10 +20,8 @@ public class TokenHeadInterceptor implements Interceptor {
         Request request = chain.request()
                 .newBuilder()
                 .addHeader("token", SpSir.getInstance().getToken())
-//                .addHeader("Content-Type", SpSir.getInstance().getToken())
                 .build();
         return chain.proceed(request);
     }
 
-//    @Headers("Content-Type:application/x-www-form-urlencoded; charset=utf-8")
 }

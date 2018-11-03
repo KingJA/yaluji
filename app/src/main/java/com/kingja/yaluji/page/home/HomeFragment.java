@@ -22,6 +22,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.LunBoTu;
 import com.kingja.yaluji.page.article.list.ArticleListActivity;
+import com.kingja.yaluji.page.ticket.list.TicketListActivity;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.view.FixedListView;
@@ -81,6 +82,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 GoUtil.goActivity(getActivity(),ArticleListActivity.class);
                 break;
             case R.id.iv_ticket:
+                GoUtil.goActivity(getActivity(),TicketListActivity.class);
                 break;
             case R.id.iv_question:
                 break;
