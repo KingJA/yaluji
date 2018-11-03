@@ -82,7 +82,7 @@ dependencies {
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava2:2.2.0'
     //okhttp3
-    implementation 'com.squareup.okhttp3:logging-interceptor:3.1.2'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.8.0'
     /*形状库*/
     implementation 'com.kingja.supershapeview:supershapeview:1.2.0'
     /*状态页*/

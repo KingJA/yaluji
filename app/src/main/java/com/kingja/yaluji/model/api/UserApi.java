@@ -37,7 +37,7 @@ public class UserApi {
                 .writeTimeout(60, TimeUnit.SECONDS)
                 .readTimeout(60, TimeUnit.SECONDS)
                 .addInterceptor(new TokenHeadInterceptor())
-//                .addInterceptor(httpLoggingInterceptor)
+                .addInterceptor(httpLoggingInterceptor)
                 .build();
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(Constants.BASE_URL)
