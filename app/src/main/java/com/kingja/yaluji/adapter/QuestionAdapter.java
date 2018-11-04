@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.kingja.supershapeview.view.SuperShapeImageView;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.model.entiy.Ticket;
@@ -39,6 +41,7 @@ public class QuestionAdapter extends BaseLvAdapter<Question> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+        viewHolder.ll_question.setBackgroundResource(Constants.BG_GRADIENTS[position % Constants.BG_GRADIENTS.length]);
         viewHolder.stv_question_title.setString(list.get(position).getTitle());
         viewHolder.stv_question_des.setString(String.format("连续答对%d题，获得%d元优惠券", list.get(position).getCorrectCount(),
                 list.get(position).getCouponAmount()));
@@ -57,6 +60,7 @@ public class QuestionAdapter extends BaseLvAdapter<Question> {
         StringTextView stv_question_des;
         SuperShapeTextView stv_question_btn;
         SuperShapeImageView siv_question_headimg;
+        LinearLayout ll_question;
 
         public ViewHolder(View root) {
             this.root = root;
@@ -64,6 +68,7 @@ public class QuestionAdapter extends BaseLvAdapter<Question> {
             siv_question_headimg = root.findViewById(R.id.siv_question_headimg);
             stv_question_des = root.findViewById(R.id.stv_question_des);
             stv_question_btn = root.findViewById(R.id.stv_question_btn);
+            ll_question = root.findViewById(R.id.ll_question);
         }
     }
 }

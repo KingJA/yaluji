@@ -1,5 +1,7 @@
 package com.kingja.yaluji.constant;
 
+import com.kingja.yaluji.R;
+
 /**
  * 项目名称：
  * 类描述：TODO
@@ -36,5 +38,11 @@ public class Constants {
         String ArticleId = "articleId";
         String Keyword = "keyword";
     }
+
+    public static final int BG_GRADIENTS[] = {R.drawable.gradient_pink,
+            R.drawable.gradient_orange,
+            R.drawable.gradient_green,
+            R.drawable.gradient_blue,
+            R.drawable.gradient_purple};
 
 }
