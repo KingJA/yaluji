@@ -3,6 +3,7 @@ package com.kingja.yaluji.model.service;
 import android.icu.util.VersionInfo;
 
 import com.kingja.yaluji.model.entiy.Article;
+import com.kingja.yaluji.model.entiy.ArticleDetail;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.City;
 import com.kingja.yaluji.model.entiy.HotSearch;
@@ -12,6 +13,7 @@ import com.kingja.yaluji.model.entiy.LunBoTu;
 import com.kingja.yaluji.model.entiy.Message;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.OrderResult;
+import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.model.entiy.SceneryIntroduce;
 import com.kingja.yaluji.model.entiy.ScenicType;
 import com.kingja.yaluji.model.entiy.Order;
@@ -207,5 +209,18 @@ public interface ApiService {
     /*获取美文列表*/
     @POST("/app/article/list")
     Observable<HttpResult<List<Article>>> getArticleList(@Body RequestBody requestBody);
+
+    /*获取美文搜索列表*/
+    @POST("/app/article/search")
+    Observable<HttpResult<List<ArticleSimpleItem>>> getArticleSearchList(@Body RequestBody requestBody);
+
+    /*获取鸡答搜索列表*/
+    @POST("/app/paper/nouser/list")
+    Observable<HttpResult<List<Question>>> getQuestionSearchList(@Body RequestBody requestBody);
+
+    /*获取美文详情*/
+    @FormUrlEncoded
+    @POST("/app/article/details")
+    Observable<HttpResult<ArticleDetail>> getArticleDetail(@Field("articleId") String articleId);
     //=================================================================================
 }

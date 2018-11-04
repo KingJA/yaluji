@@ -1,6 +1,8 @@
 package com.kingja.yaluji.page.article.list;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.ArticleAdapter;
@@ -8,6 +10,9 @@ import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Article;
+import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
+import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.view.PullToBottomListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
@@ -18,6 +23,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -36,6 +42,13 @@ public class ArticleListActivity extends BaseTitleActivity implements ArticleLis
 
     @Inject
     ArticleListPresenter articleListPresenter;
+
+    @OnItemClick(R.id.plv)
+    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
+        Article article = (Article) parent.getItemAtPosition(position);
+        ArticleDetailActivity.goActivity(this, article.getId());
+
+    }
 
     @Override
     public void initVariable() {

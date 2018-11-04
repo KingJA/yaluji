@@ -64,7 +64,7 @@ public class OrderFragment extends BaseFragment {
 
     @Override
     protected int getContentId() {
-        return R.layout.fragment_ticket;
+        return R.layout.fragment_order;
     }
 
 }

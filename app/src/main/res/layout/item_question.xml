@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="horizontal"
+              android:paddingLeft="10dp"
+              android:paddingRight="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="88dp"
+        android:background="@drawable/gradient_blue"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
+
+        <com.kingja.supershapeview.view.SuperShapeImageView
+            android:id="@+id/siv_question_headimg"
+            android:layout_width="64dp"
+            android:layout_height="48dp"
+            android:layout_marginRight="10dp"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/bg_banner"
+            app:super_cornerRadius="2dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <com.kingja.yaluji.view.StringTextView
+                android:id="@+id/stv_question_title"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_marginBottom="6dp"
+                style="@style/font_f_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="标题标题标题标题标题"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/stv_question_des"
+                    android:singleLine="true"
+                    android:ellipsize="end"
+                    style="@style/font_ccf_11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="连续答对10提，获得10元优惠券"/>
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <com.kingja.supershapeview.view.SuperShapeTextView
+            android:id="@+id/stv_question_btn"
+            style="@style/font_orange_13"
+            app:super_cornerRadius="16dp"
+            app:super_solidColor="@color/white_hi"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:gravity="center_vertical"
+            android:text="去答题"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"/>
+
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -97,7 +97,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Override
     protected int getContentId() {
-        return R.layout.fragment_ticket_list;
+        return R.layout.fragment_order_list;
     }
 
     @Override

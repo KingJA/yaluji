@@ -33,6 +33,8 @@ public class Constants {
         String TicketStatus = "TicketStatus";
         String ProductId = "ProductId";
         String FromTitketDetail = "FromTitketDetail";
+        String ArticleId = "articleId";
+        String Keyword = "keyword";
     }
 
 }

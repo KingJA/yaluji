@@ -4,6 +4,7 @@ package com.kingja.yaluji.base;
 import com.kingja.yaluji.injector.annotation.PerActivity;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.injector.module.ActivityModule;
+import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.page.article.list.ArticleListActivity;
 import com.kingja.yaluji.page.forgetpassword.ForgetPasswordActivity;
 import com.kingja.yaluji.page.headimg.PersonalActivity;
@@ -14,6 +15,10 @@ import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
 import com.kingja.yaluji.page.order.list.OrderListFragment;
 import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
 import com.kingja.yaluji.page.register.RegisterActivity;
+import com.kingja.yaluji.page.search.article.ArticleListSearchFragment;
+import com.kingja.yaluji.page.search.question.QuestionListSearchFragment;
+import com.kingja.yaluji.page.search.result.SearchResultActivity;
+import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListActivity;
 import com.kingja.yaluji.page.visitor.add.VisitorAddActivity;
@@ -57,4 +62,13 @@ public interface BaseCompnent {
     void inject(TicketListActivity target);
 
     void inject(TicketDetailActivity target);
+
+    void inject(ArticleDetailActivity target);
+
+    void inject(SearchResultActivity target);
+
+    void inject(TicketListSearchFragment target);
+
+    void inject(ArticleListSearchFragment target);
+    void inject(QuestionListSearchFragment target);
 }

@@ -13,8 +13,8 @@
             android:id="@+id/plv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:divider="@color/bg_hi"
-            android:dividerHeight="6dp"/>
+            android:divider="@android:color/transparent"
+            android:dividerHeight="10dp"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
