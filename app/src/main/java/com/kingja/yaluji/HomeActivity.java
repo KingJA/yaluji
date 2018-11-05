@@ -1,5 +1,6 @@
 package com.kingja.yaluji;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -16,6 +17,7 @@ import com.kingja.yaluji.page.home.HomeFragment;
 import com.kingja.yaluji.fragment.MineFragment;
 import com.kingja.yaluji.fragment.OrderFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.service.initialize.InitializeService;
 import com.kingja.yaluji.util.ToastUtil;
 
 import butterknife.BindView;
@@ -66,6 +68,7 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
+        startService(new Intent(this, InitializeService.class));
     }
 
 

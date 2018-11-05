@@ -35,10 +35,10 @@ public class OrderAdapter extends BaseLvAdapter<Order> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-//        viewHolder.tv_ticket_payamount.setText(String.valueOf(list.get(position).getPayamount()));
-//        viewHolder.tv_ticket_subject.setText(list.get(position).getSubject());
-//        viewHolder.tv_ticket_quantity.setText(String.valueOf(list.get(position).getQuantity()));
-//        viewHolder.tv_ticket_visitDate.setText(list.get(position).getVisitDate());
+        viewHolder.tv_ticket_payamount.setText(String.valueOf(list.get(position).getPayamount()));
+        viewHolder.tv_ticket_subject.setText(list.get(position).getSubject());
+        viewHolder.tv_ticket_quantity.setText(String.valueOf(list.get(position).getQuantity()));
+        viewHolder.tv_ticket_visitDate.setText(list.get(position).getVisitDate());
         viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
             ToastUtil.showText(list.get(position).getId());
         });
@@ -47,7 +47,7 @@ public class OrderAdapter extends BaseLvAdapter<Order> {
 
     @Override
     public int getCount() {
-        return 10;
+        return list.size();
     }
 
     public class ViewHolder {

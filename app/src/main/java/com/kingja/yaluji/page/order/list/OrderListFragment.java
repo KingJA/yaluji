@@ -117,7 +117,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Override
     public void onGetTicketListSuccess(List<Order> orderList) {
-        if (orderList != null && orderList.size() == 0) {
+        if (orderList != null && orderList.size() > 0) {
             mOrderAdapter.setData(orderList);
         } else {
             showEmptyCallback();

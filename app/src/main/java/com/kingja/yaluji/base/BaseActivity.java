@@ -1,6 +1,7 @@
 package com.kingja.yaluji.base;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -48,9 +49,15 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     /*初始化公共组件*/
     private void initCommon() {
         mDialogProgress = new ProgressDialog(this);
-        mDialogProgress.setCancelable(false);
+        mDialogProgress.setCancelable(true);
         mDialogProgress.setCanceledOnTouchOutside(false);
         mDialogProgress.setMessage("加载中");
+        mDialogProgress.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                RxRe.getInstance().cancle(this);
+            }
+        });
     }
 
     /*设置圆形进度条*/

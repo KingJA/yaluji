@@ -25,6 +25,7 @@ import com.kingja.yaluji.page.visitor.add.VisitorAddActivity;
 import com.kingja.yaluji.page.visitor.edit.VisitorEditActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.page.visitor.prefect.VisitorPrefectActivity;
+import com.kingja.yaluji.service.initialize.InitializeService;
 
 import dagger.Component;
 
@@ -71,4 +72,5 @@ public interface BaseCompnent {
 
     void inject(ArticleListSearchFragment target);
     void inject(QuestionListSearchFragment target);
+    void inject(InitializeService target);
 }

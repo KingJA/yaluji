@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:background="@color/white_hi">
+
+
+    <ListView
+        tools:listitem="@layout/single_text"
+        android:id="@+id/lv_selector_city"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:dividerHeight="0dp"
+        android:divider="#00000000"
+        android:background="@color/bg_hi"/>
+
+    <ListView
+        android:divider="@color/diver"
+        android:layout_width="0dp"
+        android:dividerHeight="1px"
+        android:id="@+id/lv_selector_district"
+        android:layout_height="match_parent"
+        android:layout_weight="3"/>
+
+</LinearLayout>

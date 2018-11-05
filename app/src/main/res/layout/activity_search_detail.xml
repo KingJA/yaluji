@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingBottom="8dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="8dp">
+
+        <LinearLayout
+            android:id="@+id/ll_search"
+            android:layout_width="0dp"
+            android:layout_height="28dp"
+            android:layout_marginRight="12dp"
+            android:layout_weight="1"
+            android:background="@drawable/shape_circle_gray"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:layout_width="12dp"
+                android:layout_height="12dp"
+                android:layout_marginLeft="10dp"
+                android:background="@mipmap/ic_search"/>
+
+            <EditText
+                android:id="@+id/et_search_keyword"
+                style="@style/font_9_12"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="6dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="搜索目的地/景点/折扣等"/>
+
+            <ImageView
+                android:id="@+id/iv_clearInput"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_clear"
+                android:visibility="gone"/>
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_search"
+            style="@style/font_3_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="搜索"/>
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_hotSearch"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/font_9_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:layout_marginLeft="10dp"
+                android:text="热门搜索"/>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/tfl_hotSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:max_select="1"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_history"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="12dp">
+
+                <TextView
+                    style="@style/font_9_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="搜索历史"/>
+
+                <LinearLayout
+                    android:id="@+id/ll_history_clear"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="15dp"
+                        android:layout_marginRight="6dp"
+                        android:background="@mipmap/ic_history_delete"/>
+
+                    <TextView
+                        style="@style/font_9_13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="清理搜索历史"/>
+
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <View
+                style="@style/div_hor_gray"
+                android:layout_marginBottom="12dp"
+                android:layout_marginTop="12dp"/>
+
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/tfl_history"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:max_select="1"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

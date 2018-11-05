@@ -2,6 +2,7 @@ package com.kingja.yaluji.page.search.result;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -22,6 +23,7 @@ import com.kingja.yaluji.page.search.article.ArticleListSearchFragment;
 import com.kingja.yaluji.page.search.question.QuestionListSearchFragment;
 import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
 import com.kingja.yaluji.util.SimpleTextWatcher;
+
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -63,11 +65,19 @@ public class SearchResultActivity extends BaseTitleActivity {
                 break;
         }
     }
+    private Handler netHandler=new Handler();
 
     private void doSearch(String keyword) {
         for (int i = 0; i < fragments.length; i++) {
             if (fragments[i] instanceof OnSearchListener) {
-                ((OnSearchListener) fragments[i]).search(keyword);
+                int finalI = i;
+                netHandler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        ((OnSearchListener) fragments[finalI]).search(keyword);
+                    }
+                },200);
+
             }
         }
     }

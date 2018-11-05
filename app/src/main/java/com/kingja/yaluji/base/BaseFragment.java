@@ -2,6 +2,7 @@ package com.kingja.yaluji.base;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -65,9 +66,15 @@ public abstract class BaseFragment extends Fragment implements BaseView {
 
     private void initCommon() {
         mDialogProgress = new ProgressDialog(getActivity());
-        mDialogProgress.setCancelable(false);
+        mDialogProgress.setCancelable(true);
         mDialogProgress.setCanceledOnTouchOutside(false);
         mDialogProgress.setMessage("加载中");
+        mDialogProgress.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                RxRe.getInstance().cancle(this);
+            }
+        });
     }
 
     /*设置圆形进度条*/

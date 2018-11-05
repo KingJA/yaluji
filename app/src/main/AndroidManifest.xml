@@ -37,6 +37,9 @@
         <activity android:name=".page.ticket.detail.TicketDetailActivity"/>
         <activity android:name=".page.article.detail.ArticleDetailActivity"/>
         <activity android:name=".page.search.result.SearchResultActivity"/>
+        <activity android:name=".activity.SearchDetailActivity"/>
+
+        <service android:name=".service.initialize.InitializeService"/>
     </application>
 
 </manifest>
