@@ -16,7 +16,8 @@ import com.kingja.yaluji.page.order.list.OrderListFragment;
 import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
 import com.kingja.yaluji.page.register.RegisterActivity;
 import com.kingja.yaluji.page.search.article.ArticleListSearchFragment;
-import com.kingja.yaluji.page.search.question.QuestionListSearchFragment;
+import com.kingja.yaluji.page.search.question.list.QuestionListActivity;
+import com.kingja.yaluji.page.search.question.search.QuestionListSearchFragment;
 import com.kingja.yaluji.page.search.result.SearchResultActivity;
 import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
@@ -71,6 +72,10 @@ public interface BaseCompnent {
     void inject(TicketListSearchFragment target);
 
     void inject(ArticleListSearchFragment target);
+
     void inject(QuestionListSearchFragment target);
+
     void inject(InitializeService target);
+
+    void inject(QuestionListActivity target);
 }

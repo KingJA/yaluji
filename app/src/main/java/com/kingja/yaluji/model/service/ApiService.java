@@ -222,5 +222,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/app/article/details")
     Observable<HttpResult<ArticleDetail>> getArticleDetail(@Field("articleId") String articleId);
+
+    /*获取鸡答列表*/
+    @POST("/app/paper/list")
+    Observable<HttpResult<List<Question>>> getQuestionList(@Body RequestBody requestBody);
     //=================================================================================
 }

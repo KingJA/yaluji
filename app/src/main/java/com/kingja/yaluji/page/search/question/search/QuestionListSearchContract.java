@@ -1,4 +1,4 @@
-package com.kingja.yaluji.page.search.question;
+package com.kingja.yaluji.page.search.question.search;
 
 
 import com.kingja.yaluji.base.BasePresenter;

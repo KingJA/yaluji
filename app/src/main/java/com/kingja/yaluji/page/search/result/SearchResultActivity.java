@@ -20,7 +20,7 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.page.search.article.ArticleListSearchFragment;
-import com.kingja.yaluji.page.search.question.QuestionListSearchFragment;
+import com.kingja.yaluji.page.search.question.search.QuestionListSearchFragment;
 import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
 import com.kingja.yaluji.util.SimpleTextWatcher;
 

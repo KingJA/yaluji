@@ -1,20 +1,16 @@
-package com.kingja.yaluji.page.search.question;
+package com.kingja.yaluji.page.search.question.search;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.QuestionAdapter;
-import com.kingja.yaluji.adapter.TicketAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Question;
-import com.kingja.yaluji.model.entiy.Ticket;
-import com.kingja.yaluji.page.ticket.list.TicketListContract;
-import com.kingja.yaluji.page.ticket.list.TicketListPresenter;
 import com.kingja.yaluji.view.PullToBottomListView;
 
 import java.util.ArrayList;

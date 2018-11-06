@@ -38,6 +38,7 @@
         <activity android:name=".page.article.detail.ArticleDetailActivity"/>
         <activity android:name=".page.search.result.SearchResultActivity"/>
         <activity android:name=".activity.SearchDetailActivity"/>
+        <activity android:name=".page.search.question.list.QuestionListActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
     </application>

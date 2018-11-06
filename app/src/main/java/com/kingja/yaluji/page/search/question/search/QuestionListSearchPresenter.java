@@ -1,12 +1,10 @@
-package com.kingja.yaluji.page.search.question;
+package com.kingja.yaluji.page.search.question.search;
 
 import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
-import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.model.entiy.ResultObserver;
-import com.kingja.yaluji.page.search.article.ArticleListSearchContract;
 
 import java.util.List;
 

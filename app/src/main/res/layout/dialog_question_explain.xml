@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:orientation="vertical"
+              android:paddingBottom="16dp"
+              android:paddingLeft="12dp"
+              android:paddingRight="12dp"
+              android:paddingTop="16dp">
+
+    <TextView
+        android:layout_marginBottom="16dp"
+        style="@style/font_f_18"
+        android:gravity="center"
+        android:text="游戏规则"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_r8_white"
+        android:orientation="vertical"
+        android:paddingBottom="24dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_num_one"/>
+
+            <TextView
+                style="@style/font_3_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="为使奖品惠及更多人，每个注册用户成功闯关一次后，当周不可再答题闯关，需下周再闯关。"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_num_two"/>
+
+            <TextView
+                style="@style/font_3_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="每个答题失败，都可以复活3次。"/>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="26dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginRight="10dp"
+                android:background="@mipmap/ic_num_three"/>
+
+            <TextView
+                style="@style/font_3_13"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="复活方式: 可转发朋友圈即时复活，也可隔天自动复活再答题闯关。"/>
+        </LinearLayout>
+
+        <com.kingja.supershapeview.view.SuperShapeTextView
+
+            android:id="@+id/stv_confirm"
+            style="@style/font_f_12"
+            android:layout_width="168dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:text="知道了"
+            app:super_cornerRadius="16dp"
+            app:super_solidColor="@color/orange_hi"/>
+    </LinearLayout>
+
+
+</LinearLayout>

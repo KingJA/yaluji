@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -18,13 +19,24 @@ import com.kingja.yaluji.adapter.LunBoTuPageAdapter;
 import com.kingja.yaluji.adapter.ViewHolder;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
+import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.LunBoTu;
+import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.page.article.list.ArticleListActivity;
+import com.kingja.yaluji.page.search.question.list.QuestionListActivity;
+import com.kingja.yaluji.page.search.result.SearchResultActivity;
+import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListActivity;
+import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.util.GoUtil;
+import com.kingja.yaluji.util.LogUtil;
+import com.kingja.yaluji.util.LoginChecker;
+import com.kingja.yaluji.util.NoDoubleClickListener;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
@@ -36,6 +48,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 import butterknife.Unbinder;
 
 /**
@@ -73,22 +86,29 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     private List<ArticleSimpleItem> articleSimpleItemList = new ArrayList<>();
     private List<LunBoTu> lunBoTuList = new ArrayList<>();
     private List<View> points = new ArrayList<>();
-    private int lunBoTuListSize;
 
     @OnClick({R.id.iv_article, R.id.iv_ticket, R.id.iv_question})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_article:
-                GoUtil.goActivity(getActivity(),ArticleListActivity.class);
+                GoUtil.goActivity(getActivity(), ArticleListActivity.class);
                 break;
             case R.id.iv_ticket:
-                GoUtil.goActivity(getActivity(),TicketListActivity.class);
+                GoUtil.goActivity(getActivity(), TicketListActivity.class);
                 break;
             case R.id.iv_question:
+                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
                 break;
             default:
                 break;
         }
+    }
+
+    @OnItemClick(R.id.flv)
+    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
+        ArticleSimpleItem articleSimpleItem = (ArticleSimpleItem) parent.getItemAtPosition(position);
+        ArticleDetailActivity.goActivity(getActivity(), articleSimpleItem.getId());
+
     }
 
     @Override
@@ -138,14 +158,27 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     @Override
     public void onGetLunBoTuListSuccess(List<LunBoTu> lunBoTuList) {
         if (lunBoTuList != null && lunBoTuList.size() > 0) {
-            lunBoTuListSize = lunBoTuList.size();
             initDot(lunBoTuList);
-            vp.setAdapter(new LunBoTuPageAdapter(getActivity(), lunBoTuList));
+            List<ImageView> imageViews = new ArrayList<>();
+            for (LunBoTu lunBoTu : lunBoTuList) {
+                ImageView iv = new ImageView(getActivity());
+                iv.setScaleType(ImageView.ScaleType.CENTER_CROP);
+                iv.setOnClickListener(new NoDoubleClickListener() {
+                    @Override
+                    public void onNoDoubleClick(View v) {
+                        SearchResultActivity.goActivity(getActivity(), lunBoTu.getKeyword());
+                    }
+                });
+                ImageLoader.getInstance().loadImage(getActivity(), lunBoTu.getBanner(), iv);
+                imageViews.add(iv);
+            }
+
+            vp.setAdapter(new LunBoTuPageAdapter(imageViews));
             vp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
                 @Override
                 public void onPageSelected(int position) {
                     for (int i = 0; i < points.size(); i++) {
-                        if (i == position) {
+                        if (i == (position % points.size())) {
                             points.get(i).setBackgroundResource(R.mipmap.ic_dot_sel);
                         } else {
                             points.get(i).setBackgroundResource(R.mipmap.ic_dot_nor);
@@ -153,7 +186,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                     }
                 }
             });
-
             autoHandler.postDelayed(autoTask, delayMillis);
         }
 
@@ -169,7 +201,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     }
 
     private void initDot(List<LunBoTu> lunBoTuList) {
-
         for (int i = 0; i < lunBoTuList.size(); i++) {
             View view = new View(getActivity());
             if (i == 0) {
@@ -189,6 +220,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
+        LogUtil.e(TAG, "是否隐藏:" + hidden);
         if (hidden) {
             autoHandler.removeCallbacks(autoTask);
         } else {
@@ -196,10 +228,24 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
         }
     }
 
+    @Override
+    public void onStart() {
+        LogUtil.e(TAG, "可见:");
+        autoHandler.postDelayed(autoTask, delayMillis);
+        super.onStart();
+    }
+
+    @Override
+    public void onPause() {
+        LogUtil.e(TAG, "不可见:");
+        autoHandler.removeCallbacks(autoTask);
+        super.onPause();
+    }
+
     private Handler autoHandler = new Handler();
     private AutoRannable autoTask = new AutoRannable();
     private long delayMillis = 3000;
-    private int currentLunBoTuIndex = 0;
+    private int currentLunBoTuIndex;
 
 
     @Override
@@ -214,15 +260,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     }
 
     class AutoRannable implements Runnable {
-
         @Override
         public void run() {
+            LogUtil.e(TAG, "轮播:");
             autoHandler.removeCallbacks(autoTask);
             currentLunBoTuIndex++;
-            vp.setCurrentItem(currentLunBoTuIndex % lunBoTuListSize);
+            vp.setCurrentItem(currentLunBoTuIndex);
             autoHandler.postDelayed(autoTask, delayMillis);
-
         }
     }
+
 
 }

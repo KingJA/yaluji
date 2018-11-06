@@ -11,6 +11,7 @@ import com.kingja.yaluji.model.entiy.LunBoTu;
 import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.ToastUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,11 +21,9 @@ import java.util.List;
  * Email:kingjavip@gmail.com
  */
 public class LunBoTuPageAdapter extends PagerAdapter {
-    private Context context;
-    private List<LunBoTu> lunBoTuList;
+    private List<ImageView> lunBoTuList = new ArrayList<>();
 
-    public LunBoTuPageAdapter(Context context, List<LunBoTu> lunBoTuList) {
-        this.context = context;
+    public LunBoTuPageAdapter(List<ImageView> lunBoTuList) {
         this.lunBoTuList = lunBoTuList;
     }
 
@@ -35,7 +34,7 @@ public class LunBoTuPageAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return lunBoTuList.size();
+        return Integer.MAX_VALUE;
     }
 
     @Override
@@ -46,15 +45,7 @@ public class LunBoTuPageAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        ImageView imageView = new ImageView(context);
-        imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setOnClickListener(new NoDoubleClickListener() {
-            @Override
-            public void onNoDoubleClick(View v) {
-                ToastUtil.showText(lunBoTuList.get(position).getId());
-            }
-        });
-        ImageLoader.getInstance().loadImage(context, lunBoTuList.get(position).getBanner(), imageView);
+        ImageView imageView = lunBoTuList.get(position % lunBoTuList.size());
         container.addView(imageView);
         return imageView;
     }
