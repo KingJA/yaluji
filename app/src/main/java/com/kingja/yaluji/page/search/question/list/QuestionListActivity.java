@@ -21,6 +21,7 @@ import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.view.PullToBottomListView;
 import com.kingja.yaluji.view.dialog.QuestionExplainDialog;
+import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
 
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -61,6 +62,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
         switch (view.getId()) {
             case R.id.iv_question_explain:
                 questionExplainDialog.show();
+//                new QuestionSuccessDialog(this).show();
                 break;
             default:
                 break;
@@ -100,12 +102,14 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     @Override
     protected void initView() {
         questionAdapter = new QuestionAdapter(this, questionList);
+
         plv.setAdapter(questionAdapter);
     }
 
     @Override
     protected void initData() {
         questionExplainDialog = new QuestionExplainDialog(this);
+
         srl.setOnRefreshListener(this);
     }
 

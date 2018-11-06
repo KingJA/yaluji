@@ -32,7 +32,7 @@ public abstract class BaseDialog extends AlertDialog {
     }
 
     public BaseDialog(@NonNull Context context) {
-        super(context, R.style.Dialog_R8_WHITE);
+        super(context,R.style.Dialog_BASE);
     }
 
     @Override
@@ -54,9 +54,9 @@ public abstract class BaseDialog extends AlertDialog {
     public void show() {
         super.show();
         WindowManager.LayoutParams layoutParams = getWindow().getAttributes();
-        layoutParams.gravity= Gravity.CENTER;
-        layoutParams.width= (int) (AppUtil.getScreenWidth()*0.8f);
-        layoutParams.height= WindowManager.LayoutParams.WRAP_CONTENT;
+        layoutParams.gravity = Gravity.CENTER;
+        layoutParams.width = (int) (AppUtil.getScreenWidth() * 0.8f);
+        layoutParams.height = WindowManager.LayoutParams.WRAP_CONTENT;
         getWindow().getDecorView().setPadding(0, 0, 0, 0);
         getWindow().setAttributes(layoutParams);
 
