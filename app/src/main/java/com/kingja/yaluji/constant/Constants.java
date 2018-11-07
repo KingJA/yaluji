@@ -10,7 +10,7 @@ import com.kingja.yaluji.R;
  * 修改备注：
  */
 public class Constants {
-    public static final String BASE_URL = "http://ylj.singlook.net";
+    public static final String BASE_URL = "http://api.ddchick.com";
     public static final int PAGE_SIZE = 20;
     public static final int PAGE_SIZE_5 = 5;
     public static final int PAGE_FIRST = 1;
@@ -37,6 +37,7 @@ public class Constants {
         String FromTitketDetail = "FromTitketDetail";
         String ArticleId = "articleId";
         String Keyword = "keyword";
+        String PaperId = "paperId";
     }
 
     public static final int BG_GRADIENTS[] = {R.drawable.gradient_pink,

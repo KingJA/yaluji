@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content">
+    <com.kingja.supershapeview.view.SuperShapeTextView
+        android:id="@+id/stv_answer"
+        style="@style/font_3_15"
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:text="新刷新刷新刷新刷新刷新刷新刷新"
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:super_cornerRadius="30dp"
+        app:super_solidColor="#EAEAEA"/>
+
+</LinearLayout>

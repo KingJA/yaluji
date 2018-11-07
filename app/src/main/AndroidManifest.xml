@@ -39,6 +39,7 @@
         <activity android:name=".page.search.result.SearchResultActivity"/>
         <activity android:name=".activity.SearchDetailActivity"/>
         <activity android:name=".page.search.question.list.QuestionListActivity"/>
+        <activity android:name=".page.answer.QuestionDetailActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
     </application>

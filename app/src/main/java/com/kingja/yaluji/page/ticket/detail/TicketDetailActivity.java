@@ -240,7 +240,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         idcodeNeed = ticketDetail.getIdcodeNeed();
         status = ticketDetail.getStatus();
         endTime = ticketDetail.getEndTime();
-        ImageLoader.getInstance().loadImage(this, ticketDetail.getHeadImg(), R.mipmap.ic_placeholder, ivDetailHeadImg);
+        ImageLoader.getInstance().loadImage(this, ticketDetail.getHeadImg(), R.drawable.ic_placeholder, ivDetailHeadImg);
         tvDetailTicketName.setString(ticketDetail.getTicketName());
         tvDetailMarketPrice.setString(ticketDetail.getMarketPrice());
         tvDetailBuyPrice.setString(ticketDetail.getBuyPrice());

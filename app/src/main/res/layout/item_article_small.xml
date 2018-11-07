@@ -32,8 +32,7 @@
                 android:id="@+id/iv_article"
                 android:layout_width="52dp"
                 android:layout_height="52dp"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/ic_placeholder"/>
+                android:scaleType="centerCrop"/>
 
         </LinearLayout>
 

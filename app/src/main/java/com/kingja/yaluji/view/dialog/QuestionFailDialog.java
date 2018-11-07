@@ -3,10 +3,11 @@ package com.kingja.yaluji.view.dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
-import android.widget.TextView;
 
-import com.kingja.supershapeview.view.SuperShapeTextView;
+import com.kingja.supershapeview.view.SuperShapeLinearLayout;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.activity.SearchDetailActivity;
+import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.ToastUtil;
 
 import butterknife.BindView;
@@ -18,27 +19,24 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class QuestionSuccessDialog extends BaseDialog {
-    @BindView(R.id.tv_ticketMoney)
-    TextView tvTicketMoney;
-    @BindView(R.id.stv_get_ticket)
-    SuperShapeTextView stvGetTicket;
+public class QuestionFailDialog extends BaseDialog {
+    @BindView(R.id.sll_shape)
+    SuperShapeLinearLayout sllShape;
 
-    @OnClick({R.id.stv_get_ticket})
+    public QuestionFailDialog(@NonNull Context context) {
+        super(context);
+        setCancelable(true);
+        setCanceledOnTouchOutside(true);
+    }
+    @OnClick({R.id.sll_shape})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.stv_get_ticket:
-                ToastUtil.showText("立即领取");
+            case R.id.sll_shape:
+                ToastUtil.showText("分享");
                 break;
             default:
                 break;
         }
-    }
-
-    public QuestionSuccessDialog(@NonNull Context context) {
-        super(context);
-        setCancelable(false);
-        setCanceledOnTouchOutside(false);
     }
 
     @Override
@@ -53,6 +51,6 @@ public class QuestionSuccessDialog extends BaseDialog {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.dialog_question_success;
+        return R.layout.dialog_question_fail;
     }
 }

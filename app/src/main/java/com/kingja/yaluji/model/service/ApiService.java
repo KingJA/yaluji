@@ -2,6 +2,7 @@ package com.kingja.yaluji.model.service;
 
 import android.icu.util.VersionInfo;
 
+import com.kingja.yaluji.model.entiy.AnswerResult;
 import com.kingja.yaluji.model.entiy.Article;
 import com.kingja.yaluji.model.entiy.ArticleDetail;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
@@ -14,6 +15,7 @@ import com.kingja.yaluji.model.entiy.Message;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.Question;
+import com.kingja.yaluji.model.entiy.QuestionDetail;
 import com.kingja.yaluji.model.entiy.SceneryIntroduce;
 import com.kingja.yaluji.model.entiy.ScenicType;
 import com.kingja.yaluji.model.entiy.Order;
@@ -226,5 +228,23 @@ public interface ApiService {
     /*获取鸡答列表*/
     @POST("/app/paper/list")
     Observable<HttpResult<List<Question>>> getQuestionList(@Body RequestBody requestBody);
+
+    /*获取问答单题题目及选择项*/
+    @FormUrlEncoded
+    @POST("/app/paper/question")
+    Observable<HttpResult<QuestionDetail>> getQuestionDetail(@Field("paperId") String paperId);
+
+
+
+    /*提交答案*/
+    @POST("/app/paper/submitAnswer")
+    Observable<HttpResult<AnswerResult>> submitAnswer(@Body RequestBody requestBody);
+
+    /*分享后复活*/
+    @FormUrlEncoded
+    @POST("/app/paper/reborn")
+    Observable<HttpResult<Object>> reLife(@Field("paperId") String paperId);
     //=================================================================================
+
+
 }

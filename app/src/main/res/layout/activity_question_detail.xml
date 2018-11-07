@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_answer_wood">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="6dp"
+            android:background="@color/white_hi"
+            android:orientation="vertical"
+            android:paddingLeft="12dp"
+            android:paddingRight="12dp"
+            android:paddingTop="80dp">
+
+            <com.kingja.yaluji.view.StringTextView
+                android:id="@+id/tv_paperTitle"
+                style="@style/font_3_22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="江心屿知识问答"/>
+
+            <com.kingja.supershapeview.view.SuperShapeLinearLayout
+                android:layout_width="88dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center"
+                app:super_cornerRadius="15dp"
+                app:super_solidColor="@color/orange_hi_light">
+
+                <ImageView
+                    android:layout_width="14dp"
+                    android:layout_height="14dp"
+                    android:layout_marginRight="6dp"
+                    android:background="@mipmap/ic_clock"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_orange_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="02:00"/>
+            </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+
+            <com.kingja.yaluji.view.StringTextView
+                android:id="@+id/tv_questionTitle"
+                style="@style/font_3_17"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:text="1.江心屿是几A级旅游景区"/>
+
+            <com.kingja.yaluji.view.FixedListView
+                android:id="@+id/flv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:divider="@android:color/transparent"
+                android:dividerHeight="20dp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:layout_marginTop="24dp"
+                android:gravity="center">
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_currentPosition"
+                    style="@style/font_3_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"/>
+
+                <TextView
+                    style="@style/font_3_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_totalCount"
+                    style="@style/font_3_15"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="10"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="@mipmap/bg_answer_head"/>
+
+    </RelativeLayout>
+</ScrollView>

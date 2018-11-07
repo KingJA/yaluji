@@ -50,7 +50,7 @@ public class TicketAdapter extends BaseLvAdapter<Ticket> {
         viewHolder.tv_ticket_useDate.setText(list.get(position).getUseDate());
         viewHolder.pb_ticket_sell.setProgress(getProgressValue(list.get(position).getSellCount(), list.get(position)
                 .getTotalCount()));
-        ImageLoader.getInstance().loadImage(context, list.get(position).getHeadImg(), R.mipmap.ic_placeholder,
+        ImageLoader.getInstance().loadImage(context, list.get(position).getHeadImg(), R.drawable.ic_placeholder,
                 viewHolder.iv_ticket_img);
         viewHolder.iv_isSellout.setVisibility(list.get(position).isSellOut()?View.VISIBLE:View.GONE);
         viewHolder.tv_ticket_qiang.setVisibility(list.get(position).isSellOut()?View.GONE:View.VISIBLE);

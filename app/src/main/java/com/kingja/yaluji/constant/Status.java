@@ -89,4 +89,10 @@ public class Status {
     public interface CodeEnum {
         Integer getCode();
     }
+
+    public interface AnswerResult {
+        int RIGHT = 0;
+        int WRONG = 1;
+        int SUCCESS = 2;
+    }
 }

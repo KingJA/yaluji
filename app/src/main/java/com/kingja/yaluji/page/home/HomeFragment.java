@@ -40,6 +40,7 @@ import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 import com.kingja.yaluji.view.dialog.QuestionExplainDialog;
+import com.kingja.yaluji.view.dialog.QuestionFailDialog;
 import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
 
 import java.util.ArrayList;
@@ -96,12 +97,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 GoUtil.goActivity(getActivity(), ArticleListActivity.class);
                 break;
             case R.id.iv_ticket:
-//                GoUtil.goActivity(getActivity(), TicketListActivity.class);
-                new QuestionExplainDialog(getActivity()).show();
+                GoUtil.goActivity(getActivity(), TicketListActivity.class);
+//                new QuestionSuccessDialog(getActivity()).show();
                 break;
             case R.id.iv_question:
-//                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
-                new QuestionSuccessDialog(getActivity()).show();
+                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
+//                new QuestionFailDialog(getActivity()).show();
                 break;
             default:
                 break;

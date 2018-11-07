@@ -107,12 +107,12 @@ public class ViewHolder {
     }
     public ViewHolder setRoundImageByUrl(int viewId, String url,int connerWidth) {
         ImageView view = getView(viewId);
-        ImageLoader.getInstance().loadRoundImage(mContext, url, R.mipmap.ic_img_fail, view,connerWidth);
+        ImageLoader.getInstance().loadRoundImage(mContext, url, R.drawable.ic_placeholder, view,connerWidth);
         return this;
     }
     public ViewHolder setCircleByUrl(int viewId, String url) {
         ImageView view = getView(viewId);
-        ImageLoader.getInstance().loadCircleImage(mContext, url, R.mipmap.ic_img_fail, view);
+        ImageLoader.getInstance().loadCircleImage(mContext, url, R.drawable.ic_placeholder, view);
         return this;
     }
 

@@ -16,6 +16,7 @@ import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.page.answer.QuestionDetailActivity;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LoginChecker;
@@ -72,7 +73,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     @OnItemClick(R.id.plv)
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
         Question question = (Question) parent.getItemAtPosition(position);
-
+        QuestionDetailActivity.goActivity(this,question.getId());
     }
 
     @Override

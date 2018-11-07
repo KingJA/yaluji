@@ -27,7 +27,7 @@ public class GlideLoader implements IImageLoader {
         Glide.with(context)
                 .load(Constants.BASE_URL + url)
                 .centerCrop()
-                .placeholder(resourceId == -1 ? R.mipmap.ic_img_placeholder : resourceId)
+                .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .into(view);
@@ -38,7 +38,7 @@ public class GlideLoader implements IImageLoader {
 //        LogUtil.e(TAG,"图片地址:"+Constants.BASE_URL + url);
         Glide.with(context)
                 .load(Constants.BASE_URL + url)
-                .placeholder(resourceId == -1 ? R.mipmap.ic_img_placeholder : resourceId)
+                .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .transform(new CenterCrop(context), new GlideRoundTransform(context, connerWidth))
@@ -50,7 +50,7 @@ public class GlideLoader implements IImageLoader {
         Glide.with(context)
                 .load(Constants.BASE_URL + url)
                 .centerCrop()
-                .placeholder(resourceId == -1 ? R.mipmap.ic_img_placeholder : resourceId)
+                .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .transform(new CenterCrop(context), new GlideCircleTransform(context))

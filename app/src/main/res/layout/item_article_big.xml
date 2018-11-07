@@ -37,7 +37,6 @@
 
 
         <com.kingja.supershapeview.view.SuperShapeImageView
-            android:src="@mipmap/ic_placeholder"
             android:id="@+id/iv_article"
             android:layout_width="match_parent"
             android:layout_height="142dp"

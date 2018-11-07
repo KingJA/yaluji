@@ -17,31 +17,35 @@
         android:orientation="vertical"
         android:paddingTop="50dp">
 
-        <TextView
-            android:id="@+id/tv_ticketMoney"
-            android:textStyle="bold"
-            style="@style/font_3_13"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:layout_marginTop="10dp"
-            android:text="获取10元抵用券一张"/>
-
         <ImageView
+            android:layout_marginTop="16dp"
             android:layout_width="206dp"
             android:layout_height="116dp"
-            android:background="@mipmap/bg_question_success_body"/>
+            android:background="@mipmap/bg_question_fail_body"/>
 
-        <com.kingja.supershapeview.view.SuperShapeTextView
+        <com.kingja.supershapeview.view.SuperShapeLinearLayout
+            android:orientation="horizontal"
             android:layout_marginTop="20dp"
-            android:id="@+id/stv_get_ticket"
+            android:id="@+id/sll_shape"
             style="@style/font_f_13"
             android:layout_width="200dp"
             android:layout_height="40dp"
             android:gravity="center"
-            android:text="立即领取"
             app:super_cornerRadius="20dp"
-            app:super_solidColor="@color/orange_hi"/>
+            app:super_solidColor="@color/orange_hi">
+            <ImageView
+                android:layout_marginRight="8dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:background="@mipmap/ic_shape_frends"/>
+
+            <TextView
+                style="@style/font_f_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="分享朋友圈复活"/>
+
+        </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 
     </LinearLayout>
 
@@ -49,7 +53,7 @@
         android:layout_width="242dp"
         android:layout_height="62dp"
         android:layout_centerHorizontal="true"
-        android:background="@mipmap/bg_question_success_head"/>
+        android:background="@mipmap/bg_question_fail_head"/>
 
 
 </RelativeLayout>

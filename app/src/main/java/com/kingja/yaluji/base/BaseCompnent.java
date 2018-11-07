@@ -4,6 +4,7 @@ package com.kingja.yaluji.base;
 import com.kingja.yaluji.injector.annotation.PerActivity;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.injector.module.ActivityModule;
+import com.kingja.yaluji.page.answer.QuestionDetailActivity;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.page.article.list.ArticleListActivity;
 import com.kingja.yaluji.page.forgetpassword.ForgetPasswordActivity;
@@ -78,4 +79,6 @@ public interface BaseCompnent {
     void inject(InitializeService target);
 
     void inject(QuestionListActivity target);
+
+    void inject(QuestionDetailActivity target);
 }
