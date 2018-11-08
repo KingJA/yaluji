@@ -23,7 +23,8 @@ import butterknife.Unbinder;
  * Email:kingjavip@gmail.com
  */
 public abstract class BaseDialog extends AlertDialog {
-    private Unbinder bind;
+    protected OnConfirmListener onConfirmListener;
+    protected OnCancelListener onCancelListener;
 
 
     public BaseDialog(@NonNull Context context, int themeResId) {
@@ -60,5 +61,20 @@ public abstract class BaseDialog extends AlertDialog {
         getWindow().getDecorView().setPadding(0, 0, 0, 0);
         getWindow().setAttributes(layoutParams);
 
+    }
+
+    public interface OnConfirmListener {
+        void onConfirm();
+    }
+    public interface OnCancelListener {
+        void onCancel();
+    }
+
+    public void setOnConfirmListener(OnConfirmListener onConfirmListener) {
+        this.onConfirmListener = onConfirmListener;
+    }
+
+    public void setOnCancelListener(OnCancelListener onCancelListener) {
+        this.onCancelListener = onCancelListener;
     }
 }

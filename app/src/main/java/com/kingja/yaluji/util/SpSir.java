@@ -25,6 +25,7 @@ public class SpSir {
     private static final String City = "City";
     private static final String History_Keyword = "History_Keyword";
     private static final String EMPTY_STRING = "";
+    private static final String NO_SHOW = "NO_SHOW";
     private static SpSir mSpSir;
     private SharedPreferences mSp;
 
@@ -89,6 +90,10 @@ public class SpSir {
         return getInt(MsgCount, 0);
     }
 
+    public boolean getNoShow() {
+        return getBoolean(NO_SHOW, false);
+    }
+
     /*================================PUT================================*/
 
 
@@ -122,6 +127,10 @@ public class SpSir {
 
     public void putCity(String city) {
         putString(City, city);
+    }
+
+    public void putNoShow(boolean noShow) {
+        putBoolean(NO_SHOW, noShow);
     }
 
     public void addMsgCount() {
@@ -175,6 +184,14 @@ public class SpSir {
 
     private String getString(String key) {
         return mSp.getString(key, EMPTY_STRING);
+    }
+
+    private void putBoolean(String key, boolean value) {
+        mSp.edit().putBoolean(key, value).apply();
+    }
+
+    private boolean getBoolean(String key, boolean defaultValue) {
+        return mSp.getBoolean(key, defaultValue);
     }
 
     public void clearData() {

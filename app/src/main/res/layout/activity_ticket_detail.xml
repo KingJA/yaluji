@@ -432,19 +432,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="12dp"/>
 
-        <TextView
-            android:visibility="visible"
-            android:id="@+id/tv_detail_get"
-            android:gravity="center"
-            android:text="已领完"
-            style="@style/font_f_20"
-            android:background="@color/gray_hi"
-            android:layout_alignParentRight="true"
-            android:layout_width="132dp"
-            android:layout_height="match_parent"/>
-
      <LinearLayout
-         android:visibility="gone"
          android:id="@+id/ll_detail_get"
          android:orientation="vertical"
          android:gravity="center"
@@ -465,6 +453,7 @@
                  android:layout_height="15dp"/>
 
              <com.kingja.yaluji.view.StringTextView
+                 android:id="@+id/stv_confirm"
                  style="@style/font_f_17"
                  android:text="领券"
                  android:layout_width="wrap_content"

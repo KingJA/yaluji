@@ -42,6 +42,7 @@ import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 import com.kingja.yaluji.view.dialog.QuestionExplainDialog;
 import com.kingja.yaluji.view.dialog.QuestionFailDialog;
 import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
+import com.kingja.yaluji.view.dialog.TicketGetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -101,8 +102,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 //                new QuestionSuccessDialog(getActivity()).show();
                 break;
             case R.id.iv_question:
-                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
-//                new QuestionFailDialog(getActivity()).show();
+//                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
+                new TicketGetDialog(getActivity()).show();
                 break;
             default:
                 break;

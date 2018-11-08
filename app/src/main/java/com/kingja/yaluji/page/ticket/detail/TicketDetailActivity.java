@@ -10,10 +10,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
@@ -65,7 +65,8 @@ import butterknife.OnClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketDetailActivity extends BaseTitleActivity implements TicketDetailContract.View, BaseRvAdaper.OnItemClickListener<Visitor> {
+public class TicketDetailActivity extends BaseTitleActivity implements TicketDetailContract.View, BaseRvAdaper
+        .OnItemClickListener<Visitor> {
     @BindView(R.id.iv_detail_headImg)
     ImageView ivDetailHeadImg;
     @BindView(R.id.tv_detail_ticketName)
@@ -108,10 +109,12 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     StringTextView tvDetailBuyLimit;
     @Inject
     TicketDetailPresenter ticketDetailPresenter;
-    @BindView(R.id.tv_detail_get)
-    TextView tvDetailGet;
     @BindView(R.id.ll_detail_get)
     LinearLayout llDetailGet;
+    @BindView(R.id.rl_ticket_introduce)
+    RelativeLayout rlTicketIntroduce;
+    @BindView(R.id.stv_confirm)
+    StringTextView stvConfirm;
     private String productId;
     private String touristId;
     private List<Visitor> visitors = new ArrayList<>();
@@ -240,7 +243,8 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         idcodeNeed = ticketDetail.getIdcodeNeed();
         status = ticketDetail.getStatus();
         endTime = ticketDetail.getEndTime();
-        ImageLoader.getInstance().loadImage(this, ticketDetail.getHeadImg(), R.drawable.ic_placeholder, ivDetailHeadImg);
+        ImageLoader.getInstance().loadImage(this, ticketDetail.getHeadImg(), R.drawable.ic_placeholder,
+                ivDetailHeadImg);
         tvDetailTicketName.setString(ticketDetail.getTicketName());
         tvDetailMarketPrice.setString(ticketDetail.getMarketPrice());
         tvDetailBuyPrice.setString(ticketDetail.getBuyPrice());
@@ -261,22 +265,19 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     public void setTicketStatus() {
         switch (status) {
             case Status.SellStatus.SELLOUT:
-                tvDetailGet.setVisibility(View.VISIBLE);
-                llDetailGet.setVisibility(View.GONE);
-                tvDetailGet.setText("已领完");
+                llDetailGet.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_hi));
+                llDetailGet.setEnabled(false);
+                stvConfirm.setText("已领完");
                 break;
             case Status.SellStatus.OVER:
-                tvDetailGet.setVisibility(View.VISIBLE);
-                llDetailGet.setVisibility(View.GONE);
-                tvDetailGet.setText("已结束");
+                llDetailGet.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_hi));
+                llDetailGet.setEnabled(false);
+                stvConfirm.setText("已结束");
                 break;
             case Status.SellStatus.SELLING:
-                tvDetailGet.setVisibility(View.GONE);
-                llDetailGet.setVisibility(View.VISIBLE);
-                break;
-            default:
-                tvDetailGet.setVisibility(View.GONE);
-                llDetailGet.setVisibility(View.VISIBLE);
+                llDetailGet.setBackgroundResource(R.mipmap.bg_ticket_detail);
+                llDetailGet.setEnabled(true);
+                stvConfirm.setText("领取");
                 break;
         }
     }
@@ -287,9 +288,9 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
             @Override
             public void run() {
                 if (DateUtil.isOverDue(endTime)) {
-                    tvDetailGet.setVisibility(View.VISIBLE);
-                    llDetailGet.setVisibility(View.GONE);
-                    tvDetailGet.setText("已结束");
+                    llDetailGet.setBackgroundColor(ContextCompat.getColor(TicketDetailActivity.this, R.color.gray_hi));
+                    llDetailGet.setEnabled(false);
+                    stvConfirm.setText("已结束");
                     timer.cancel();
                 }
 
@@ -397,5 +398,12 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
             visitorTabAdapter.select(position);
             fillVisitorInfo(visitor);
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }
