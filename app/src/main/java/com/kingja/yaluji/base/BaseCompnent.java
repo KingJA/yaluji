@@ -23,6 +23,7 @@ import com.kingja.yaluji.page.search.result.SearchResultActivity;
 import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListActivity;
+import com.kingja.yaluji.page.ticket.success.TicketSuccessActivity;
 import com.kingja.yaluji.page.visitor.add.VisitorAddActivity;
 import com.kingja.yaluji.page.visitor.edit.VisitorEditActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
@@ -81,4 +82,6 @@ public interface BaseCompnent {
     void inject(QuestionListActivity target);
 
     void inject(QuestionDetailActivity target);
+
+    void inject(TicketSuccessActivity target);
 }

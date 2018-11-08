@@ -38,6 +38,10 @@ public class Constants {
         String ArticleId = "articleId";
         String Keyword = "keyword";
         String PaperId = "paperId";
+        String TicketName = "ticketName";
+        String BuyPrice = "buyPrice";
+        String VisitDate = "visitDate";
+        String Quantity = "quantity";
     }
 
     public static final int BG_GRADIENTS[] = {R.drawable.gradient_pink,

@@ -34,6 +34,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.TicketDetail;
 import com.kingja.yaluji.model.entiy.Visitor;
+import com.kingja.yaluji.page.ticket.success.TicketSuccessActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.page.visitor.prefect.VisitorPrefectActivity;
 import com.kingja.yaluji.util.DateUtil;
@@ -44,6 +45,8 @@ import com.kingja.yaluji.view.ChangeNumberView;
 import com.kingja.yaluji.view.DeleteTextView;
 import com.kingja.yaluji.view.RvItemDecoration;
 import com.kingja.yaluji.view.StringTextView;
+import com.kingja.yaluji.view.dialog.BaseDialog;
+import com.kingja.yaluji.view.dialog.TicketGetDialog;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -122,6 +125,10 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     private int idcodeNeed;
     private int status;
     private String endTime;
+    private TicketGetDialog ticketGetDialog;
+    private int buyPrice;
+    private String visitDate;
+    private String ticketName;
 
     @OnClick({R.id.rl_ticket_introduce, R.id.ll_detail_get})
     public void onclick(View view) {
@@ -173,9 +180,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     }
 
     private void sumbmitOrder() {
-        ticketDetailPresenter.sumbitOrder(productId, touristId, ccvTicketDetail.getNumber(), Constants
-                .PLATFORM_ANDROID);
-
+        ticketGetDialog.show();
     }
 
     private void showPrefectDialog() {
@@ -229,6 +234,10 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     @Override
     protected void initData() {
         visitorTabAdapter.setOnItemClickListener(this);
+        ticketGetDialog = new TicketGetDialog(this);
+        ticketGetDialog.setOnConfirmListener(() -> ticketDetailPresenter.sumbitOrder(productId, touristId,
+                ccvTicketDetail.getNumber(), Constants
+                        .PLATFORM_ANDROID));
     }
 
     @Override
@@ -243,13 +252,17 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         idcodeNeed = ticketDetail.getIdcodeNeed();
         status = ticketDetail.getStatus();
         endTime = ticketDetail.getEndTime();
+        buyPrice = ticketDetail.getBuyPrice();
+        visitDate = ticketDetail.getVisitDate();
+        ticketName = ticketDetail.getTicketName();
+
         ImageLoader.getInstance().loadImage(this, ticketDetail.getHeadImg(), R.drawable.ic_placeholder,
                 ivDetailHeadImg);
-        tvDetailTicketName.setString(ticketDetail.getTicketName());
+        tvDetailTicketName.setString(ticketName);
         tvDetailMarketPrice.setString(ticketDetail.getMarketPrice());
-        tvDetailBuyPrice.setString(ticketDetail.getBuyPrice());
-        tvDetailVisitDate.setString(ticketDetail.getVisitDate());
-        tvDetailBuyPriceSmall.setString(ticketDetail.getBuyPrice());
+        tvDetailBuyPrice.setString(buyPrice);
+        tvDetailVisitDate.setString(visitDate);
+        tvDetailBuyPriceSmall.setString(buyPrice);
         tvDetailAreaText.setString(ticketDetail.getAreaText());
         tvDetailVisitTime.setString(ticketDetail.getVisitTime());
         tvDetailVisitMethod.setString(ticketDetail.getVisitMethod());
@@ -345,7 +358,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
 
     @Override
     public void onSumbitOrderSuccess(OrderResult orderResult) {
-        ToastUtil.showText("领取成功");
+        TicketSuccessActivity.goActivity(this,ticketName,String.valueOf(buyPrice),visitDate,String.valueOf(ccvTicketDetail.getNumber()));
     }
 
     @Override
@@ -400,10 +413,4 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         }
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
 }

@@ -40,6 +40,7 @@
         <activity android:name=".activity.SearchDetailActivity"/>
         <activity android:name=".page.search.question.list.QuestionListActivity"/>
         <activity android:name=".page.answer.QuestionDetailActivity"/>
+        <activity android:name=".page.ticket.success.TicketSuccessActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
     </application>

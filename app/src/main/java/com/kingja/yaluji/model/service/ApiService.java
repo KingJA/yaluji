@@ -235,7 +235,6 @@ public interface ApiService {
     Observable<HttpResult<QuestionDetail>> getQuestionDetail(@Field("paperId") String paperId);
 
 
-
     /*提交答案*/
     @POST("/app/paper/submitAnswer")
     Observable<HttpResult<AnswerResult>> submitAnswer(@Body RequestBody requestBody);
@@ -244,6 +243,10 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/app/paper/reborn")
     Observable<HttpResult<Object>> reLife(@Field("paperId") String paperId);
+
+    /*获取推荐列表*/
+    @POST("/app/product/recommend")
+    Observable<HttpResult<List<Ticket>>> getRecommendList();
     //=================================================================================
 
 

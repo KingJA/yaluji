@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.kingja.supershapeview.view.SuperShapeLinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:super_strokeColor="@color/gray_hi"
+    app:super_solidColor="@color/white_hi"
+    app:super_strokeWidth="1px">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:scaleType="centerCrop"
+            android:id="@+id/iv_headImg"
+            android:layout_width="match_parent"
+            android:layout_height="126dp"/>
+
+        <LinearLayout
+            android:layout_width="40dp"
+            android:layout_height="37dp"
+            android:background="@mipmap/bg_ticket_tag"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <TextView
+                style="@style/font_f_10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="优惠券"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    style="@style/font_f_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_buyPrice_tag"
+                    style="@style/font_f_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="10dp"
+        android:paddingLeft="6dp"
+        android:paddingRight="6dp"
+        android:paddingTop="10dp">
+
+        <com.kingja.yaluji.view.StringTextView
+            android:lines="2"
+            android:id="@+id/tv_ticketName"
+            style="@style/font_3_13"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="标题标题标题标题标题标题标题"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--限抢-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="限抢"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_buyLimit"
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="张"/>
+            </LinearLayout>
+            <!--已抢-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:gravity="center_vertical">
+
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="已抢"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_sellCount"
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="/"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_totalCount"
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="张"/>
+            </LinearLayout>
+        </RelativeLayout>
+
+        <View
+            style="@style/div_hor_gray"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="6dp"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <!--限抢-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:text="门市价"/>
+
+                <com.kingja.yaluji.view.DeleteTextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"/>
+
+                <com.kingja.yaluji.view.DeleteTextView
+                    android:id="@+id/tv_marketPrice"
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:text="0"/>
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="元"/>
+            </LinearLayout>
+            <!--已抢-->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true">
+
+
+                <TextView
+                    style="@style/font_6_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="可抵扣"/>
+
+                <TextView
+                    style="@style/font_orange_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="¥"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    android:id="@+id/tv_tv_buyPrice"
+                    style="@style/font_orange_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+
+</com.kingja.supershapeview.view.SuperShapeLinearLayout>
