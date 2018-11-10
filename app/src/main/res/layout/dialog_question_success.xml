@@ -10,34 +10,151 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingBottom="24dp"
         android:layout_marginTop="16dp"
         android:background="@drawable/shape_r8_white"
         android:gravity="center_horizontal"
         android:orientation="vertical"
+        android:paddingBottom="24dp"
         android:paddingTop="50dp">
 
         <TextView
-            android:id="@+id/tv_ticketMoney"
-            android:textStyle="bold"
+            android:id="@+id/tv_ticketTitle"
             style="@style/font_3_13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
             android:layout_marginTop="10dp"
-            android:text="获取10元抵用券一张"/>
+            android:text="获取10元抵用券一张"
+            android:textStyle="bold"/>
 
         <ImageView
             android:layout_width="206dp"
             android:layout_height="116dp"
             android:background="@mipmap/bg_question_success_body"/>
 
+        <!--游客相关-->
+        <LinearLayout
+            android:layout_width="220dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="12dp">
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_9_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="需"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_orange_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1位"/>
+
+                <com.kingja.yaluji.view.StringTextView
+                    style="@style/font_9_10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="位出行游客信息，用于入园身份验证"/>
+            </LinearLayout>
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_tourist"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:id="@+id/ssll_visitor_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="12dp"
+                android:paddingTop="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.kingja.yaluji.view.StringTextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="姓名"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_visitor_name"
+                        style="@style/font_3_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text=""/>
+                </LinearLayout>
+
+                <View
+                    style="@style/div_hor_gray"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.kingja.yaluji.view.StringTextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="手机号"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_visitor_phone"
+                        style="@style/font_3_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text=""/>
+                </LinearLayout>
+
+                <View
+                    style="@style/div_hor_gray"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <com.kingja.yaluji.view.StringTextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="身份证号"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_visitor_idcode"
+                        style="@style/font_3_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:text=""/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </LinearLayout>
+
         <com.kingja.supershapeview.view.SuperShapeTextView
-            android:layout_marginTop="20dp"
             android:id="@+id/stv_get_ticket"
             style="@style/font_f_13"
             android:layout_width="200dp"
             android:layout_height="40dp"
+            android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="立即领取"
             app:super_cornerRadius="20dp"

@@ -86,7 +86,6 @@ public class PersonalActivity extends BaseTitleActivity implements PersonalContr
     }
 
     public void checkPhotoPermission() {
-
         Disposable disposable = rxPermissions.requestEach(Manifest.permission.READ_EXTERNAL_STORAGE)
                 .subscribe(new Consumer<Permission>() {
                     @Override

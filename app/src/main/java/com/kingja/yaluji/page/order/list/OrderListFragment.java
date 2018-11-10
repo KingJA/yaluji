@@ -13,8 +13,10 @@ import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
+import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.util.LoginChecker;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -83,6 +85,17 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         srl.setProgressViewEndTarget(true, AppUtil.dp2px(60));
         mOrderAdapter = new OrderAdapter(getActivity(), orderList);
         lv.setAdapter(mOrderAdapter);
+        mOrderAdapter.setOnItemOperateListener(new OrderAdapter.OnItemOperateListener() {
+            @Override
+            public void onDelete(int position, String orderId) {
+                orderListPresenter.deleteOrder(position, orderId);
+            }
+
+            @Override
+            public void onItemClick(String orderId) {
+                OrderDetailActivity.goActivity(getActivity(),orderId);
+            }
+        });
     }
 
 
@@ -122,6 +135,11 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         } else {
             showEmptyCallback();
         }
+    }
+
+    @Override
+    public void onDeleteOrderSuccess(int position) {
+        mOrderAdapter.removeItem(position);
     }
 
     @Override

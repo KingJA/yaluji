@@ -13,7 +13,7 @@ public class QuestionDetail {
     /**
      * questionCount : 2
      * userCorrectCount : 1
-     * paperQuestion : {"id":"665294762d724e5b9d1df3b3ceb6a37e","paperId":"a43d98c1bf314582b681b0f3a9f9f9ac",
+     * paperQuestion : {"id":"665294762d724e5b9d1df3b3ceb6a37e","PaperId":"a43d98c1bf314582b681b0f3a9f9f9ac",
      * "title":"问题2"}
      * correctCount : 8
      * questionItems : [{"id":"1524122492e64ab494005c7a83253d8e","questionId":"665294762d724e5b9d1df3b3ceb6a37e",
@@ -73,7 +73,7 @@ public class QuestionDetail {
     public static class PaperQuestion {
         /**
          * id : 665294762d724e5b9d1df3b3ceb6a37e
-         * paperId : a43d98c1bf314582b681b0f3a9f9f9ac
+         * PaperId : a43d98c1bf314582b681b0f3a9f9f9ac
          * title : 问题2
          */
 

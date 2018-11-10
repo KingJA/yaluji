@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kingja.yaluji.R;
@@ -23,25 +23,19 @@ import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.model.entiy.LunBoTu;
-import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.page.article.list.ArticleListActivity;
+import com.kingja.yaluji.page.message.MsgActivity;
 import com.kingja.yaluji.page.search.question.list.QuestionListActivity;
 import com.kingja.yaluji.page.search.result.SearchResultActivity;
-import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListActivity;
-import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.NoDoubleClickListener;
-import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
-import com.kingja.yaluji.view.dialog.QuestionExplainDialog;
-import com.kingja.yaluji.view.dialog.QuestionFailDialog;
-import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
 import com.kingja.yaluji.view.dialog.TicketGetDialog;
 
 import java.util.ArrayList;
@@ -86,12 +80,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     @BindView(R.id.rsl)
     RefreshSwipeRefreshLayout rsl;
     Unbinder unbinder;
+    @BindView(R.id.rl_msg)
+    RelativeLayout rlMsg;
+    Unbinder unbinder1;
     private CommonAdapter adapter;
     private List<ArticleSimpleItem> articleSimpleItemList = new ArrayList<>();
     private List<LunBoTu> lunBoTuList = new ArrayList<>();
     private List<View> points = new ArrayList<>();
 
-    @OnClick({R.id.iv_article, R.id.iv_ticket, R.id.iv_question})
+    @OnClick({R.id.iv_article, R.id.iv_ticket, R.id.iv_question, R.id.rl_msg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_article:
@@ -99,11 +96,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 break;
             case R.id.iv_ticket:
                 GoUtil.goActivity(getActivity(), TicketListActivity.class);
-//                new QuestionSuccessDialog(getActivity()).show();
                 break;
             case R.id.iv_question:
-//                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
-                new TicketGetDialog(getActivity()).show();
+                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
+                break;
+            case R.id.rl_msg:
+                LoginChecker.goActivity(getActivity(), MsgActivity.class);
                 break;
             default:
                 break;
@@ -209,6 +207,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     private void initDot(List<LunBoTu> lunBoTuList) {
         for (int i = 0; i < lunBoTuList.size(); i++) {
             View view = new View(getActivity());
+            view.setLayoutParams(new LinearLayout.LayoutParams(AppUtil.dp2px(10), AppUtil.dp2px(10)));
             if (i == 0) {
                 view.setBackgroundResource(R.mipmap.ic_dot_sel);
             } else {
@@ -263,6 +262,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     @Override
     public void onRefresh() {
         rsl.setRefreshing(false);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder1 = ButterKnife.bind(this, rootView);
+        return rootView;
     }
 
     class AutoRannable implements Runnable {

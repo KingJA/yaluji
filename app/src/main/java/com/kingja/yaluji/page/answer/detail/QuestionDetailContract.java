@@ -1,4 +1,4 @@
-package com.kingja.yaluji.page.answer;
+package com.kingja.yaluji.page.answer.detail;
 
 
 import com.kingja.yaluji.base.BasePresenter;

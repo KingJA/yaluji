@@ -244,9 +244,27 @@ public interface ApiService {
     @POST("/app/paper/reborn")
     Observable<HttpResult<Object>> reLife(@Field("paperId") String paperId);
 
+    /*删除订单*/
+    @FormUrlEncoded
+    @POST("/app/order/deleteOrder")
+    Observable<HttpResult<Object>> deleteOrder(@Field("orderId") String orderId);
+
     /*获取推荐列表*/
     @POST("/app/product/recommend")
     Observable<HttpResult<List<Ticket>>> getRecommendList();
+
+
+    /*我要反馈*/
+    @POST("/app/feedback/addFeedback")
+    Observable<HttpResult<Object>> sendFeedback(@Body RequestBody requestBody);
+
+    /*我要合作*/
+    @POST("/app/cooperate/addCooperate")
+    Observable<HttpResult<Object>> doBusiness(@Body RequestBody requestBody);
+
+    /*领取成功补全游客信息*/
+    @POST("/app/paper/completeTourist")
+    Observable<HttpResult<Object>> prefectVisitor(@Body RequestBody requestBody);
     //=================================================================================
 
 

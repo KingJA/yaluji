@@ -76,11 +76,12 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     @Override
     public void onError(Throwable e) {
         //记录错误
-        LogUtil.e(TAG, "【网络错误onServerError】: " + e.toString());
+        LogUtil.e(TAG, "【错误onServerError】: " + e.toString());
         onServerError(e);
     }
 
     protected void onServerError(Throwable e) {
+        LogUtil.e(TAG, "【网络错误onServerError】: " + e.toString());
         ToastUtil.showText("服务器开小差");
         baseView.hideLoading();
     }

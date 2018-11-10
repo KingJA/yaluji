@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            android:id="@+id/tv_msg_title"
+            style="@style/font_3_16"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="折现问题通知"/>
+
+        <TextView
+            android:id="@+id/tv_msg_date"
+            style="@style/font_9_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="2018-02-15"/>
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <TextView
+        android:id="@+id/tv_msg_content"
+        style="@style/font_6_13"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        android:text="关于元旦促销活动的通知集团各商场市场部: 一年一度的元旦节即将来临, 集团将开展面对消费者的促销活动"/>
+</LinearLayout>

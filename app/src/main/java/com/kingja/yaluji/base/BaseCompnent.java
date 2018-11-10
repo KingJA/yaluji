@@ -4,13 +4,17 @@ package com.kingja.yaluji.base;
 import com.kingja.yaluji.injector.annotation.PerActivity;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.injector.module.ActivityModule;
-import com.kingja.yaluji.page.answer.QuestionDetailActivity;
+import com.kingja.yaluji.page.answer.detail.QuestionDetailActivity;
+import com.kingja.yaluji.page.answer.success.AnswerSuccessActivity;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.page.article.list.ArticleListActivity;
+import com.kingja.yaluji.page.business.BusinessDetailActivity;
+import com.kingja.yaluji.page.feedback.FeedbackActivity;
 import com.kingja.yaluji.page.forgetpassword.ForgetPasswordActivity;
 import com.kingja.yaluji.page.headimg.PersonalActivity;
 import com.kingja.yaluji.page.home.HomeFragment;
 import com.kingja.yaluji.page.login.LoginActivity;
+import com.kingja.yaluji.page.message.MsgActivity;
 import com.kingja.yaluji.page.modifynickname.ModifyNicknameActivity;
 import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
 import com.kingja.yaluji.page.order.list.OrderListFragment;
@@ -29,6 +33,7 @@ import com.kingja.yaluji.page.visitor.edit.VisitorEditActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.page.visitor.prefect.VisitorPrefectActivity;
 import com.kingja.yaluji.service.initialize.InitializeService;
+import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
 
 import dagger.Component;
 
@@ -84,4 +89,15 @@ public interface BaseCompnent {
     void inject(QuestionDetailActivity target);
 
     void inject(TicketSuccessActivity target);
+
+    void inject(FeedbackActivity target);
+
+    void inject(BusinessDetailActivity target);
+
+    void inject(MsgActivity target);
+
+    void inject(QuestionSuccessDialog target);
+
+    void inject(AnswerSuccessActivity target);
+
 }

@@ -1,17 +1,19 @@
-package com.kingja.yaluji.page.answer;
+package com.kingja.yaluji.page.answer.detail;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.page.answer.success.AnswerSuccessActivity;
 import com.kingja.yaluji.adapter.AnswerAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
+import com.kingja.yaluji.event.RefreshQuestionEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Answer;
 import com.kingja.yaluji.model.entiy.AnswerResult;
@@ -21,6 +23,8 @@ import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.StringTextView;
 import com.kingja.yaluji.view.dialog.QuestionFailDialog;
 import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +53,8 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
     StringTextView tvCurrentPosition;
     @BindView(R.id.tv_totalCount)
     StringTextView tvTotalCount;
+    @BindView(R.id.tv_time)
+    StringTextView tvTime;
     private String paperId;
     @Inject
     QuestionDetailPresenter questionDetailPresenter;
@@ -56,6 +62,8 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
     private AnswerAdapter answerAdapter;
     private QuestionFailDialog failDialog;
     private QuestionSuccessDialog successDialog;
+    private DeadTime deadTime;
+    private String questionId;
 
 
     @OnItemClick(R.id.flv)
@@ -104,21 +112,7 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Override
     protected void initData() {
-        failDialog = new QuestionFailDialog(this);
-        failDialog.setOnCancelListener(dialogInterface -> {
-            finish();
-            //刷新问题列表
-            ToastUtil.showText("刷新问题列表");
-
-        });
-        successDialog = new QuestionSuccessDialog(this);
-        successDialog.setOnCancelListener(dialogInterface -> {
-            finish();
-            //刷新问题列表
-            ToastUtil.showText("刷新问题列表");
-
-        });
-
+        startDeedTime();
     }
 
     @Override
@@ -134,9 +128,12 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Override
     public void onGetQuestionDetailSuccess(QuestionDetail questionDetail) {
+        stopDeedTime();
+
         if (questionDetail != null) {
             QuestionDetail.PaperQuestion paperQuestion = questionDetail.getPaperQuestion();
             if (paperQuestion != null) {
+                questionId = paperQuestion.getId();
                 tvQuestionTitle.setString(String.format("%d.%s", questionDetail.getQuestionCount(), paperQuestion
                         .getTitle()));
             }
@@ -146,24 +143,83 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
             }
             tvCurrentPosition.setString(questionDetail.getQuestionCount());
             tvTotalCount.setString(questionDetail.getCorrectCount());
+            startDeedTime();
         }
 
     }
 
     @Override
     public void onSubmitAnswerSuccess(AnswerResult answerResult) {
+        stopDeedTime();
         switch (answerResult.getCorrectStatus()) {
             case Status.AnswerResult.RIGHT:
                 questionDetailPresenter.getQuestionDetail(paperId);
                 break;
             case Status.AnswerResult.WRONG:
+                failDialog = new QuestionFailDialog(this, answerResult.getRebornTimes());
+                failDialog.setOnCancelListener(dialogInterface -> {
+                    finish();
+                    //刷新问题列表
+                    EventBus.getDefault().post(new RefreshQuestionEvent());
+                });
                 failDialog.show();
                 break;
             case Status.AnswerResult.SUCCESS:
+                successDialog = new QuestionSuccessDialog(this, answerResult.getCouponAmount(), String.valueOf
+                        (answerResult.getCouponLimit()));
+                successDialog.setOnCancelListener(dialogInterface -> {
+                    finish();
+                    EventBus.getDefault().post(new RefreshQuestionEvent());
+                });
+                successDialog.setOnVisitorSelectedListener(touristId -> {
+                    AnswerSuccessActivity.goActivity(QuestionDetailActivity.this, answerResult.getCouponName(),
+                            String.valueOf(answerResult.getCouponLimit()), answerResult.getCouponAmount(),
+                            answerResult.getCouponPeriod(), paperId, touristId);
+                });
                 successDialog.show();
                 break;
+            case Status.AnswerResult.NO_RELIFE:
+                ToastUtil.showText("复活次数超过3次");
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopDeedTime();
+    }
+
+    private void stopDeedTime() {
+        if (deadTime != null) {
+            deadTime.cancel();
+        }
+    }
+
+    private void startDeedTime() {
+        deadTime = new DeadTime(Constants.DEAD_TIME);
+        deadTime.start();
+    }
+
+    public class DeadTime extends CountDownTimer {
+        public DeadTime(int count) {
+            super(count * 1000 + 50, 1000);
+        }
+
+        @Override
+        public void onTick(long millisUntilFinished) {
+            tvTime.setText(Math.round((double) millisUntilFinished / 1000) + "");
+        }
+
+        @Override
+        public void onFinish() {
+            tvTime.setText("0");
+            questionDetailPresenter.submitAnswer(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("questionId", questionId)
+                    .addFormDataPart("itemId", "0")
+                    .addFormDataPart("from", "android")
+                    .build());
         }
 
     }
-
 }

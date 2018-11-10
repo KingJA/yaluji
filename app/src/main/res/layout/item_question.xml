@@ -61,11 +61,11 @@
 
         </LinearLayout>
 
-        <com.kingja.supershapeview.view.SuperShapeTextView
-            android:id="@+id/stv_question_btn"
+
+        <TextView
+            android:id="@+id/tv_question_btn"
             style="@style/font_orange_13"
-            app:super_cornerRadius="16dp"
-            app:super_solidColor="@color/white_hi"
+            android:background="@drawable/shape_r16_white"
             android:paddingLeft="12dp"
             android:paddingRight="12dp"
             android:gravity="center_vertical"

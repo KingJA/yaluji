@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
-        <activity android:name=".HomeActivity">
+        <activity android:name=".activity.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
@@ -34,15 +34,40 @@
         <activity android:name=".page.visitor.prefect.VisitorPrefectActivity"/>
         <activity android:name=".page.ticket.list.TicketListActivity"/>
         <activity android:name=".page.article.list.ArticleListActivity"/>
-        <activity android:name=".page.ticket.detail.TicketDetailActivity"/>
+        <activity
+            android:name=".page.ticket.detail.TicketDetailActivity"
+            android:launchMode="singleTask"/>
         <activity android:name=".page.article.detail.ArticleDetailActivity"/>
         <activity android:name=".page.search.result.SearchResultActivity"/>
         <activity android:name=".activity.SearchDetailActivity"/>
-        <activity android:name=".page.search.question.list.QuestionListActivity"/>
-        <activity android:name=".page.answer.QuestionDetailActivity"/>
+        <activity
+            android:name=".page.search.question.list.QuestionListActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name=".page.answer.detail.QuestionDetailActivity"/>
         <activity android:name=".page.ticket.success.TicketSuccessActivity"/>
+        <activity android:name=".page.order.orderdetail.OrderDetailActivity"/>
+        <activity android:name=".page.feedback.FeedbackActivity"/>
+        <activity android:name=".page.business.BusinessActivity"/>
+        <activity android:name=".page.business.BusinessDetailActivity"/>
+        <activity android:name=".HomeActivity"/>
+        <activity android:name=".page.message.MsgActivity"/>
+        <activity android:name=".activity.MsgDetailActivity"/>
+        <activity android:name=".page.answer.success.AnswerSuccessActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
+
+        <!--7.0apk安装-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.kingja.yaluji.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <!--元数据-->
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/apk_path"/>
+        </provider>
+
     </application>
 
 </manifest>

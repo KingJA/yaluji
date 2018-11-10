@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:gravity="center_vertical"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <include layout="@layout/layout_ticket_success"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="12dp"
+        android:layout_marginRight="12dp"
+        android:layout_marginTop="32dp"
+        android:orientation="horizontal">
+
+        <com.kingja.supershapeview.view.SuperShapeTextView
+            android:id="@+id/stv_share"
+            style="@style/font_f_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/stv_provider"
+            android:layout_gravity="end"
+            android:layout_marginRight="24dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="炫耀战绩"
+            app:super_cornerRadius="40dp"
+            app:super_solidColor="@color/orange_hi"/>
+
+        <com.kingja.supershapeview.view.SuperShapeTextView
+            android:id="@+id/stv_backToList"
+            style="@style/font_f_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_above="@id/stv_provider"
+            android:layout_gravity="end"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:padding="8dp"
+            android:text="返回答题"
+            app:super_cornerRadius="40dp"
+            app:super_solidColor="@color/green_hi"/>
+    </LinearLayout>
+</LinearLayout>

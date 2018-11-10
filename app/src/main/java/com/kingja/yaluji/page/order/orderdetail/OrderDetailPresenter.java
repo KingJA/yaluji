@@ -18,18 +18,18 @@ import io.reactivex.schedulers.Schedulers;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketDetailPresenter implements TicketDetailContract.Presenter {
+public class OrderDetailPresenter implements OrderDetailContract.Presenter {
     private UserApi mApi;
-    private TicketDetailContract.View mView;
+    private OrderDetailContract.View mView;
 
 
     @Inject
-    public TicketDetailPresenter(UserApi mApi) {
+    public OrderDetailPresenter(UserApi mApi) {
         this.mApi = mApi;
     }
 
     @Override
-    public void attachView(@NonNull TicketDetailContract.View view) {
+    public void attachView(@NonNull OrderDetailContract.View view) {
         this.mView = view;
     }
 

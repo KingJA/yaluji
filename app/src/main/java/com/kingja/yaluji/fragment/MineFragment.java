@@ -19,8 +19,11 @@ import com.kingja.yaluji.event.RefreshNicknameEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.page.business.BusinessActivity;
+import com.kingja.yaluji.page.feedback.FeedbackActivity;
 import com.kingja.yaluji.page.headimg.PersonalActivity;
 import com.kingja.yaluji.page.login.LoginActivity;
+import com.kingja.yaluji.page.message.MsgActivity;
 import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.util.GoUtil;
@@ -45,7 +48,7 @@ import cn.jpush.android.api.JPushInterface;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class MineFragment extends BaseFragment  {
+public class MineFragment extends BaseFragment {
 
     @BindView(R.id.iv_mine_head)
     SuperShapeImageView ivMineHead;
@@ -107,7 +110,7 @@ public class MineFragment extends BaseFragment  {
             //未登录
             tvQuit.setVisibility(View.GONE);
             tvNickname.setText("注册/登录");
-            ivMineHead.setImageResource(R.mipmap.ic_logo);
+            ivMineHead.setImageResource(R.mipmap.ic_launcher);
             llMinePersonal.setOnClickListener(v -> {
                 GoUtil.goActivity(getActivity(), LoginActivity.class);
             });
@@ -117,7 +120,7 @@ public class MineFragment extends BaseFragment  {
     @Override
     protected void initNet() {
 //        VersionUpdateSir.getInstance(getActivity()).checkUpdate();
-        Logger.d("RegistrationID:"+ JPushInterface.getRegistrationID(getActivity()));
+        Logger.d("RegistrationID:" + JPushInterface.getRegistrationID(getActivity()));
     }
 
     @Override
@@ -127,12 +130,12 @@ public class MineFragment extends BaseFragment  {
 
 
     @OnClick({R.id.iv_mine_msg, R.id.rl_mine_visitor, R.id.rl_mine_personal, R.id.rl_mine_password, R.id
-            .rl_mine_contract, R.id.tv_quit})
+            .rl_mine_contract, R.id.tv_quit, R.id.rl_mine_feedback, R.id.rl_mine_business})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_mine_msg:
                 //消息列表
-//                LoginChecker.goActivity(getActivity(), MsgActivity.class);
+                LoginChecker.goActivity(getActivity(), MsgActivity.class);
                 break;
             case R.id.rl_mine_visitor:
                 //游客信息
@@ -149,6 +152,14 @@ public class MineFragment extends BaseFragment  {
             case R.id.rl_mine_contract:
                 //联系我们
                 GoUtil.goActivity(getActivity(), ContactUsActivity.class);
+                break;
+            case R.id.rl_mine_business:
+                //我要合作
+                LoginChecker.goActivity(getActivity(), BusinessActivity.class);
+                break;
+            case R.id.rl_mine_feedback:
+                //我要反馈
+                LoginChecker.goActivity(getActivity(), FeedbackActivity.class);
                 break;
             case R.id.tv_quit:
                 //退出登录

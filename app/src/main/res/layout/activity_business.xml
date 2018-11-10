@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@mipmap/bg_business"
+                android:orientation="vertical">
+
+
+    <com.kingja.supershapeview.view.SuperShapeTextView
+        android:layout_marginBottom="64dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/stv_provider"
+        style="@style/font_f_18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="供应商合作"
+        app:super_solidColor="@color/green_hi"
+        app:super_cornerRadius="40dp"/>
+
+
+    <com.kingja.supershapeview.view.SuperShapeTextView
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="24dp"
+        android:layout_above="@id/stv_provider"
+        android:id="@+id/stv_advertisement"
+        style="@style/font_f_18"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="end"
+        android:gravity="center"
+        android:padding="8dp"
+        android:text="广告合作"
+        app:super_solidColor="@color/orange_hi"
+        app:super_cornerRadius="40dp"/>
+
+</RelativeLayout>

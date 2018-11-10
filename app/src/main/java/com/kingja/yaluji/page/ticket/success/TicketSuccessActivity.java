@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,6 +17,7 @@ import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.view.FixedGridView;
 
@@ -27,6 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.OnItemClick;
 
 /**
  * Description:TODO
@@ -58,6 +61,12 @@ public class TicketSuccessActivity extends BaseTitleActivity implements TicketSu
     TicketSuccessPresenter ticketSuccessPresenter;
     private List<Ticket> ticketList = new ArrayList<>();
     private TicketGvAdapter ticketGvAdapter;
+
+    @OnItemClick(R.id.fgv)
+    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
+        Ticket ticket = (Ticket) parent.getItemAtPosition(position);
+        TicketDetailActivity.goActivity(this, ticket.getId());
+    }
 
     @OnClick({R.id.tv_backToList})
     public void onViewClicked(View view) {

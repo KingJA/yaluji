@@ -2,6 +2,7 @@ package com.kingja.yaluji.adapter;
 
 import android.content.Context;
 import android.support.v4.view.PagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -46,6 +47,9 @@ public class LunBoTuPageAdapter extends PagerAdapter {
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = lunBoTuList.get(position % lunBoTuList.size());
+        if(imageView.getParent()!=null){
+            ((ViewPager)imageView.getParent()).removeView(imageView);
+        }
         container.addView(imageView);
         return imageView;
     }

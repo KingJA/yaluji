@@ -51,4 +51,16 @@ public class OrderListPresenter implements OrderListContract.Presenter {
                     }
                 });
     }
+
+    @Override
+    public void deleteOrder(int position, String orderId) {
+        mApi.getApiService().deleteOrder(orderId).subscribeOn(Schedulers.io()).observeOn
+                (AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onDeleteOrderSuccess(position);
+                    }
+                });
+    }
 }

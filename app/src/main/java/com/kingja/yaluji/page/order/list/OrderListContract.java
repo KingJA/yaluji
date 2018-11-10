@@ -16,10 +16,12 @@ import java.util.List;
 public interface OrderListContract {
     interface View extends BaseView {
         void onGetTicketListSuccess(List<Order> orders);
+        void onDeleteOrderSuccess(int position);
     }
 
     interface Presenter extends BasePresenter<View> {
         void getTicketList(Integer page, Integer pageSize, Integer status);
+        void deleteOrder(int position,String orderId);
 
     }
 }

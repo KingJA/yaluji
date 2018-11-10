@@ -1,9 +1,11 @@
-package com.kingja.yaluji.page.order.orderdetail;
+package com.kingja.yaluji.page.visitor.single;
 
 
 import com.kingja.yaluji.base.BasePresenter;
 import com.kingja.yaluji.base.BaseView;
-import com.kingja.yaluji.model.entiy.OrderDetail;
+import com.kingja.yaluji.model.entiy.Visitor;
+
+import java.util.List;
 
 /**
  * Description：TODO
@@ -11,13 +13,13 @@ import com.kingja.yaluji.model.entiy.OrderDetail;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface TicketDetailContract {
+public interface VisitorSingleContract {
     interface View extends BaseView {
-        void onGetOrderDetailSuccess(OrderDetail orderDetail);
+        void onGetVisitorsSuccess(List<Visitor> visitors);
+
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getOrderDetail(String orderId);
-
+        void getVisitors(Integer page, Integer pageSize);
     }
 }

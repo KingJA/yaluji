@@ -15,6 +15,7 @@ public class Constants {
     public static final int PAGE_SIZE_5 = 5;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;
+    public static final int DEAD_TIME = 60;
     public static final int ORDER_STATUS_UNUSED = 1;
     public static final int ORDER_STATUS_ALL = 3;
     public static final String APPLICATION_NAME = "KingJA_SP";
@@ -37,11 +38,14 @@ public class Constants {
         String FromTitketDetail = "FromTitketDetail";
         String ArticleId = "articleId";
         String Keyword = "keyword";
-        String PaperId = "paperId";
+        String PaperId = "PaperId";
         String TicketName = "ticketName";
         String BuyPrice = "buyPrice";
         String VisitDate = "visitDate";
         String Quantity = "quantity";
+        String OrderId = "orderId";
+        String BusinessType = "businessType";
+        String TouristId = "touristId";
     }
 
     public static final int BG_GRADIENTS[] = {R.drawable.gradient_pink,

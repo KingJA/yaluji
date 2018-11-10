@@ -3,11 +3,10 @@ package com.kingja.yaluji.view.dialog;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.view.View;
+import android.widget.TextView;
 
 import com.kingja.supershapeview.view.SuperShapeLinearLayout;
 import com.kingja.yaluji.R;
-import com.kingja.yaluji.activity.SearchDetailActivity;
-import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.ToastUtil;
 
 import butterknife.BindView;
@@ -22,12 +21,18 @@ import butterknife.OnClick;
 public class QuestionFailDialog extends BaseDialog {
     @BindView(R.id.sll_shape)
     SuperShapeLinearLayout sllShape;
+    @BindView(R.id.tv_rebornTimes)
+    TextView tvRebornTimes;
+    private int rebornTimes;
 
-    public QuestionFailDialog(@NonNull Context context) {
+
+    public QuestionFailDialog(@NonNull Context context,int rebornTimes) {
         super(context);
+        this.rebornTimes = rebornTimes;
         setCancelable(true);
         setCanceledOnTouchOutside(true);
     }
+
     @OnClick({R.id.sll_shape})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -46,7 +51,7 @@ public class QuestionFailDialog extends BaseDialog {
 
     @Override
     protected void initView() {
-
+        tvRebornTimes.setText(String.valueOf(rebornTimes));
     }
 
     @Override

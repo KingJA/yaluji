@@ -68,7 +68,6 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     public void initVariable() {
-        startService(new Intent(this, InitializeService.class));
     }
 
 

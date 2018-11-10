@@ -11,117 +11,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <!--领取成功-->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="202dp"
-            android:background="@mipmap/bg_get_ticket"
-            android:gravity="center_horizontal"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tv_ticketName"
-                style="@style/font_f_17"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                android:layout_marginTop="24dp"
-                android:gravity="center"
-                android:text="雁荡山门票7折"/>
-
-            <RelativeLayout
-                android:layout_width="272dp"
-                android:layout_height="100dp"
-                android:background="@mipmap/bg_ticket_body">
-
-                <LinearLayout
-                    android:gravity="center"
-                    android:orientation="vertical"
-                    android:id="@+id/ll_getSuccess"
-                    android:layout_width="100dp"
-                    android:layout_height="100dp"
-                    android:layout_alignParentRight="true"
-                    android:background="@mipmap/bg_ticket_right">
-
-                    <TextView
-                        android:layout_marginBottom="4dp"
-                        style="@style/font_f_18"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="领取成功"/>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/font_f_12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="数量:"/>
-
-                        <TextView
-                            android:id="@+id/tv_quantity"
-                            style="@style/font_f_12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="1"/>
-
-                        <TextView
-                            style="@style/font_f_12"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="张"/>
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="172dp"
-                    android:layout_height="match_parent"
-                    android:layout_toLeftOf="@id/ll_getSuccess"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <TextView
-                            style="@style/font_red_18"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="4dp"
-                            android:text="¥"/>
-
-                        <TextView
-                            android:id="@+id/tv_buyPrice"
-                            style="@style/font_red_33"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="20"/>
-                    </LinearLayout>
-
-                    <TextView
-                        style="@style/font_9_13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="6dp"
-                        android:layout_marginTop="2dp"
-                        android:text="使用期限"/>
-
-                    <TextView
-                        android:id="@+id/tv_visitDate"
-                        style="@style/font_9_13"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2018-10-10至2018-12-11"/>
-
-                </LinearLayout>
-            </RelativeLayout>
-
-
-        </LinearLayout>
+       <include layout="@layout/layout_ticket_success"/>
         <!--更多宝贝推荐-->
         <TextView
             android:id="@+id/tv_backToList"
@@ -130,7 +20,6 @@
             android:layout_marginTop="12dp"
             android:layout_marginRight="24dp"
             android:layout_marginLeft="24dp"
-
             android:text="返回列表"/>
         <LinearLayout
             android:layout_width="match_parent"

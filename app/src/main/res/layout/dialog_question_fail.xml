@@ -40,10 +40,28 @@
                 android:background="@mipmap/ic_shape_frends"/>
 
             <TextView
+                android:layout_marginRight="4dp"
                 style="@style/font_f_13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="分享朋友圈复活"/>
+
+            <TextView
+                style="@style/font_f_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="("/>
+            <TextView
+                android:id="@+id/tv_rebornTimes"
+                style="@style/font_f_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1"/>
+            <TextView
+                style="@style/font_f_13"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="/3)"/>
 
         </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 

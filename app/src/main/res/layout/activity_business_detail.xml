@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/bg_hi"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="12dp">
+
+        <com.kingja.yaluji.view.RequiredTextView
+            style="@style/font_3_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="公司名称"/>
+
+        <EditText
+            android:hint="请输入公司名称"
+            style="@style/font_6_13"
+            android:id="@+id/et_company"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@null"/>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="12dp">
+
+        <com.kingja.yaluji.view.RequiredTextView
+            style="@style/font_3_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="联系人"/>
+
+        <EditText
+            android:inputType="number"
+            android:hint="请输入联系人"
+            style="@style/font_6_13"
+            android:id="@+id/et_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@null"/>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="12dp">
+
+        <com.kingja.yaluji.view.RequiredTextView
+            style="@style/font_3_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="手机号码"/>
+
+        <EditText
+            android:hint="请输入手机号码"
+            style="@style/font_6_13"
+            android:id="@+id/et_phone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@null"/>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white_hi"
+        android:padding="12dp">
+
+        <TextView
+            style="@style/font_3_13"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="其它联系方式"/>
+
+        <EditText
+            android:hint="请输入其它联系方式"
+            style="@style/font_6_13"
+            android:id="@+id/et_otherContact"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:background="@null"/>
+
+
+    </LinearLayout>
+
+
+    <TextView
+        android:id="@+id/tv_confirm"
+        style="@style/Action_Button"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginTop="40dp"
+        android:text="确认提交"/>
+
+</LinearLayout>

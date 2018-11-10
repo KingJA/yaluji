@@ -68,11 +68,34 @@ public class Status {
         USED(2, "已使用"),
         WAIT_USE(3, "待出票"),
         OVER_TIME(4, "已过期"),
-        CANCELED(8, "已取消"),;
+        CANCELED(8, "已取消");
         private Integer code;
         private String msg;
 
         OrderStatus(Integer code, String msg) {
+            this.code = code;
+            this.msg = msg;
+        }
+
+        public Integer getCode() {
+            return code;
+        }
+
+        public String getMsg() {
+            return msg;
+        }
+    }
+
+    //    integer,0复活 1答题 2成功 3失败
+    public enum QuestionStatus implements CodeEnum {
+        RELIFT(0, "去复活"),
+        ANSWER(1, "去答题"),
+        SUCCESS(2, "已领取"),
+        FAIL(3, "失败");
+        private Integer code;
+        private String msg;
+
+        QuestionStatus(Integer code, String msg) {
             this.code = code;
             this.msg = msg;
         }
@@ -94,5 +117,13 @@ public class Status {
         int RIGHT = 0;
         int WRONG = 1;
         int SUCCESS = 2;
+        int NO_RELIFE = 3;
+    }
+
+    public interface BusinsessType {
+        //待支付
+        String PROVIDER = "1";
+        //待使用
+        String ADVERTISEMENT = "2";
     }
 }
