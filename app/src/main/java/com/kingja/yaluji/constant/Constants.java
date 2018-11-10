@@ -12,10 +12,11 @@ import com.kingja.yaluji.R;
 public class Constants {
     public static final String BASE_URL = "http://api.ddchick.com";
     public static final int PAGE_SIZE = 20;
+    public static final int THUMB_SIZE = 150;
     public static final int PAGE_SIZE_5 = 5;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;
-    public static final int DEAD_TIME = 60;
+    public static final int DEAD_TIME = 20;
     public static final int ORDER_STATUS_UNUSED = 1;
     public static final int ORDER_STATUS_ALL = 3;
     public static final String APPLICATION_NAME = "KingJA_SP";
@@ -24,7 +25,7 @@ public class Constants {
     public static final String OSNAME = "android";
     public static final int GRIDVIEW_IMG_COUNT = 3;
     public static final int GRIDVIEW_GIFT_COUNT = 4;
-    public static final String APP_ID_WEIXIN = "wx0636860f15a60e21";
+    public static final String APP_ID_WEIXIN = "wx18e668ee094be407";
     public static final String APP_ID_BUDLY = "f5e657251c";
 
 

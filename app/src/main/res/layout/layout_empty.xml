@@ -6,9 +6,17 @@
               android:gravity="center"
               android:orientation="vertical">
 
-    <TextView
-        android:text="无内容"
+
+    <ImageView
+        android:layout_marginBottom="12dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="@mipmap/bg_empty"/>
+
+    <TextView
+        style="@style/font_orange_13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="没有内容哦"/>
 
 </LinearLayout>

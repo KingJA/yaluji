@@ -34,6 +34,7 @@ import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.view.CityPop;
 import com.kingja.yaluji.view.DatePop;
+import com.kingja.yaluji.view.DiscountPop;
 import com.kingja.yaluji.view.PullToBottomListView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -55,7 +56,8 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketListActivity extends BaseTitleActivity implements TicketListContract.View, InitializeContract.View {
+public class TicketListActivity extends BaseTitleActivity implements TicketListContract.View, InitializeContract
+        .View, SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
     @BindView(R.id.spiner_area)
@@ -87,6 +89,8 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     private String productTypeId = "";
     private String useDates = "";
     private String areaId = "";
+    private String discountOrder = "";
+    private String buyLimit = "";
 
     @OnClick({R.id.ll_search})
     public void onViewClicked(View view) {
@@ -103,7 +107,6 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
         Ticket ticket = (Ticket) parent.getItemAtPosition(position);
         TicketDetailActivity.goActivity(this, ticket.getId());
-
     }
 
     @Override
@@ -139,6 +142,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
 
     @Override
     protected void initData() {
+        srl.setOnRefreshListener(this);
         initHint();
         popConfig = new PopConfig.Builder()
                 .setPopHeight((int) (AppUtil.getScreenHeight() * 0.55f))
@@ -148,6 +152,30 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
         initCityData();
         initCityPop();
         initDatePop();
+        initDiscountPop();
+    }
+
+    private void initDiscountPop() {
+        DiscountPop discountPop = new DiscountPop(this);
+        discountPop.setOnDismissListener(() -> {
+            spinerDiscount.close();
+        });
+        discountPop.setOnDiscountSelectedLintener(new DiscountPop.OnDiscountSelectedLintener() {
+
+            @Override
+            public void onDiscountSelected(String discountOrder, String buyLimit) {
+                TicketListActivity.this.discountOrder = discountOrder;
+                TicketListActivity.this.buyLimit = buyLimit;
+                initNet();
+            }
+        });
+        spinerDiscount.setOnSpinnerStatusChangedListener(opened -> {
+            if (opened) {
+                discountPop.showAsDropDown(llSpinnerRoot);
+            } else {
+                discountPop.dismiss();
+            }
+        });
     }
 
     private void initHint() {
@@ -258,8 +286,8 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
                 .addFormDataPart("page", "1")
                 .addFormDataPart("pageSize", "5")
                 .addFormDataPart("status", "1")
-                .addFormDataPart("buyLimit", "")
-                .addFormDataPart("discountOrder", "")
+                .addFormDataPart("buyLimit", buyLimit)
+                .addFormDataPart("discountOrder", discountOrder)
                 .build());
     }
 
@@ -267,10 +295,9 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     public void onGetTicketListSuccess(List<Ticket> ticketList) {
         if (ticketList != null && ticketList.size() > 0) {
             ticketAdapter.setData(ticketList);
-        }else{
-            showEmptyCallback();
+        } else {
+            ticketAdapter.setData(new ArrayList<>());
         }
-
     }
 
     @Override
@@ -291,7 +318,8 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     }
 
     @Override
-    public boolean ifRegisterLoadSir() {
-        return true;
+    public void onRefresh() {
+        srl.setRefreshing(false);
+        initNet();
     }
 }

@@ -47,7 +47,6 @@ public class ArticleListActivity extends BaseTitleActivity implements ArticleLis
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
         Article article = (Article) parent.getItemAtPosition(position);
         ArticleDetailActivity.goActivity(this, article.getId());
-
     }
 
     @Override

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="120dp"
+        android:layout_height="wrap_content">
+
+
+        <TextView
+            android:id="@+id/tv_tab"
+            style="@style/font_orange_13"
+            android:layout_width="120dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_visitor_sel"
+            android:gravity="center"
+            android:paddingBottom="4dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="4dp"
+            android:text="光明顶"/>
+
+        <ImageView
+            android:id="@+id/iv_tab_sel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:background="@mipmap/ic_tab_sel"/>
+
+    </FrameLayout>
+</FrameLayout>

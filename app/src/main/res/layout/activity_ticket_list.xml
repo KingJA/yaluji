@@ -100,7 +100,7 @@
             app:spinner_indicatorNorColor="@color/c_9"
             app:spinner_indicatorSelColor="@color/red_hi"
             app:spinner_indicatorSzie="6dp"
-            app:spinner_indicatorText="折扣额度"
+            app:spinner_indicatorText="其它筛选"
             app:spinner_marginIndicator="24dp"
             app:spinner_textNorColor="@color/c_3"
             app:spinner_textSelColor="@color/red_hi"

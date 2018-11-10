@@ -51,7 +51,7 @@
                 android:layout_height="60dp"
                 android:layout_marginRight="16dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/bg_head"
+                android:src="@mipmap/ic_launcher"
                 app:super_cornerRadius="60dp"/>
 
             <TextView

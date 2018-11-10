@@ -338,7 +338,7 @@
                 android:paddingTop="12dp"
                 android:visibility="gone"
                 app:super_cornerRadius="4dp"
-                app:super_solidColor="@color/bg_hi">
+                app:super_solidColor="@color/white_hi">
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -1,5 +1,7 @@
 package com.kingja.yaluji.page.search.question.list;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,13 +15,23 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.RefreshQuestionEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
+import com.kingja.yaluji.event.ShareSuccessEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.page.answer.detail.QuestionDetailActivity;
+import com.kingja.yaluji.page.relife.RelifeContract;
+import com.kingja.yaluji.page.relife.RelifePresenter;
 import com.kingja.yaluji.util.LoginChecker;
+import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
+import com.kingja.yaluji.view.dialog.ConfirmDialog;
 import com.kingja.yaluji.view.dialog.QuestionExplainDialog;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -42,9 +54,11 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class QuestionListActivity extends BaseTitleActivity implements QuestionListContract.View, SwipeRefreshLayout
-        .OnRefreshListener {
+        .OnRefreshListener, RelifeContract.View {
     @Inject
     QuestionListPresenter questionListPresenter;
+    @Inject
+    RelifePresenter relifePresenter;
     @BindView(R.id.rl_question_explain)
     RelativeLayout ivQuestionExplain;
     @BindView(R.id.plv)
@@ -54,6 +68,14 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     private List<Question> questionList = new ArrayList<>();
     private QuestionAdapter questionAdapter;
     private QuestionExplainDialog questionExplainDialog;
+    private IWXAPI api;
+    private String paperId;
+    private ConfirmDialog confirmDialog;
+
+    private void regToWeixin() {
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
+        api.registerApp(Constants.APP_ID_WEIXIN);
+    }
 
     @OnClick({R.id.rl_question_explain})
     public void onViewClicked(View view) {
@@ -69,19 +91,38 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     @OnItemClick(R.id.plv)
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
         Question question = (Question) parent.getItemAtPosition(position);
+        paperId = question.getId();
         if (question.getUserStatus() == Status.QuestionStatus.ANSWER.getCode()) {
-            QuestionDetailActivity.goActivity(this, question.getId());
+            QuestionDetailActivity.goActivity(this, paperId);
         }
         if (question.getUserStatus() == Status.QuestionStatus.RELIFT.getCode()) {
-            ToastUtil.showText("去复活");
+            share(SendMessageToWX.Req.WXSceneTimeline);
         }
+    }
 
+    private void share(int shareTo) {
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.bg_share);
+        WXImageObject imgObj = new WXImageObject(bmp);
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = imgObj;
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, Constants.THUMB_SIZE, Constants.THUMB_SIZE, true);
+        bmp.recycle();
+        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);  // 设置所图；
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("img");
+        req.message = msg;
+        req.scene = shareTo;
+        api.sendReq(req);
+    }
+
+    private String buildTransaction(String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 
     @Override
     public void initVariable() {
         EventBus.getDefault().register(this);
-
+        regToWeixin();
     }
 
     @Override
@@ -96,6 +137,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
                 .build()
                 .inject(this);
         questionListPresenter.attachView(this);
+        relifePresenter.attachView(this);
     }
 
     @Override
@@ -112,6 +154,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     @Override
     protected void initData() {
         questionExplainDialog = new QuestionExplainDialog(this);
+        confirmDialog = new ConfirmDialog(this, "复活成功，请继续答题");
         srl.setOnRefreshListener(this);
     }
 
@@ -157,5 +200,17 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshQuestion(RefreshQuestionEvent event) {
         initNet();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void shareSuccess(ShareSuccessEvent event) {
+        relifePresenter.reLife(paperId);
+
+    }
+
+    @Override
+    public void onReLifeSuccess() {
+        initNet();
+        confirmDialog.show();
     }
 }

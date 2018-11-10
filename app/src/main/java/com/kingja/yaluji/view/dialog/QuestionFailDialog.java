@@ -37,7 +37,10 @@ public class QuestionFailDialog extends BaseDialog {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.sll_shape:
-                ToastUtil.showText("分享");
+                if (onConfirmListener != null) {
+                    onConfirmListener.onConfirm();
+                }
+                dismiss();
                 break;
             default:
                 break;

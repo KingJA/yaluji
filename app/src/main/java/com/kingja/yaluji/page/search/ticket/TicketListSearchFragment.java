@@ -2,6 +2,8 @@ package com.kingja.yaluji.page.search.ticket;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.TicketAdapter;
@@ -11,6 +13,7 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListContract;
 import com.kingja.yaluji.page.ticket.list.TicketListPresenter;
 import com.kingja.yaluji.view.PullToBottomListView;
@@ -21,6 +24,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -41,6 +45,11 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
     private TicketAdapter ticketAdapter;
     private String keyword;
 
+    @OnItemClick(R.id.plv)
+    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
+        Ticket ticket = (Ticket) parent.getItemAtPosition(position);
+        TicketDetailActivity.goActivity(getActivity(), ticket.getId());
+    }
     public static TicketListSearchFragment newInstance(String keyword) {
         TicketListSearchFragment fragment = new TicketListSearchFragment();
         Bundle args = new Bundle();
@@ -111,7 +120,7 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
 
     @Override
     public void onRefresh() {
-
+        srl.setRefreshing(false);
     }
 
     @Override

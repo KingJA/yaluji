@@ -28,18 +28,21 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.AddVisitorEvent;
 import com.kingja.yaluji.event.PrfectVisitorEvent;
+import com.kingja.yaluji.event.RefreshOrderEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.TicketDetail;
 import com.kingja.yaluji.model.entiy.Visitor;
+import com.kingja.yaluji.page.introduce.SceneryIntroduceActivity;
 import com.kingja.yaluji.page.ticket.success.TicketSuccessActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.page.visitor.prefect.VisitorPrefectActivity;
 import com.kingja.yaluji.util.DateUtil;
 import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.LoginChecker;
+import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.ChangeNumberView;
 import com.kingja.yaluji.view.DeleteTextView;
@@ -129,12 +132,13 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     private int buyPrice;
     private String visitDate;
     private String ticketName;
+    private String scenicid;
 
     @OnClick({R.id.rl_ticket_introduce, R.id.ll_detail_get})
     public void onclick(View view) {
         switch (view.getId()) {
             case R.id.rl_ticket_introduce:
-//                SceneryIntroduceActivity.goActivity(this, ticketDetail.getScenicid());
+                SceneryIntroduceActivity.goActivity(this, scenicid);
                 break;
             case R.id.ll_detail_get:
                 if (LoginChecker.isLogin()) {
@@ -180,7 +184,13 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     }
 
     private void sumbmitOrder() {
-        ticketGetDialog.show();
+        if (!SpSir.getInstance().getNoShow()) {
+            ticketGetDialog.show();
+        } else {
+            ticketDetailPresenter.sumbitOrder(productId, touristId, ccvTicketDetail.getNumber(), Constants
+                    .PLATFORM_ANDROID);
+        }
+
     }
 
     private void showPrefectDialog() {
@@ -249,6 +259,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     @Override
     public void onGetTicketDetailSuccess(TicketDetail ticketDetail) {
         showSuccessCallback();
+        scenicid = ticketDetail.getScenicid();
         idcodeNeed = ticketDetail.getIdcodeNeed();
         status = ticketDetail.getStatus();
         endTime = ticketDetail.getEndTime();
@@ -358,7 +369,9 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
 
     @Override
     public void onSumbitOrderSuccess(OrderResult orderResult) {
-        TicketSuccessActivity.goActivity(this,ticketName,String.valueOf(buyPrice),visitDate,String.valueOf(ccvTicketDetail.getNumber()));
+        EventBus.getDefault().post(new RefreshOrderEvent());
+        TicketSuccessActivity.goActivity(this, ticketName, String.valueOf(buyPrice), visitDate, String.valueOf
+                (ccvTicketDetail.getNumber()));
     }
 
     @Override

@@ -1,12 +1,16 @@
 package com.kingja.yaluji.page.answer.detail;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.AdapterView;
 
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.event.ShareSuccessEvent;
 import com.kingja.yaluji.page.answer.success.AnswerSuccessActivity;
 import com.kingja.yaluji.adapter.AnswerAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
@@ -18,13 +22,25 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Answer;
 import com.kingja.yaluji.model.entiy.AnswerResult;
 import com.kingja.yaluji.model.entiy.QuestionDetail;
+import com.kingja.yaluji.page.relife.RelifeContract;
+import com.kingja.yaluji.page.relife.RelifePresenter;
+import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.StringTextView;
+import com.kingja.yaluji.view.dialog.BaseDialog;
+import com.kingja.yaluji.view.dialog.ConfirmDialog;
 import com.kingja.yaluji.view.dialog.QuestionFailDialog;
 import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +57,8 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class QuestionDetailActivity extends BaseTitleActivity implements QuestionDetailContract.View {
+public class QuestionDetailActivity extends BaseTitleActivity implements QuestionDetailContract.View, RelifeContract
+        .View {
 
     @BindView(R.id.tv_paperTitle)
     StringTextView tvPaperTitle;
@@ -58,13 +75,16 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
     private String paperId;
     @Inject
     QuestionDetailPresenter questionDetailPresenter;
+    @Inject
+    RelifePresenter relifePresenter;
     private List<Answer> answerList = new ArrayList<>();
     private AnswerAdapter answerAdapter;
     private QuestionFailDialog failDialog;
     private QuestionSuccessDialog successDialog;
     private DeadTime deadTime;
     private String questionId;
-
+    private ConfirmDialog confirmDialog;
+    private IWXAPI api;
 
     @OnItemClick(R.id.flv)
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -77,10 +97,17 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     }
 
+
+    private void regToWeixin() {
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
+        api.registerApp(Constants.APP_ID_WEIXIN);
+    }
+
     @Override
     public void initVariable() {
         paperId = getIntent().getStringExtra(Constants.Extra.PaperId);
-
+        EventBus.getDefault().register(this);
+        regToWeixin();
     }
 
 
@@ -96,6 +123,7 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                 .build()
                 .inject(this);
         questionDetailPresenter.attachView(this);
+        relifePresenter.attachView(this);
     }
 
     @Override
@@ -158,9 +186,10 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
             case Status.AnswerResult.WRONG:
                 failDialog = new QuestionFailDialog(this, answerResult.getRebornTimes());
                 failDialog.setOnCancelListener(dialogInterface -> {
-                    finish();
-                    //刷新问题列表
-                    EventBus.getDefault().post(new RefreshQuestionEvent());
+                    quitAndRefresh();
+                });
+                failDialog.setOnConfirmListener(() -> {
+                    share(SendMessageToWX.Req.WXSceneTimeline);
                 });
                 failDialog.show();
                 break;
@@ -168,8 +197,7 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                 successDialog = new QuestionSuccessDialog(this, answerResult.getCouponAmount(), String.valueOf
                         (answerResult.getCouponLimit()));
                 successDialog.setOnCancelListener(dialogInterface -> {
-                    finish();
-                    EventBus.getDefault().post(new RefreshQuestionEvent());
+                    quitAndRefresh();
                 });
                 successDialog.setOnVisitorSelectedListener(touristId -> {
                     AnswerSuccessActivity.goActivity(QuestionDetailActivity.this, answerResult.getCouponName(),
@@ -179,9 +207,40 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                 successDialog.show();
                 break;
             case Status.AnswerResult.NO_RELIFE:
-                ToastUtil.showText("复活次数超过3次");
+                confirmDialog = new ConfirmDialog(this, "答题失败超过3次，即将退出当前页面");
+                confirmDialog.setOnConfirmListener(() -> {
+                    quitAndRefresh();
+                });
+                confirmDialog.setOnCancelListener(dialogInterface -> {
+                    quitAndRefresh();
+                });
+                confirmDialog.show();
                 break;
         }
+    }
+
+    private void share(int shareTo) {
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.bg_share);
+        WXImageObject imgObj = new WXImageObject(bmp);
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = imgObj;
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, Constants.THUMB_SIZE, Constants.THUMB_SIZE, true);
+        bmp.recycle();
+        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);  // 设置所图；
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("img");
+        req.message = msg;
+        req.scene = shareTo;
+        api.sendReq(req);
+    }
+
+    private String buildTransaction(String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
+    private void quitAndRefresh() {
+        finish();
+        EventBus.getDefault().post(new RefreshQuestionEvent());
     }
 
     @Override
@@ -199,6 +258,18 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
     private void startDeedTime() {
         deadTime = new DeadTime(Constants.DEAD_TIME);
         deadTime.start();
+    }
+
+    @Override
+    public void onReLifeSuccess() {
+        ConfirmDialog relifeSuccessDialog = new ConfirmDialog(this, "复活成功，重新答题");
+        relifeSuccessDialog.setOnConfirmListener(() -> {
+            quitAndRefresh();
+        });
+        relifeSuccessDialog.setOnCancelListener(dialogInterface -> {
+            quitAndRefresh();
+        });
+        relifeSuccessDialog.show();
     }
 
     public class DeadTime extends CountDownTimer {
@@ -220,6 +291,10 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                     .addFormDataPart("from", "android")
                     .build());
         }
+    }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void shareSuccess(ShareSuccessEvent event) {
+        relifePresenter.reLife(paperId);
     }
 }

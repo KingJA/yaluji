@@ -13,6 +13,7 @@ import com.kingja.yaluji.page.feedback.FeedbackActivity;
 import com.kingja.yaluji.page.forgetpassword.ForgetPasswordActivity;
 import com.kingja.yaluji.page.headimg.PersonalActivity;
 import com.kingja.yaluji.page.home.HomeFragment;
+import com.kingja.yaluji.page.introduce.SceneryIntroduceActivity;
 import com.kingja.yaluji.page.login.LoginActivity;
 import com.kingja.yaluji.page.message.MsgActivity;
 import com.kingja.yaluji.page.modifynickname.ModifyNicknameActivity;
@@ -99,5 +100,7 @@ public interface BaseCompnent {
     void inject(QuestionSuccessDialog target);
 
     void inject(AnswerSuccessActivity target);
+
+    void inject(SceneryIntroduceActivity target);
 
 }

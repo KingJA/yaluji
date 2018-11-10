@@ -48,6 +48,7 @@ public class ChangeNumberView extends View {
     private int disabledColor = 0xffbebebe;
     private int ableColor = 0xffff0000;
     private OnChangeNumberListener onChangeNumberListener;
+    private int lastStatus;
 
     public ChangeNumberView(Context context) {
         this(context, null);
@@ -182,6 +183,9 @@ public class ChangeNumberView extends View {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
+            if (currentStatus == Status.DISABLED) {
+                return true;
+            }
             float x = event.getX();
             if (x > bothLeft && x < addLeft) {
                 if (currentNumber > 1) {
@@ -215,6 +219,16 @@ public class ChangeNumberView extends View {
         } else if (currentNumber < maxNumber && currentNumber == 1) {
             currentStatus = Status.ADDABLE;
         }
+        lastStatus = currentStatus;
+        invalidate();
+    }
+
+    public void setChangeable(boolean changeable) {
+        if (changeable) {
+            currentStatus = lastStatus;
+        } else {
+            currentStatus = Status.DISABLED;
+        }
         invalidate();
     }
 
@@ -223,7 +237,7 @@ public class ChangeNumberView extends View {
     }
 
     public void setMaxNumber(int maxNumber) {
-        this.maxNumber=maxNumber;
+        this.maxNumber = maxNumber;
         invalidate();
     }
 
@@ -234,7 +248,7 @@ public class ChangeNumberView extends View {
         int BOTHABLE = 4;
     }
 
-    public interface OnChangeNumberListener{
+    public interface OnChangeNumberListener {
         void onChangeNumber(int number);
     }
 

@@ -2,6 +2,8 @@ package com.kingja.yaluji.page.search.article;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.CommonAdapter;
@@ -11,7 +13,9 @@ import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.model.entiy.Article;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
+import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.view.PullToBottomListView;
 
 import java.util.ArrayList;
@@ -20,6 +24,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -39,6 +44,12 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
     ArticleListSearchPresenter articleListSearchPresenter;
     private String keyword;
     private CommonAdapter adapter;
+
+    @OnItemClick(R.id.plv)
+    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
+        ArticleSimpleItem article = (ArticleSimpleItem) parent.getItemAtPosition(position);
+        ArticleDetailActivity.goActivity(getActivity(), article.getId());
+    }
 
     public static ArticleListSearchFragment newInstance(String keyword) {
         ArticleListSearchFragment fragment = new ArticleListSearchFragment();
@@ -109,7 +120,7 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
 
     @Override
     public void onRefresh() {
-
+        srl.setRefreshing(false);
     }
 
     @Override

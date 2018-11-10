@@ -34,6 +34,8 @@
                 android:background="@mipmap/ic_search"/>
 
             <EditText
+                android:ellipsize="end"
+                android:singleLine="true"
                 android:id="@+id/et_search_keyword"
                 style="@style/font_9_12"
                 android:layout_width="0dp"

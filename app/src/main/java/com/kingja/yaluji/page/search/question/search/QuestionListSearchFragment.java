@@ -2,16 +2,21 @@ package com.kingja.yaluji.page.search.question.search;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.View;
+import android.widget.AdapterView;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.QuestionAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Question;
+import com.kingja.yaluji.page.answer.detail.QuestionDetailActivity;
 import com.kingja.yaluji.view.PullToBottomListView;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,6 +24,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 
 /**
@@ -38,6 +44,12 @@ public class QuestionListSearchFragment extends BaseFragment implements OnSearch
     QuestionListSearchPresenter questionListSearchPresenter;
     private String keyword;
     private QuestionAdapter questionAdapter;
+
+    @OnItemClick(R.id.plv)
+    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
+        Question question = (Question) parent.getItemAtPosition(position);
+        QuestionDetailActivity.goActivity(getActivity(), question.getId());
+    }
 
     public static QuestionListSearchFragment newInstance(String keyword) {
         QuestionListSearchFragment fragment = new QuestionListSearchFragment();
@@ -100,7 +112,7 @@ public class QuestionListSearchFragment extends BaseFragment implements OnSearch
 
     @Override
     public void onRefresh() {
-
+        srl.setRefreshing(false);
     }
 
     @Override

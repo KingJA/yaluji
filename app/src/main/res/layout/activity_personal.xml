@@ -40,6 +40,7 @@
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:scaleType="centerCrop"
+                android:src="@drawable/ic_placeholder"
                 app:super_cornerRadius="36dp"/>
 
             <ImageView style="@style/Arrow"/>

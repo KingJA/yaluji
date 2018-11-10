@@ -2,6 +2,8 @@ package com.kingja.yaluji.page.answer.success;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,13 +13,21 @@ import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.event.RefreshQuestionEvent;
+import com.kingja.yaluji.event.ShareSuccessEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
-import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.page.search.question.list.QuestionListActivity;
 import com.kingja.yaluji.util.GoUtil;
+import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.util.ToastUtil;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import javax.inject.Inject;
 
@@ -50,13 +60,25 @@ public class AnswerSuccessActivity extends BaseTitleActivity implements AnswerSu
     private String touristId;
     @Inject
     AnswerSuccessPresenter answerSuccessPresenter;
+    private IWXAPI api;
 
+    private void regToWeixin() {
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
+        api.registerApp(Constants.APP_ID_WEIXIN);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        api.unregisterApp();
+        EventBus.getDefault().post(new RefreshQuestionEvent());
+    }
 
     @OnClick({R.id.stv_share, R.id.stv_backToList})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.stv_share:
-                ToastUtil.showText("分享");
+                share(SendMessageToWX.Req.WXSceneTimeline);
                 break;
             case R.id.stv_backToList:
                 EventBus.getDefault().post(new RefreshQuestionEvent());
@@ -67,14 +89,35 @@ public class AnswerSuccessActivity extends BaseTitleActivity implements AnswerSu
         }
     }
 
+    private void share(int shareTo) {
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.bg_share);
+        WXImageObject imgObj = new WXImageObject(bmp);
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = imgObj;
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, Constants.THUMB_SIZE, Constants.THUMB_SIZE, true);
+        bmp.recycle();
+        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);  // 设置所图；
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("img");
+        req.message = msg;
+        req.scene = shareTo;
+        api.sendReq(req);
+    }
+
+    private String buildTransaction(String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
+
     @Override
     public void initVariable() {
+        EventBus.getDefault().register(this);
         ticketName = getIntent().getStringExtra(Constants.Extra.TicketName);
         quantity = getIntent().getStringExtra(Constants.Extra.Quantity);
         buyPrice = getIntent().getStringExtra(Constants.Extra.BuyPrice);
         visitDate = getIntent().getStringExtra(Constants.Extra.VisitDate);
         paperId = getIntent().getStringExtra(Constants.Extra.PaperId);
         touristId = getIntent().getStringExtra(Constants.Extra.TouristId);
+        regToWeixin();
     }
 
     @Override
@@ -134,4 +177,10 @@ public class AnswerSuccessActivity extends BaseTitleActivity implements AnswerSu
     public void onPrefectVisitorSuccess() {
 
     }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void shareSuccess(ShareSuccessEvent event) {
+        ToastUtil.showText("分享成功");
+    }
+
 }

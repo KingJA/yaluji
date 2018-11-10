@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:background="@color/white_hi"
+              android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="16dp"
+        android:paddingLeft="12dp"
+        android:paddingRight="12dp"
+        android:paddingTop="16dp">
+
+        <TextView
+            style="@style/font_6_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="抵扣筛选"/>
+
+        <com.kingja.yaluji.view.FixedGridView
+            android:id="@+id/gv_discount"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="16dp"
+            android:horizontalSpacing="16dp"
+            android:listSelector="@android:color/transparent"
+            android:numColumns="2"
+            android:scrollbars="none"
+            android:stretchMode="columnWidth"
+            android:verticalSpacing="16dp"
+            tools:listitem="@layout/item_discount_tab"/>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+        <TextView
+            style="@style/font_6_13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:text="限购张数"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.kingja.yaluji.view.ChangeNumberView
+                android:id="@+id/cnv_discount"
+                android:layout_width="160dp"
+                android:layout_height="40dp"
+                android:layout_marginRight="12dp"/>
+
+            <FrameLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_noLimit"
+                    style="@style/font_orange_13"
+                    android:layout_width="120dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/shape_visitor_sel"
+                    android:gravity="center"
+                    android:paddingBottom="4dp"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:paddingTop="4dp"
+                    android:text="不限张数"/>
+
+                <ImageView
+                    android:id="@+id/iv_tab_sel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|bottom"
+                    android:background="@mipmap/ic_tab_sel"/>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View style="@style/div_hor_gray"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <TextView
+            android:id="@+id/tv_reset"
+            style="@style/font_9_17"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="重置"/>
+
+        <TextView
+            android:id="@+id/tv_confirm"
+            style="@style/font_f_17"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:background="@color/orange_hi"
+            android:gravity="center"
+            android:text="完成"/>
+    </LinearLayout>
+</LinearLayout>

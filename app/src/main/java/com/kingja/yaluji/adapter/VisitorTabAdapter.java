@@ -41,7 +41,7 @@ public class VisitorTabAdapter extends BaseRvAdaper<Visitor> {
         holder.iv_tab_sel.setVisibility(visitor.isSelected() ? View.VISIBLE : View.GONE);
         holder.tv_visitor_tab.setBackgroundResource(visitor.isSelected() ? R.drawable.shape_visitor_sel : R.drawable
                 .shape_visitor_nor);
-        holder.tv_visitor_tab.setTextColor(visitor.isSelected() ? ContextCompat.getColor(context, R.color.red_hi) :
+        holder.tv_visitor_tab.setTextColor(visitor.isSelected() ? ContextCompat.getColor(context, R.color.orange_hi) :
                 ContextCompat.getColor(context, R.color.c_6));
     }
 

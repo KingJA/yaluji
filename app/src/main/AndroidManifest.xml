@@ -53,6 +53,12 @@
         <activity android:name=".page.message.MsgActivity"/>
         <activity android:name=".activity.MsgDetailActivity"/>
         <activity android:name=".page.answer.success.AnswerSuccessActivity"/>
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.Fullscreen.Translucent"/>
+        <activity android:name=".page.introduce.SceneryIntroduceActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
 

@@ -10,6 +10,7 @@ import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
+import com.kingja.yaluji.event.RefreshOrderEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
@@ -139,7 +140,8 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Override
     public void onDeleteOrderSuccess(int position) {
-        mOrderAdapter.removeItem(position);
+//        mOrderAdapter.removeItem(position);
+        EventBus.getDefault().post(new RefreshOrderEvent());
     }
 
     @Override
@@ -149,6 +151,10 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void resetLoginStatus(ResetLoginStatusEvent resetLoginStatusEvent) {
+        initNet();
+    }
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshOrder(RefreshOrderEvent event) {
         initNet();
     }
 }

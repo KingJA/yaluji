@@ -23,6 +23,7 @@ import com.kingja.yaluji.page.search.article.ArticleListSearchFragment;
 import com.kingja.yaluji.page.search.question.search.QuestionListSearchFragment;
 import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
 import com.kingja.yaluji.util.SimpleTextWatcher;
+import com.kingja.yaluji.util.SpSir;
 
 
 import butterknife.BindView;
@@ -68,6 +69,8 @@ public class SearchResultActivity extends BaseTitleActivity {
     private Handler netHandler=new Handler();
 
     private void doSearch(String keyword) {
+        SpSir.getInstance().putHistoryKeyword(keyword);
+        SpSir.getInstance().addHistorySearch(keyword);
         for (int i = 0; i < fragments.length; i++) {
             if (fragments[i] instanceof OnSearchListener) {
                 int finalI = i;

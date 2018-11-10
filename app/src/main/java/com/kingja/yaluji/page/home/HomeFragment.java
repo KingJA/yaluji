@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.activity.SearchDetailActivity;
 import com.kingja.yaluji.adapter.CommonAdapter;
 import com.kingja.yaluji.adapter.LunBoTuPageAdapter;
 import com.kingja.yaluji.adapter.ViewHolder;
@@ -34,9 +36,9 @@ import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.NoDoubleClickListener;
+import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
-import com.kingja.yaluji.view.dialog.TicketGetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,12 +85,14 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     @BindView(R.id.rl_msg)
     RelativeLayout rlMsg;
     Unbinder unbinder1;
+    @BindView(R.id.tv_keyword)
+    TextView tvKeyword;
     private CommonAdapter adapter;
     private List<ArticleSimpleItem> articleSimpleItemList = new ArrayList<>();
     private List<LunBoTu> lunBoTuList = new ArrayList<>();
     private List<View> points = new ArrayList<>();
 
-    @OnClick({R.id.iv_article, R.id.iv_ticket, R.id.iv_question, R.id.rl_msg})
+    @OnClick({R.id.iv_article, R.id.iv_ticket, R.id.iv_question, R.id.rl_msg, R.id.ll_search})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_article:
@@ -102,6 +106,9 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 break;
             case R.id.rl_msg:
                 LoginChecker.goActivity(getActivity(), MsgActivity.class);
+                break;
+            case R.id.ll_search:
+                GoUtil.goActivity(getActivity(), SearchDetailActivity.class);
                 break;
             default:
                 break;
@@ -146,6 +153,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     protected void initData() {
         rsl.setOnRefreshListener(this);
         rsl.setDistanceToTriggerSync(AppUtil.dp2px(100));
+
+    }
+
+    private void initHint() {
+        String historyKeyword = SpSir.getInstance().getHistoryKeyword();
+        LogUtil.e(TAG,"historyKeyword:"+historyKeyword);
+        if (!TextUtils.isEmpty(historyKeyword)) {
+            tvKeyword.setHint(historyKeyword);
+        }
     }
 
     @Override
@@ -235,7 +251,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     @Override
     public void onStart() {
-        LogUtil.e(TAG, "可见:");
+        initHint();
         autoHandler.postDelayed(autoTask, delayMillis);
         super.onStart();
     }
@@ -275,7 +291,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     class AutoRannable implements Runnable {
         @Override
         public void run() {
-            LogUtil.e(TAG, "轮播:");
             autoHandler.removeCallbacks(autoTask);
             currentLunBoTuIndex++;
             vp.setCurrentItem(currentLunBoTuIndex);
