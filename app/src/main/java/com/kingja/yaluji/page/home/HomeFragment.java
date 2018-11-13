@@ -21,6 +21,7 @@ import com.kingja.yaluji.adapter.LunBoTuPageAdapter;
 import com.kingja.yaluji.adapter.ViewHolder;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
+import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
@@ -38,6 +39,7 @@ import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.view.FixedListView;
+import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -80,16 +82,13 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     @BindView(R.id.ll_dot)
     LinearLayout llDot;
     @BindView(R.id.rsl)
-    RefreshSwipeRefreshLayout rsl;
-    Unbinder unbinder;
+    MoveSwipeRefreshLayout rsl;
     @BindView(R.id.rl_msg)
     RelativeLayout rlMsg;
-    Unbinder unbinder1;
     @BindView(R.id.tv_keyword)
     TextView tvKeyword;
     private CommonAdapter adapter;
     private List<ArticleSimpleItem> articleSimpleItemList = new ArrayList<>();
-    private List<LunBoTu> lunBoTuList = new ArrayList<>();
     private List<View> points = new ArrayList<>();
 
     @OnClick({R.id.iv_article, R.id.iv_ticket, R.id.iv_question, R.id.rl_msg, R.id.ll_search})
@@ -158,7 +157,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     private void initHint() {
         String historyKeyword = SpSir.getInstance().getHistoryKeyword();
-        LogUtil.e(TAG,"historyKeyword:"+historyKeyword);
+        LogUtil.e(TAG, "historyKeyword:" + historyKeyword);
         if (!TextUtils.isEmpty(historyKeyword)) {
             tvKeyword.setHint(historyKeyword);
         }
@@ -206,7 +205,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                     }
                 }
             });
-            autoHandler.postDelayed(autoTask, delayMillis);
+//            vp.setCurrentItem(Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % imageViews.size());
         }
 
     }
@@ -221,21 +220,23 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     }
 
     private void initDot(List<LunBoTu> lunBoTuList) {
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AppUtil.dp2px(6), AppUtil.dp2px(6));
+        layoutParams.setMargins(0, 0, AppUtil.dp2px(6), 0);
         for (int i = 0; i < lunBoTuList.size(); i++) {
             View view = new View(getActivity());
-            view.setLayoutParams(new LinearLayout.LayoutParams(AppUtil.dp2px(10), AppUtil.dp2px(10)));
+            view.setLayoutParams(layoutParams);
             if (i == 0) {
                 view.setBackgroundResource(R.mipmap.ic_dot_sel);
             } else {
                 view.setBackgroundResource(R.mipmap.ic_dot_nor);
             }
             points.add(view);
-        }
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AppUtil.dp2px(10), AppUtil.dp2px(10));
-        layoutParams.setMargins(0, 0, AppUtil.dp2px(10), 0);
-        for (int i = 0; i < lunBoTuList.size(); i++) {
             llDot.addView(points.get(i), layoutParams);
         }
+
+//        for (int i = 0; i < lunBoTuList.size(); i++) {
+//            llDot.addView(points.get(i), layoutParams);
+//        }
     }
 
     @Override
@@ -245,14 +246,15 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
         if (hidden) {
             autoHandler.removeCallbacks(autoTask);
         } else {
-            autoHandler.postDelayed(autoTask, delayMillis);
+            autoHandler.postDelayed(autoTask, Constants.AUTO_LUNBOTU);
         }
     }
 
     @Override
     public void onStart() {
+        LogUtil.e(TAG, "可见:");
         initHint();
-        autoHandler.postDelayed(autoTask, delayMillis);
+        autoHandler.postDelayed(autoTask, Constants.AUTO_LUNBOTU);
         super.onStart();
     }
 
@@ -265,13 +267,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     private Handler autoHandler = new Handler();
     private AutoRannable autoTask = new AutoRannable();
-    private long delayMillis = 3000;
-    private int currentLunBoTuIndex;
 
 
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        autoHandler.removeCallbacks(autoTask);
         unbinder.unbind();
     }
 
@@ -280,21 +281,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
         rsl.setRefreshing(false);
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder1 = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
     class AutoRannable implements Runnable {
         @Override
         public void run() {
             autoHandler.removeCallbacks(autoTask);
-            currentLunBoTuIndex++;
-            vp.setCurrentItem(currentLunBoTuIndex);
-            autoHandler.postDelayed(autoTask, delayMillis);
+            vp.setCurrentItem(vp.getCurrentItem() + 1);
+            autoHandler.postDelayed(autoTask, Constants.AUTO_LUNBOTU);
         }
     }
 

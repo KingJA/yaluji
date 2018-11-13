@@ -5,7 +5,7 @@
               android:layout_height="match_parent"
               android:background="@color/bg_hi"
               android:orientation="vertical">
-    <com.kingja.yaluji.view.RefreshSwipeRefreshLayout
+    <com.kingja.yaluji.view.MoveSwipeRefreshLayout
         android:id="@+id/srl"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -17,6 +17,6 @@
             android:divider="@color/gray_hi"
             android:dividerHeight="1px"
             tools:listitem="@layout/item_msg"/>
-    </com.kingja.yaluji.view.RefreshSwipeRefreshLayout>
+    </com.kingja.yaluji.view.MoveSwipeRefreshLayout>
 
 </LinearLayout>

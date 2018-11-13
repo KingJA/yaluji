@@ -266,7 +266,6 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         buyPrice = ticketDetail.getBuyPrice();
         visitDate = ticketDetail.getVisitDate();
         ticketName = ticketDetail.getTicketName();
-
         ImageLoader.getInstance().loadImage(this, ticketDetail.getHeadImg(), R.drawable.ic_placeholder,
                 ivDetailHeadImg);
         tvDetailTicketName.setString(ticketName);
@@ -281,6 +280,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         tvDetailRemarks.setString(ticketDetail.getRemarks());
         tvDetailSellCount.setString(ticketDetail.getSellCount());
         tvDetailTotalCount.setString(ticketDetail.getTotalCount());
+        tvDetailBuyLimit.setString(ticketDetail.getBuyLimit());
         setTicketStatus();
         initTimer();
 

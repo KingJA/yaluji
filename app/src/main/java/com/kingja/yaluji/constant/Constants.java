@@ -17,6 +17,7 @@ public class Constants {
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 100;
     public static final int DEAD_TIME = 20;
+    public static final int AUTO_LUNBOTU = 2000;
     public static final int ORDER_STATUS_UNUSED = 1;
     public static final int ORDER_STATUS_ALL = 3;
     public static final String APPLICATION_NAME = "KingJA_SP";

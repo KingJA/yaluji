@@ -41,6 +41,7 @@
                 android:padding="12dp">
 
                 <LinearLayout
+                    android:layout_marginBottom="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -64,7 +65,28 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="数量"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_quantity"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="2张"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -86,7 +108,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="12dp"
+                    android:layout_marginBottom="6dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -104,14 +126,54 @@
                         android:layout_weight="3"
                         android:text="2018-07-22"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="使用方式"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_visitMethod"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="景区售票窗口直接抵扣"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="抵用说明"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_useRemarks"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="抢购3小时后生效"/>
+                </LinearLayout>
             </LinearLayout>
 
             <com.kingja.supershapeview.view.SuperShapeLinearLayout
                 android:layout_width="240dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="12dp"
-                android:layout_marginTop="12dp"
+                android:layout_marginBottom="6dp"
                 android:gravity="center"
                 android:orientation="vertical"
                 android:padding="12dp"
@@ -173,7 +235,7 @@
             <com.kingja.supershapeview.view.SuperShapeRelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
+                android:layout_marginBottom="12dp"
                 android:orientation="vertical"
                 android:padding="16dp"
                 app:super_cornerRadius="4dp"
@@ -183,8 +245,8 @@
 
                 <ImageView
                     android:id="@+id/iv_qcodeImg"
-                    android:layout_width="200dp"
-                    android:layout_height="200dp"
+                    android:layout_width="180dp"
+                    android:layout_height="180dp"
                     android:layout_centerInParent="true"/>
             </com.kingja.supershapeview.view.SuperShapeRelativeLayout>
         </com.kingja.supershapeview.view.SuperShapeLinearLayout>

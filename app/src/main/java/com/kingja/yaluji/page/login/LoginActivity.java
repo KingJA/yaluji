@@ -18,6 +18,7 @@ import com.kingja.yaluji.util.CheckUtil;
 import com.kingja.yaluji.util.EncryptUtil;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.SpSir;
+import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -91,6 +92,7 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
             case R.id.tv_login_confirm:
                 String username = etLoginName.getText().toString().trim();
                 String password = etLoginPassword.getText().toString().trim();
+                Logger.d("极光id",JPushInterface.getRegistrationID(this));
                 if (CheckUtil.checkPhoneFormat(username) && CheckUtil.checkEmpty(password, "请输入密码")) {
                     mLoginPresenter.login(username, EncryptUtil.getMd5(password), JPushInterface.getRegistrationID(this), "", Constants.OSNAME);
                 }

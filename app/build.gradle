@@ -15,7 +15,7 @@ android {
         multiDexEnabled true
         manifestPlaceholders = [
                 JPUSH_PKGNAME: applicationId,
-                JPUSH_APPKEY : "1c5d6829a9998544c1fa5884", //JPush上注册的包名对应的appkey.
+                JPUSH_APPKEY : "5738e970197e1ff7dcf9bf5b", //JPush上注册的包名对应的appkey.
                 JPUSH_CHANNEL: "developer-default", //暂时填写默认值即可.
         ]
         aaptOptions.cruncherEnabled = false

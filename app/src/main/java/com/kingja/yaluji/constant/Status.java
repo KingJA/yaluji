@@ -42,7 +42,7 @@ public class Status {
 //        //已使用
 //        int USED = 2;
 //        //待出票
-//        int WAIT_TICKET = 3;
+//        int TO_USED = 3;
 //        //已过期
 //        int OVER_TIME = 4;
 //        //已取消
@@ -64,7 +64,7 @@ public class Status {
 
     public enum OrderStatus implements CodeEnum {
         WAIT_PAY(0, "待支付"),
-        WAIT_TICKET(1, "待使用"),
+        TO_USED(1, "待使用"),
         USED(2, "已使用"),
         WAIT_USE(3, "待出票"),
         OVER_TIME(4, "已过期"),

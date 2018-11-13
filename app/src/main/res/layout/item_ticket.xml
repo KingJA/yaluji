@@ -199,10 +199,10 @@
                         style="@style/font_6_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="限量发售"/>
+                        android:text="限抢数量"/>
 
-                    <TextView
-                        android:id="@+id/tv_ticket_buyLimit"
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/stv_ticket_buyLimit"
                         style="@style/font_6_11"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"

@@ -16,6 +16,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Message;
 import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
+import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
 import com.kingja.yaluji.view.PullToBottomListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
@@ -37,7 +38,7 @@ public class MsgActivity extends BaseTitleActivity implements MessageContract.Vi
     @BindView(R.id.lv)
     PullToBottomListView lv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    MoveSwipeRefreshLayout srl;
     @Inject
     MessagePresenter messagePresenter;
     private MsgAdapter mMsgAdapter;
@@ -75,8 +76,6 @@ public class MsgActivity extends BaseTitleActivity implements MessageContract.Vi
 
     @Override
     protected void initView() {
-
-        srl.setScrollUpChild(lv);
         mMsgAdapter = new MsgAdapter(this, messages);
         lv.setAdapter(mMsgAdapter);
         loadService = LoadSir.getDefault().register(lv, (Callback.OnReloadListener) v -> initNet());

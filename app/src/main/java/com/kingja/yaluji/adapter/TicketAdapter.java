@@ -12,6 +12,7 @@ import com.kingja.yaluji.R;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.util.DateUtil;
+import com.kingja.yaluji.view.StringTextView;
 
 import java.util.List;
 
@@ -48,18 +49,21 @@ public class TicketAdapter extends BaseLvAdapter<Ticket> {
         viewHolder.dtv_ticket_marketPrice.setText(String.valueOf(list.get(position).getMarketPrice()));
         viewHolder.dtv_ticket_buyPrice.setText(String.valueOf(list.get(position).getBuyPrice()));
         viewHolder.tv_ticket_useDate.setText(list.get(position).getUseDate());
+        viewHolder.stv_ticket_buyLimit.setString(list.get(position).getBuyLimit());
         viewHolder.pb_ticket_sell.setProgress(getProgressValue(list.get(position).getSellCount(), list.get(position)
                 .getTotalCount()));
         ImageLoader.getInstance().loadImage(context, list.get(position).getHeadImg(), R.drawable.ic_placeholder,
                 viewHolder.iv_ticket_img);
-        viewHolder.iv_isSellout.setVisibility(list.get(position).isSellOut()?View.VISIBLE:View.GONE);
-        viewHolder.tv_ticket_qiang.setVisibility(list.get(position).isSellOut()?View.GONE:View.VISIBLE);
+        viewHolder.iv_isSellout.setVisibility(list.get(position).isSellOut() ? View.VISIBLE : View.GONE);
+        viewHolder.tv_ticket_qiang.setVisibility(list.get(position).isSellOut() ? View.GONE : View.VISIBLE);
         return convertView;
     }
+
     private int getProgressValue(int sellCount, int totalCount) {
-        float percent = sellCount * 0.1f / totalCount;
+        float percent = sellCount * 1.0f / totalCount;
         return (int) (percent * 100f);
     }
+
     @Override
     public int getCount() {
         return list.size();
@@ -79,6 +83,7 @@ public class TicketAdapter extends BaseLvAdapter<Ticket> {
         TextView tv_ticket_useDate;
         TextView dtv_ticket_marketPrice;
         TextView dtv_ticket_buyPrice;
+        StringTextView stv_ticket_buyLimit;
         ImageView iv_ticket_img;
         ImageView iv_isSellout;
 
@@ -88,6 +93,7 @@ public class TicketAdapter extends BaseLvAdapter<Ticket> {
             stv_date_day = root.findViewById(R.id.stv_date_day);
             stv_date_hour = root.findViewById(R.id.stv_date_hour);
             stv_date_min = root.findViewById(R.id.stv_date_min);
+            stv_ticket_buyLimit = root.findViewById(R.id.stv_ticket_buyLimit);
             tv_ticket_areaText = root.findViewById(R.id.tv_ticket_areaText);
             tv_ticket_title = root.findViewById(R.id.tv_ticket_title);
             pb_ticket_sell = root.findViewById(R.id.pb_ticket_sell);

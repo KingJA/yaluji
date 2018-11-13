@@ -67,7 +67,7 @@
         android:background="@color/white_hi"
         android:padding="12dp">
 
-        <TextView
+        <com.kingja.yaluji.view.RequiredTextView
             style="@style/font_3_14"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

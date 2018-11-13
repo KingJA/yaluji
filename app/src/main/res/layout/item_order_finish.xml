@@ -5,8 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <LinearLayout
-        android:orientation="vertical"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -15,7 +14,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="@mipmap/bg_ticket_action"
+            android:background="@mipmap/bg_ticket_nor"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingBottom="16dp"
@@ -29,14 +28,16 @@
                 android:layout_marginRight="24dp">
 
                 <TextView
-                    style="@style/font_f_18"
+                    style="@style/font_9_18"
+                    android:textColor="@color/c_c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="¥"/>
 
                 <TextView
                     android:id="@+id/tv_ticket_payamount"
-                    style="@style/font_f_30"
+                    style="@style/font_9_30"
+                    android:textColor="@color/c_c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="10"/>
@@ -51,7 +52,8 @@
 
                 <TextView
                     android:id="@+id/tv_ticket_subject"
-                    style="@style/font_f_14"
+                    style="@style/font_9_14"
+                    android:textColor="@color/c_c"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:singleLine="true"
@@ -65,20 +67,23 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_f_12"
+                        style="@style/font_9_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="数量:"/>
+                        android:text="数量:"
+                        android:textColor="@color/c_c"/>
 
                     <TextView
+                        android:textColor="@color/c_c"
                         android:id="@+id/tv_ticket_quantity"
-                        style="@style/font_f_12"
+                        style="@style/font_9_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2"/>
 
                     <TextView
-                        style="@style/font_f_12"
+                        android:textColor="@color/c_c"
+                        style="@style/font_9_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="张"/>
@@ -90,14 +95,16 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        style="@style/font_f_12"
+                        android:textColor="@color/c_c"
+                        style="@style/font_9_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="使用期限:"/>
 
                     <TextView
+                        android:textColor="@color/c_c"
                         android:id="@+id/tv_ticket_visitDate"
-                        style="@style/font_f_12"
+                        style="@style/font_9_12"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="2018-10-22至2018-10-25"/>
@@ -106,7 +113,17 @@
 
         </LinearLayout>
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_order_stamp"
+            android:layout_marginRight="12dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerInParent="true"
+            android:background="@mipmap/bg_stamp_used"
+            android:layout_width="68dp"
+            android:layout_height="54dp"/>
+    </RelativeLayout>
+
+
 
     <LinearLayout
         android:layout_width="wrap_content"

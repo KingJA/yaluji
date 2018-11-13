@@ -3,28 +3,21 @@ package com.kingja.yaluji.page.order.orderdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 
-import com.kingja.supershapeview.view.SuperShapeRelativeLayout;
 import com.kingja.yaluji.R;
-import com.kingja.yaluji.activity.SearchDetailActivity;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.OrderDetail;
-import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
-import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.view.StringTextView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * Description:TODO
@@ -48,6 +41,12 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     StringTextView tvTicketcode;
     @BindView(R.id.iv_qcodeImg)
     ImageView ivQcodeImg;
+    @BindView(R.id.tv_quantity)
+    StringTextView tvQuantity;
+    @BindView(R.id.tv_visitMethod)
+    StringTextView tvVisitMethod;
+    @BindView(R.id.tv_useRemarks)
+    StringTextView tvUseRemarks;
     private String orderId;
     @Inject
     OrderDetailPresenter orderDetailPresenter;
@@ -101,7 +100,10 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         tvPaidAt.setString(orderDetail.getPaidAt());
         tvOrderNo.setString(orderDetail.getOrderNo());
         tvTicketcode.setString(orderDetail.getTicketcode());
-        ImageLoader.getInstance().loadImage(this,orderDetail.getQrcodeurl(),ivQcodeImg);
+        tvQuantity.setString(orderDetail.getQuantity());
+        tvVisitMethod.setString(orderDetail.getVisitMethod());
+        tvUseRemarks.setString(orderDetail.getUseRemarks());
+        ImageLoader.getInstance().loadImage(this, orderDetail.getQrcodeurl(), ivQcodeImg);
 
     }
 
@@ -110,5 +112,4 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         intent.putExtra(Constants.Extra.OrderId, orderId);
         context.startActivity(intent);
     }
-
 }

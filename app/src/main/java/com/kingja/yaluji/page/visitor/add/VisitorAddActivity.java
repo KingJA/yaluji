@@ -44,7 +44,7 @@ public class VisitorAddActivity extends BaseTitleActivity implements VisitorAddC
         String phone = etVisitorPhone.getText().toString().trim();
         String idcode = etVisitorIdcode.getText().toString().trim();
         if (CheckUtil.checkEmpty(name, "请输入姓名")
-                && CheckUtil.checkPhoneFormat(phone)) {
+                && CheckUtil.checkPhoneFormat(phone) && CheckUtil.checkIdCard(idcode,"身份证号错误")) {
             addVisitor(name,phone,idcode);
         }
 

@@ -124,7 +124,6 @@ public class BusinessDetailActivity extends BaseTitleActivity implements Busines
 
     @Override
     public void onDoBusinessSuccess() {
-        ToastUtil.showText("提交成功");
-        finish();
+       showSuccessAndFinish("提交成功");
     }
 }

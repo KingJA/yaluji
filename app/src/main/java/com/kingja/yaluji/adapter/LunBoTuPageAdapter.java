@@ -9,6 +9,7 @@ import android.widget.ImageView;
 
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.model.entiy.LunBoTu;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.ToastUtil;
 
@@ -39,9 +40,8 @@ public class LunBoTuPageAdapter extends PagerAdapter {
     }
 
     @Override
-    public void destroyItem(ViewGroup container, int position,
-                            Object object) {
-        container.removeView((View) object);
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView(lunBoTuList.get(position % lunBoTuList.size()));
     }
 
     @Override

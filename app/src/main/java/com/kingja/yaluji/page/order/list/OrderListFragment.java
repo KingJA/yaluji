@@ -18,6 +18,7 @@ import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.ToastUtil;
+import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
@@ -42,7 +43,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     @BindView(R.id.lv)
     ListView lv;
     @BindView(R.id.srl)
-    RefreshSwipeRefreshLayout srl;
+    MoveSwipeRefreshLayout srl;
     private List<Order> orderList = new ArrayList<>();
     @Inject
     OrderListPresenter orderListPresenter;
