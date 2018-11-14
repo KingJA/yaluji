@@ -62,6 +62,13 @@ public class Status {
         int OVER_TIME = 4;
     }
 
+    public interface SharePage {
+        //问题列表
+        int QUESTION_LIST = 1;
+        //问题详情
+        int QUESTION_DETAIL = 2;
+    }
+
     public enum OrderStatus implements CodeEnum {
         WAIT_PAY(0, "待支付"),
         TO_USED(1, "待使用"),

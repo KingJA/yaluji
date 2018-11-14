@@ -85,7 +85,7 @@
                     android:text="¥"/>
 
                 <TextView
-                    android:id="@+id/tv_buyPrice"
+                    android:id="@+id/tv_payamount"
                     style="@style/font_red_33"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

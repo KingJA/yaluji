@@ -23,6 +23,7 @@ import com.kingja.yaluji.page.relife.RelifeContract;
 import com.kingja.yaluji.page.relife.RelifePresenter;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.ShareUtil;
+import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
 import com.kingja.yaluji.view.dialog.ConfirmDialog;
@@ -96,6 +97,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
             QuestionDetailActivity.goActivity(this, paperId);
         }
         if (question.getUserStatus() == Status.QuestionStatus.RELIFT.getCode()) {
+            SpSir.getInstance().putSharePage(Status.SharePage.QUESTION_LIST);
             share(SendMessageToWX.Req.WXSceneTimeline);
         }
     }
@@ -154,7 +156,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     @Override
     protected void initData() {
         questionExplainDialog = new QuestionExplainDialog(this);
-        confirmDialog = new ConfirmDialog(this, "复活成功，请继续答题");
+        confirmDialog = new ConfirmDialog(this, "复活成功，请重新答题");
         srl.setOnRefreshListener(this);
     }
 
@@ -204,8 +206,9 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void shareSuccess(ShareSuccessEvent event) {
-        relifePresenter.reLife(paperId);
-
+        if (SpSir.getInstance().getShapePage() == Status.SharePage.QUESTION_LIST) {
+            relifePresenter.reLife(paperId);
+        }
     }
 
     @Override

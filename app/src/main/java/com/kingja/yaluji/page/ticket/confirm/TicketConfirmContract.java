@@ -1,4 +1,4 @@
-package com.kingja.yaluji.page.ticket.detail;
+package com.kingja.yaluji.page.ticket.confirm;
 
 import com.kingja.yaluji.base.BasePresenter;
 import com.kingja.yaluji.base.BaseView;
@@ -14,18 +14,13 @@ import java.util.List;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface TicketDetailContract {
+public interface TicketConfirmContract {
     interface View extends BaseView {
-        void onGetTicketDetailSuccess(TicketDetail ticketDetail);
+        void onSumbitOrderSuccess(OrderResult orderResult);
 
-        void onGetVisitorsSuccess(List<Visitor> visitors);
-
-        void onLoginFail();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getTicketDetail(String productId);
-
-        void getVisitors(Integer page, Integer pageSize);
+        void sumbitOrder(String productId, String touristIds, String quantity, String from);
     }
 }

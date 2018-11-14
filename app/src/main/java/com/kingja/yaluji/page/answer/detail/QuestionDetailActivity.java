@@ -1,34 +1,36 @@
 package com.kingja.yaluji.page.answer.detail;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.kingja.yaluji.R;
-import com.kingja.yaluji.event.ShareSuccessEvent;
-import com.kingja.yaluji.page.answer.success.AnswerSuccessActivity;
 import com.kingja.yaluji.adapter.AnswerAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.RefreshQuestionEvent;
+import com.kingja.yaluji.event.ShareSuccessEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Answer;
 import com.kingja.yaluji.model.entiy.AnswerResult;
 import com.kingja.yaluji.model.entiy.QuestionDetail;
+import com.kingja.yaluji.page.answer.success.AnswerSuccessActivity;
 import com.kingja.yaluji.page.relife.RelifeContract;
 import com.kingja.yaluji.page.relife.RelifePresenter;
+import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.ShareUtil;
-import com.kingja.yaluji.util.ToastUtil;
+import com.kingja.yaluji.util.SoundPlayer;
+import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.StringTextView;
-import com.kingja.yaluji.view.dialog.BaseDialog;
 import com.kingja.yaluji.view.dialog.ConfirmDialog;
 import com.kingja.yaluji.view.dialog.QuestionFailDialog;
 import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
@@ -48,6 +50,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 
@@ -72,6 +75,8 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
     StringTextView tvTotalCount;
     @BindView(R.id.tv_time)
     StringTextView tvTime;
+    @BindView(R.id.iv_sound)
+    ImageView ivSound;
     private String paperId;
     @Inject
     QuestionDetailPresenter questionDetailPresenter;
@@ -108,6 +113,8 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
         paperId = getIntent().getStringExtra(Constants.Extra.PaperId);
         EventBus.getDefault().register(this);
         regToWeixin();
+        SoundPlayer.getInstance().init(this);
+
     }
 
 
@@ -140,7 +147,19 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Override
     protected void initData() {
-        startDeedTime();
+        resetSound();
+        ivSound.setOnClickListener(new NoDoubleClickListener() {
+            @Override
+            public void onNoDoubleClick(View v) {
+                SpSir.getInstance().putSound(!SpSir.getInstance().getSound());
+                resetSound();
+            }
+        });
+    }
+
+    private void resetSound() {
+        boolean allowSound = SpSir.getInstance().getSound();
+        ivSound.setBackgroundResource(allowSound ? R.mipmap.ic_sound_on : R.mipmap.ic_sound_off);
     }
 
     @Override
@@ -157,7 +176,6 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
     @Override
     public void onGetQuestionDetailSuccess(QuestionDetail questionDetail) {
         stopDeedTime();
-
         if (questionDetail != null) {
             QuestionDetail.PaperQuestion paperQuestion = questionDetail.getPaperQuestion();
             if (paperQuestion != null) {
@@ -181,19 +199,29 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
         stopDeedTime();
         switch (answerResult.getCorrectStatus()) {
             case Status.AnswerResult.RIGHT:
+                if (SpSir.getInstance().getSound()) {
+                    SoundPlayer.getInstance().playVoice(R.raw.answer_ok);
+                }
                 questionDetailPresenter.getQuestionDetail(paperId);
                 break;
             case Status.AnswerResult.WRONG:
+                if (SpSir.getInstance().getSound()) {
+                    SoundPlayer.getInstance().playVoice(R.raw.answer_error);
+                }
                 failDialog = new QuestionFailDialog(this, answerResult.getRebornTimes());
                 failDialog.setOnCancelListener(dialogInterface -> {
                     quitAndRefresh();
                 });
                 failDialog.setOnConfirmListener(() -> {
+                    SpSir.getInstance().putSharePage(Status.SharePage.QUESTION_DETAIL);
                     share(SendMessageToWX.Req.WXSceneTimeline);
                 });
                 failDialog.show();
                 break;
             case Status.AnswerResult.SUCCESS:
+                if (SpSir.getInstance().getSound()) {
+                    SoundPlayer.getInstance().playVoice(R.raw.answer_success);
+                }
                 successDialog = new QuestionSuccessDialog(this, answerResult.getCouponAmount(), String.valueOf
                         (answerResult.getCouponLimit()));
                 successDialog.setOnCancelListener(dialogInterface -> {
@@ -207,6 +235,9 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                 successDialog.show();
                 break;
             case Status.AnswerResult.NO_RELIFE:
+                if (SpSir.getInstance().getSound()) {
+                    SoundPlayer.getInstance().playVoice(R.raw.answer_fail);
+                }
                 confirmDialog = new ConfirmDialog(this, "答题失败超过3次，即将退出当前页面");
                 confirmDialog.setOnConfirmListener(() -> {
                     quitAndRefresh();
@@ -247,6 +278,7 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
     protected void onDestroy() {
         super.onDestroy();
         stopDeedTime();
+        SoundPlayer.getInstance().stop();
     }
 
     private void stopDeedTime() {
@@ -262,7 +294,7 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Override
     public void onReLifeSuccess() {
-        ConfirmDialog relifeSuccessDialog = new ConfirmDialog(this, "复活成功，重新答题");
+        ConfirmDialog relifeSuccessDialog = new ConfirmDialog(this, "复活成功，请重新答题");
         relifeSuccessDialog.setOnConfirmListener(() -> {
             quitAndRefresh();
         });
@@ -279,7 +311,11 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
         @Override
         public void onTick(long millisUntilFinished) {
-            tvTime.setText(Math.round((double) millisUntilFinished / 1000) + "");
+            long leftSecond = Math.round((double) millisUntilFinished / 1000);
+            tvTime.setText(String.valueOf(leftSecond));
+            if (leftSecond == 4&&SpSir.getInstance().getSound()) {
+                SoundPlayer.getInstance().playVoice(R.raw.answer_timeover);
+            }
         }
 
         @Override
@@ -295,6 +331,8 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void shareSuccess(ShareSuccessEvent event) {
-        relifePresenter.reLife(paperId);
+        if (SpSir.getInstance().getShapePage() == Status.SharePage.QUESTION_DETAIL) {
+            relifePresenter.reLife(paperId);
+        }
     }
 }

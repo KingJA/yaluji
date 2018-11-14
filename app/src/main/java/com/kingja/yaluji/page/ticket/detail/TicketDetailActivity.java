@@ -2,7 +2,6 @@ package com.kingja.yaluji.page.ticket.detail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -36,6 +34,7 @@ import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.TicketDetail;
 import com.kingja.yaluji.model.entiy.Visitor;
 import com.kingja.yaluji.page.introduce.SceneryIntroduceActivity;
+import com.kingja.yaluji.page.ticket.confirm.TicketConfirmActivity;
 import com.kingja.yaluji.page.ticket.success.TicketSuccessActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.page.visitor.prefect.VisitorPrefectActivity;
@@ -48,7 +47,6 @@ import com.kingja.yaluji.view.ChangeNumberView;
 import com.kingja.yaluji.view.DeleteTextView;
 import com.kingja.yaluji.view.RvItemDecoration;
 import com.kingja.yaluji.view.StringTextView;
-import com.kingja.yaluji.view.dialog.BaseDialog;
 import com.kingja.yaluji.view.dialog.TicketGetDialog;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,7 +60,6 @@ import java.util.TimerTask;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
@@ -128,7 +125,6 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     private int idcodeNeed;
     private int status;
     private String endTime;
-    private TicketGetDialog ticketGetDialog;
     private int buyPrice;
     private String visitDate;
     private String ticketName;
@@ -184,12 +180,10 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     }
 
     private void sumbmitOrder() {
-        if (!SpSir.getInstance().getNoShow()) {
-            ticketGetDialog.show();
-        } else {
-            ticketDetailPresenter.sumbitOrder(productId, touristId, ccvTicketDetail.getNumber(), Constants
-                    .PLATFORM_ANDROID);
-        }
+        String visitorName = tvVisitorName.getText().toString().trim();
+        String visitorPhone = tvVisitorPhone.getText().toString().trim();
+        TicketConfirmActivity.goActivity(this, productId, touristId, visitorName, visitorPhone, String
+                .valueOf(ccvTicketDetail.getNumber()), ticketDetail);
 
     }
 
@@ -244,10 +238,6 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     @Override
     protected void initData() {
         visitorTabAdapter.setOnItemClickListener(this);
-        ticketGetDialog = new TicketGetDialog(this);
-        ticketGetDialog.setOnConfirmListener(() -> ticketDetailPresenter.sumbitOrder(productId, touristId,
-                ccvTicketDetail.getNumber(), Constants
-                        .PLATFORM_ANDROID));
     }
 
     @Override
@@ -256,8 +246,11 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         ticketDetailPresenter.getVisitors(Constants.PAGE_FIRST, Constants.PAGE_SIZE_100);
     }
 
+    private TicketDetail ticketDetail;
+
     @Override
     public void onGetTicketDetailSuccess(TicketDetail ticketDetail) {
+        this.ticketDetail = ticketDetail;
         showSuccessCallback();
         scenicid = ticketDetail.getScenicid();
         idcodeNeed = ticketDetail.getIdcodeNeed();
@@ -365,13 +358,6 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
             }
         }
         return visitors;
-    }
-
-    @Override
-    public void onSumbitOrderSuccess(OrderResult orderResult) {
-        EventBus.getDefault().post(new RefreshOrderEvent());
-        TicketSuccessActivity.goActivity(this, ticketName, String.valueOf(buyPrice), visitDate, String.valueOf
-                (ccvTicketDetail.getNumber()));
     }
 
     @Override

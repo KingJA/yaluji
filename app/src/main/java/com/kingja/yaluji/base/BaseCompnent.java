@@ -1,6 +1,7 @@
 package com.kingja.yaluji.base;
 
 
+import com.kingja.yaluji.page.ticket.confirm.TicketConfirmActivity;
 import com.kingja.yaluji.injector.annotation.PerActivity;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.injector.module.ActivityModule;
@@ -102,5 +103,7 @@ public interface BaseCompnent {
     void inject(AnswerSuccessActivity target);
 
     void inject(SceneryIntroduceActivity target);
+
+    void inject(TicketConfirmActivity target);
 
 }

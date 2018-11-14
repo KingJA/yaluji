@@ -64,7 +64,7 @@ public abstract class ResultObserver<T> extends DefaultObserver<HttpResult<T>> {
     protected abstract void onSuccess(T t);
 
     protected void onResultError(int code, String message) {
-        ToastUtil.showText(message);
+        baseView.showErrorMessage(code, message);
     }
 
     protected void onLoginFail() {

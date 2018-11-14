@@ -2,7 +2,6 @@ package com.kingja.yaluji.page.order.orderdetail;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.kingja.yaluji.R;
@@ -12,12 +11,12 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.OrderDetail;
+import com.kingja.yaluji.view.DeleteTextView;
 import com.kingja.yaluji.view.StringTextView;
 
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 /**
  * Description:TODO
@@ -47,6 +46,10 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     StringTextView tvVisitMethod;
     @BindView(R.id.tv_useRemarks)
     StringTextView tvUseRemarks;
+    @BindView(R.id.tv_marketPrice)
+    DeleteTextView tvMarketPrice;
+    @BindView(R.id.tv_payamount)
+    StringTextView tvPayamount;
     private String orderId;
     @Inject
     OrderDetailPresenter orderDetailPresenter;
@@ -103,6 +106,8 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         tvQuantity.setString(orderDetail.getQuantity());
         tvVisitMethod.setString(orderDetail.getVisitMethod());
         tvUseRemarks.setString(orderDetail.getUseRemarks());
+        tvMarketPrice.setString(String.format("¥%d元", orderDetail.getMarketPrice()));
+        tvPayamount.setString(String.format("抵用%d元/张", orderDetail.getPayamount()));
         ImageLoader.getInstance().loadImage(this, orderDetail.getQrcodeurl(), ivQcodeImg);
 
     }

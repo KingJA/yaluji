@@ -8,6 +8,7 @@ package com.kingja.yaluji.model.entiy;
  */
 public class Notification {
     private String productId;
+    private String orderId;
     private String title;
 
     public String getProductId() {
@@ -24,5 +25,13 @@ public class Notification {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(String orderId) {
+        this.orderId = orderId;
     }
 }

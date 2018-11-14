@@ -97,10 +97,20 @@
             </LinearLayout>
         </LinearLayout>
 
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="64dp"
             android:background="@mipmap/bg_answer_head"/>
+
+        <ImageView
+            android:id="@+id/iv_sound"
+            android:layout_marginTop="12dp"
+            android:layout_marginRight="22dp"
+            android:layout_alignParentRight="true"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:background="@mipmap/ic_sound_on"/>
 
     </RelativeLayout>
 </ScrollView>

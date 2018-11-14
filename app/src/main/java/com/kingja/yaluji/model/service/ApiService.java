@@ -174,7 +174,7 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/app/order/submit")
     Observable<HttpResult<OrderResult>> sumbitOrder(@Field("productId") String productId, @Field("touristIds")
-            String touristIds, @Field("quantity") int quantity, @Field("from") String from);
+            String touristIds, @Field("quantity") String quantity, @Field("from") String from);
 
     /*支付宝支付*/
     @FormUrlEncoded

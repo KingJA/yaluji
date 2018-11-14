@@ -15,6 +15,7 @@ import com.kingja.yaluji.injector.module.AppModule;
 import com.kingja.yaluji.util.AppManager;
 import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.RxRe;
+import com.kingja.yaluji.util.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -141,4 +142,8 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
         setProgressShow(false);
     }
 
+    @Override
+    public void showErrorMessage(int code, String message) {
+        ToastUtil.showText(message);
+    }
 }

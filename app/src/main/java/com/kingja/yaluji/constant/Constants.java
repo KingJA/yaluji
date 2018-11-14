@@ -44,7 +44,10 @@ public class Constants {
         String TicketName = "ticketName";
         String BuyPrice = "buyPrice";
         String VisitDate = "visitDate";
+        String VisitorName = "visitorName";
+        String VisitorPhone = "visitorPhone";
         String Quantity = "quantity";
+        String TicketDetail = "TicketDetail";
         String OrderId = "orderId";
         String BusinessType = "businessType";
         String TouristId = "touristId";

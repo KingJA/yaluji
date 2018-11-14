@@ -1,16 +1,15 @@
 package com.kingja.yaluji.page.ticket.success;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kingja.yaluji.R;
-import com.kingja.yaluji.activity.SearchDetailActivity;
 import com.kingja.yaluji.adapter.TicketGvAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
@@ -18,8 +17,13 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
-import com.kingja.yaluji.util.GoUtil;
+import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.view.FixedGridView;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +31,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 
@@ -45,7 +48,7 @@ public class TicketSuccessActivity extends BaseTitleActivity implements TicketSu
     TextView tvQuantity;
     @BindView(R.id.ll_getSuccess)
     LinearLayout llGetSuccess;
-    @BindView(R.id.tv_buyPrice)
+    @BindView(R.id.tv_payamount)
     TextView tvBuyPrice;
     @BindView(R.id.tv_visitDate)
     TextView tvVisitDate;
@@ -61,18 +64,29 @@ public class TicketSuccessActivity extends BaseTitleActivity implements TicketSu
     TicketSuccessPresenter ticketSuccessPresenter;
     private List<Ticket> ticketList = new ArrayList<>();
     private TicketGvAdapter ticketGvAdapter;
+    private IWXAPI api;
 
+    private void regToWeixin() {
+        api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
+        api.registerApp(Constants.APP_ID_WEIXIN);
+    }
     @OnItemClick(R.id.fgv)
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
         Ticket ticket = (Ticket) parent.getItemAtPosition(position);
         TicketDetailActivity.goActivity(this, ticket.getId());
     }
 
-    @OnClick({R.id.tv_backToList})
+    @OnClick({R.id.tv_backToList, R.id.iv_wxFrends, R.id.iv_wxFrend})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_backToList:
                 finish();
+                break;
+            case R.id.iv_wxFrends:
+                share(SendMessageToWX.Req.WXSceneTimeline);
+                break;
+            case R.id.iv_wxFrend:
+                share(SendMessageToWX.Req.WXSceneSession);
                 break;
             default:
                 break;
@@ -85,6 +99,7 @@ public class TicketSuccessActivity extends BaseTitleActivity implements TicketSu
         buyPrice = getIntent().getStringExtra(Constants.Extra.BuyPrice);
         visitDate = getIntent().getStringExtra(Constants.Extra.VisitDate);
         quantity = getIntent().getStringExtra(Constants.Extra.Quantity);
+        regToWeixin();
 
     }
 
@@ -101,7 +116,24 @@ public class TicketSuccessActivity extends BaseTitleActivity implements TicketSu
                 .inject(this);
         ticketSuccessPresenter.attachView(this);
     }
+    private void share(int shareTo) {
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.bg_share);
+        WXImageObject imgObj = new WXImageObject(bmp);
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = imgObj;
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, Constants.THUMB_SIZE, Constants.THUMB_SIZE, true);
+        bmp.recycle();
+        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);  // 设置所图；
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = buildTransaction("img");
+        req.message = msg;
+        req.scene = shareTo;
+        api.sendReq(req);
+    }
 
+    private String buildTransaction(String type) {
+        return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
+    }
     @Override
     protected String getContentTitle() {
         return "领券成功";

@@ -69,17 +69,4 @@ public class TicketDetailPresenter implements TicketDetailContract.Presenter {
                     }
                 });
     }
-
-    @Override
-    public void sumbitOrder(String productId, String touristIds, int quantity, String from) {
-        mApi.getApiService().sumbitOrder(productId,  touristIds,  quantity,  from).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers
-                .mainThread()).subscribe
-                (new ResultObserver<OrderResult>(mView) {
-                    @Override
-                    protected void onSuccess(OrderResult orderResult) {
-                        mView.onSumbitOrderSuccess(orderResult);
-                    }
-
-                });
-    }
 }

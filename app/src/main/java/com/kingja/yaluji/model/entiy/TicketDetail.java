@@ -1,12 +1,14 @@
 package com.kingja.yaluji.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2018/7/11 13:50
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketDetail {
+public class TicketDetail implements Serializable {
 
 
     /**

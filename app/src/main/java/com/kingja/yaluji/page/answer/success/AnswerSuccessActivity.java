@@ -48,7 +48,7 @@ public class AnswerSuccessActivity extends BaseTitleActivity implements AnswerSu
     TextView tvQuantity;
     @BindView(R.id.ll_getSuccess)
     LinearLayout llGetSuccess;
-    @BindView(R.id.tv_buyPrice)
+    @BindView(R.id.tv_payamount)
     TextView tvBuyPrice;
     @BindView(R.id.tv_visitDate)
     TextView tvVisitDate;

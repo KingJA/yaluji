@@ -41,9 +41,9 @@
                 android:padding="12dp">
 
                 <LinearLayout
-                    android:layout_marginBottom="6dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -83,6 +83,7 @@
                         android:layout_weight="3"
                         android:text="2张"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -104,6 +105,7 @@
                         android:layout_weight="3"
                         android:text="0元"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -125,6 +127,7 @@
                         android:layout_weight="3"
                         android:text="抵用0元/张"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -158,27 +161,6 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="领券时间"/>
-
-                    <com.kingja.yaluji.view.StringTextView
-                        android:id="@+id/tv_paidAt"
-                        style="@style/font_6_13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="3"
-                        android:text="2018-07-22"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/font_6_13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:text="使用方式"/>
 
                     <com.kingja.yaluji.view.StringTextView
@@ -189,6 +171,7 @@
                         android:layout_weight="3"
                         android:text="景区售票窗口直接抵扣"/>
                 </LinearLayout>
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -209,90 +192,63 @@
                         android:layout_weight="3"
                         android:text="抢购3小时后生效"/>
                 </LinearLayout>
+
             </LinearLayout>
 
-            <com.kingja.supershapeview.view.SuperShapeLinearLayout
-                android:layout_width="240dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginBottom="6dp"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:padding="12dp"
-                app:super_cornerRadius="6dp"
-                app:super_solidColor="@color/bg_hi">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/font_3_13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="24dp"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="订单号"/>
-
-                    <com.kingja.yaluji.view.StringTextView
-                        android:id="@+id/tv_orderNo"
-                        style="@style/font_6_13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="25145214"/>
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        style="@style/font_3_13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="24dp"
-                        android:layout_weight="1"
-                        android:gravity="end"
-                        android:text="验证码"/>
-
-                    <com.kingja.yaluji.view.StringTextView
-                        android:id="@+id/tv_ticketcode"
-                        style="@style/font_6_13"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:text="154dsf"/>
-
-                </LinearLayout>
-
-
-            </com.kingja.supershapeview.view.SuperShapeLinearLayout>
-
-            <com.kingja.supershapeview.view.SuperShapeRelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:orientation="vertical"
-                android:padding="16dp"
-                app:super_cornerRadius="4dp"
-                app:super_solidColor="@color/white_hi"
-                app:super_strokeColor="@color/gray_hi"
-                app:super_strokeWidth="1px">
-
-                <ImageView
-                    android:id="@+id/iv_qcodeImg"
-                    android:layout_width="180dp"
-                    android:layout_height="180dp"
-                    android:layout_centerInParent="true"/>
-            </com.kingja.supershapeview.view.SuperShapeRelativeLayout>
         </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="20dp"
+            android:gravity="center">
 
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="7dp"
+                android:background="@mipmap/ic_tip"/>
+
+            <TextView
+                style="@style/font_orange_12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="限量资源，无需求请勿领取"/>
+        </LinearLayout>
+        <!--按钮-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.kingja.supershapeview.view.SuperShapeTextView
+                android:id="@+id/stv_confirm"
+                style="@style/font_f_13"
+                android:layout_width="150dp"
+                android:layout_height="36dp"
+                android:layout_above="@id/stv_provider"
+                android:layout_gravity="end"
+                android:layout_marginRight="12dp"
+                android:gravity="center"
+                android:text="确认领取"
+                app:super_cornerRadius="18dp"
+                app:super_solidColor="@color/orange_hi"/>
+
+            <com.kingja.supershapeview.view.SuperShapeTextView
+                android:id="@+id/stv_cancel"
+                style="@style/font_f_13"
+                android:layout_width="150dp"
+                android:layout_height="36dp"
+                android:layout_above="@id/stv_provider"
+                android:layout_gravity="end"
+                android:gravity="center"
+                android:text="取消领取"
+                app:super_cornerRadius="18dp"
+                app:super_solidColor="@color/green_hi"/>
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

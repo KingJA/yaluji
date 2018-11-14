@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
     android:fillViewport="true">
 
     <LinearLayout
@@ -11,16 +11,76 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         <!--领取成功-->
-       <include layout="@layout/layout_ticket_success"/>
+        <include layout="@layout/layout_ticket_success"/>
         <!--更多宝贝推荐-->
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@mipmap/ic_share_text"/>
+
+        <!--分享-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="56dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_wxFrends"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@mipmap/bg_share_weixinfrends"/>
+
+                <TextView
+                    style="@style/font_3_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="朋友圈"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_wxFrend"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@mipmap/bg_share_weixin"/>
+
+                <TextView
+                    style="@style/font_3_13"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="微信好友"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
         <TextView
             android:id="@+id/tv_backToList"
             style="@style/Action_Button"
             android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginRight="24dp"
             android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
+            android:layout_marginTop="16dp"
             android:text="返回列表"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -50,7 +110,6 @@
         <!--推荐GV列表-->
         <com.kingja.yaluji.view.FixedGridView
             android:id="@+id/fgv"
-            tools:listitem="@layout/item_ticket_simple"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -58,7 +117,8 @@
             android:horizontalSpacing="10dp"
             android:numColumns="2"
             android:scrollbars="none"
-            android:verticalSpacing="10dp"/>
+            android:verticalSpacing="10dp"
+            tools:listitem="@layout/item_ticket_simple"/>
 
 
     </LinearLayout>

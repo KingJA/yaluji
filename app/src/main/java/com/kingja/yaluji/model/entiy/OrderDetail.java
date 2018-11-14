@@ -49,6 +49,24 @@ public class OrderDetail {
     private String statusText;
     private String orderNo;
     private String paidAt;
+    private int marketPrice;
+    private int buyPrice;
+
+    public int getMarketPrice() {
+        return marketPrice;
+    }
+
+    public int getBuyPrice() {
+        return buyPrice;
+    }
+
+    public void setMarketPrice(int marketPrice) {
+        this.marketPrice = marketPrice;
+    }
+
+    public void setBuyPrice(int buyPrice) {
+        this.buyPrice = buyPrice;
+    }
 
     public String getId() {
         return id;

@@ -4,6 +4,7 @@ import android.content.SharedPreferences;
 import android.text.TextUtils;
 
 import com.kingja.yaluji.base.App;
+import com.kingja.yaluji.constant.Status;
 
 
 /**
@@ -26,6 +27,8 @@ public class SpSir {
     private static final String History_Keyword = "History_Keyword";
     private static final String EMPTY_STRING = "";
     private static final String NO_SHOW = "NO_SHOW";
+    private static final String SOUND = "SOUND";
+    private static final String SHAPE_PAGE = "SHAPE_PAGE";
     private static SpSir mSpSir;
     private SharedPreferences mSp;
 
@@ -94,6 +97,14 @@ public class SpSir {
         return getBoolean(NO_SHOW, false);
     }
 
+    public boolean getSound() {
+        return getBoolean(SOUND, true);
+    }
+
+    public int getShapePage() {
+        return getInt(SHAPE_PAGE, Status.SharePage.QUESTION_LIST);
+    }
+
     /*================================PUT================================*/
 
 
@@ -131,6 +142,14 @@ public class SpSir {
 
     public void putNoShow(boolean noShow) {
         putBoolean(NO_SHOW, noShow);
+    }
+
+    public void putSound(boolean sound) {
+        putBoolean(SOUND, sound);
+    }
+
+    public void putSharePage(int sharePage) {
+        putInt(SHAPE_PAGE, sharePage);
     }
 
     public void addMsgCount() {

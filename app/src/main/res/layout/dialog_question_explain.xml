@@ -45,7 +45,7 @@
                 style="@style/font_3_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="为使奖品惠及更多人，每个注册用户成功闯关一次后，当周不可再答题闯关，需下周再闯关。"/>
+                android:text="为使奖品惠及更多人，每周成功闯关次数限1次。"/>
 
 
         </LinearLayout>
@@ -66,7 +66,7 @@
                 style="@style/font_3_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="每个答题失败，都可以复活3次。"/>
+                android:text="每个答题有3次复活机会。"/>
 
 
         </LinearLayout>
@@ -87,7 +87,7 @@
                 style="@style/font_3_13"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="复活方式: 可转发朋友圈即时复活，也可隔天自动复活再答题闯关。"/>
+                android:text="复活方式: 可转发朋友圈即时复活，或隔天自动复活。"/>
         </LinearLayout>
 
         <com.kingja.supershapeview.view.SuperShapeTextView
