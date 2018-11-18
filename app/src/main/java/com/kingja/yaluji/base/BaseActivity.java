@@ -129,7 +129,9 @@ public abstract class BaseActivity extends AppCompatActivity implements BaseView
     }
 
     public void showSuccessAndFinish(String tip) {
-        DialogUtil.showQuitDialog(this, tip);
+//        DialogUtil.showQuitDialog(this, tip);
+        ToastUtil.showText(tip);
+        finish();
     }
 
     @Override

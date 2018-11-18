@@ -71,6 +71,8 @@ public class DiscountPop extends BasePop {
             @Override
             public void onChangeNumber(int number) {
                 buyLimit = String.valueOf(number);
+                showNoLimit = false;
+                resetLimitTab();
             }
         });
         gv_discount.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -123,7 +125,7 @@ public class DiscountPop extends BasePop {
         tv_noLimit.setTextColor(showNoLimit ? ContextCompat.getColor(context, R.color.orange_hi) :
                 ContextCompat.getColor(context, R.color.c_6));
         buyLimit = showNoLimit ? "" : String.valueOf(cnv_discount.getNumber());
-        cnv_discount.setChangeable(!showNoLimit);
+//        cnv_discount.setChangeable(!showNoLimit);
     }
 
     @Override

@@ -117,4 +117,9 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         intent.putExtra(Constants.Extra.OrderId, orderId);
         context.startActivity(intent);
     }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
+    }
 }

@@ -35,6 +35,7 @@ import com.kingja.yaluji.page.visitor.edit.VisitorEditActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.page.visitor.prefect.VisitorPrefectActivity;
 import com.kingja.yaluji.service.initialize.InitializeService;
+import com.kingja.yaluji.update.VersionUpdateSir;
 import com.kingja.yaluji.view.dialog.QuestionSuccessDialog;
 
 import dagger.Component;
@@ -42,6 +43,7 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(VersionUpdateSir target);
     void inject(OrderListFragment target);
 
     void inject(OrderDetailActivity target);

@@ -1,16 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@android:id/progress">
-        <!--    <clip>
-                <shape>
-                    <corners android:radius="10dp"/>
-                    <solid android:color="@color/pie_orange"/>
-                </shape>
-            </clip>-->
-
         <scale
             android:drawable="@drawable/pb_round"
-            android:scaleWidth="100%" />
+            android:scaleWidth="100%"/>
     </item>
 
     <item android:id="@android:id/background">

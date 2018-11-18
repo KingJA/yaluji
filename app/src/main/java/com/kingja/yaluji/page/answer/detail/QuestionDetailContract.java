@@ -24,6 +24,7 @@ public interface QuestionDetailContract {
 
     interface Presenter extends BasePresenter<View> {
         void getQuestionDetail(String paperId);
+        void getNewQuestionDetail(String paperId);
         void submitAnswer(RequestBody requestBody);
 
     }

@@ -18,6 +18,8 @@ import com.kingja.yaluji.util.CheckUtil;
 import com.kingja.yaluji.util.EncryptUtil;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.SpSir;
+import com.kingja.yaluji.util.ToastUtil;
+import com.kingja.yaluji.util.VersionUtil;
 import com.orhanobut.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
@@ -72,7 +74,6 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -94,7 +95,8 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                 String password = etLoginPassword.getText().toString().trim();
                 Logger.d("极光id",JPushInterface.getRegistrationID(this));
                 if (CheckUtil.checkPhoneFormat(username) && CheckUtil.checkEmpty(password, "请输入密码")) {
-                    mLoginPresenter.login(username, EncryptUtil.getMd5(password), JPushInterface.getRegistrationID(this), "", Constants.OSNAME);
+//                    JPushInterface.getRegistrationID(this)
+                    mLoginPresenter.login(username, EncryptUtil.getMd5(password), username, "", Constants.OSNAME);
                 }
                 break;
             default:

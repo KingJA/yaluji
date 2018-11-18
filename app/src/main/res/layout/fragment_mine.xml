@@ -26,14 +26,15 @@
                 android:background="@mipmap/ic_msg_light"/>
 
             <TextView
+                android:visibility="gone"
+                style="@style/font_f_10"
                 android:id="@+id/tv_msgCount"
                 android:layout_width="12dp"
                 android:layout_height="12dp"
                 android:layout_marginLeft="12dp"
-                android:background="@drawable/shape_circle_white"
+                android:background="@drawable/shape_circle_red"
                 android:gravity="center"
-                android:text="99"
-                android:visibility="gone"/>
+                android:text="99"/>
         </RelativeLayout>
 
 

@@ -5,7 +5,11 @@
         <item name="android:layout_height">1px</item>
         <item name="android:background">@color/diver</item>
     </style>
-
+    <style name="div_ver_gray">
+        <item name="android:layout_width">1px</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:background">@color/gray_hi</item>
+    </style>
     <style name="div_hor_6_gray">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">6dp</item>

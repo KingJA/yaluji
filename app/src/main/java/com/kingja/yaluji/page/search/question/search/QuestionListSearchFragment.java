@@ -2,21 +2,22 @@ package com.kingja.yaluji.page.search.question.search;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.QuestionAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
-import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.page.answer.detail.QuestionDetailActivity;
 import com.kingja.yaluji.view.PullToBottomListView;
-import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
 /**
@@ -39,6 +42,9 @@ public class QuestionListSearchFragment extends BaseFragment implements OnSearch
     PullToBottomListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
+    @BindView(R.id.iv_go_top)
+    ImageView ivGoTop;
+    Unbinder unbinder;
     private List<Question> questionList = new ArrayList<>();
     @Inject
     QuestionListSearchPresenter questionListSearchPresenter;
@@ -79,7 +85,7 @@ public class QuestionListSearchFragment extends BaseFragment implements OnSearch
     protected void initView() {
         questionAdapter = new QuestionAdapter(getActivity(), questionList);
         plv.setAdapter(questionAdapter);
-
+        plv.setGoTop(ivGoTop);
     }
 
     @Override
@@ -127,5 +133,19 @@ public class QuestionListSearchFragment extends BaseFragment implements OnSearch
         } else {
             showEmptyCallback();
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

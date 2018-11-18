@@ -118,6 +118,11 @@ public class OrderAdapter extends BaseLvAdapter<Order> {
         return list.size();
     }
 
+    public void addOrder(Order order) {
+        list.add(0, order);
+        notifyDataSetChanged();
+    }
+
     public class ViewHolder {
         public final View root;
         TextView tv_ticket_payamount;

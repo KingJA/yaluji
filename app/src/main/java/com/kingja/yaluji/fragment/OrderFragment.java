@@ -43,7 +43,6 @@ public class OrderFragment extends BaseFragment {
         tabOrder.setTabMode(TabLayout.MODE_FIXED);
         tabOrder.addTab(tabOrder.newTab().setText(items[0]));
         tabOrder.addTab(tabOrder.newTab().setText(items[1]));
-//        tabOrder.post(() -> IndicatorUtil.setIndicator(tabOrder, 50, 50));
         mFragmentArr[0] = OrderListFragment.newInstance(Status.TicketStatus.WAIT_USE);
         mFragmentArr[1] = OrderListFragment.newInstance(Status.TicketStatus.ALL);
         TicketPageAdapter mTicketPageAdapter = new TicketPageAdapter(getChildFragmentManager(), mFragmentArr,

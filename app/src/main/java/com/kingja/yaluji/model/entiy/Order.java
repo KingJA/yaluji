@@ -25,7 +25,7 @@ public class Order {
     private int quantity;
     private String subject;
     private int status;
-    private double payamount;
+    private int payamount;
     private String visitDate;
     private String productid;
     private String statusText;
@@ -70,11 +70,11 @@ public class Order {
         this.status = status;
     }
 
-    public double getPayamount() {
+    public int getPayamount() {
         return payamount;
     }
 
-    public void setPayamount(double payamount) {
+    public void setPayamount(int payamount) {
         this.payamount = payamount;
     }
 

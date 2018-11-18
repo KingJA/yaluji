@@ -70,7 +70,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initVariable() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -84,7 +84,6 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        EventBus.getDefault().register(this);
         initLoginStatus();
     }
 
@@ -119,7 +118,7 @@ public class MineFragment extends BaseFragment {
 
     @Override
     protected void initNet() {
-//        VersionUpdateSir.getInstance(getActivity()).checkUpdate();
+//        VersionUpdateSir.getInstance(getActivity()).getVersion();
         Logger.d("RegistrationID:" + JPushInterface.getRegistrationID(getActivity()));
     }
 
@@ -223,8 +222,6 @@ public class MineFragment extends BaseFragment {
     public void onStart() {
         super.onStart();
         resetMsgCount();
-//        CrashReport.testJavaCrash();
-//        Beta.checkUpgrade(true,false);
     }
 
     private void resetMsgCount() {

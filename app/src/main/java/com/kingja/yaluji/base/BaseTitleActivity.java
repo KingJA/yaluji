@@ -1,5 +1,6 @@
 package com.kingja.yaluji.base;
 
+import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
 import com.kingja.loadsir.core.LoadSir;
+import com.kingja.loadsir.core.Transport;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.callback.EmptyCallback;
 import com.kingja.yaluji.callback.ErrorMessageCallback;
@@ -83,11 +85,26 @@ public abstract class BaseTitleActivity extends BaseActivity {
     public void showErrorCallback() {
         mBaseLoadService.showCallback(ErrorMessageCallback.class);
     }
-
+    @Override
+    public void showErrorMessage(int code, String message) {
+        if (ifRegisterLoadSir()) {
+            mBaseLoadService.setCallBack(ErrorMessageCallback.class, new Transport() {
+                @Override
+                public void order(Context context, View view) {
+                    TextView tvErrorMsg = view.findViewById(R.id.tv_layout_errorMsg);
+                    tvErrorMsg.setText(message);
+                }
+            });
+            mBaseLoadService.showCallback(ErrorMessageCallback.class);
+        } else {
+            super.showErrorMessage(code, message);
+        }
+    }
     @Override
     public void showSuccessCallback() {
         mBaseLoadService.showSuccess();
     }
+
 
     private void onNetReload(View v) {
         initNet();

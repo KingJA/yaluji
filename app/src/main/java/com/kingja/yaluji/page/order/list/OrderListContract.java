@@ -16,7 +16,7 @@ import java.util.List;
 public interface OrderListContract {
     interface View extends BaseView {
         void onGetTicketListSuccess(List<Order> orders);
-        void onDeleteOrderSuccess(int position);
+        void onDeleteOrderSuccess(String orderId, int position);
     }
 
     interface Presenter extends BasePresenter<View> {

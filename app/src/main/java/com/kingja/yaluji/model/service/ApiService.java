@@ -1,6 +1,5 @@
 package com.kingja.yaluji.model.service;
 
-import android.icu.util.VersionInfo;
 
 import com.kingja.yaluji.model.entiy.AnswerResult;
 import com.kingja.yaluji.model.entiy.Article;
@@ -12,15 +11,16 @@ import com.kingja.yaluji.model.entiy.HttpResult;
 import com.kingja.yaluji.model.entiy.Login;
 import com.kingja.yaluji.model.entiy.LunBoTu;
 import com.kingja.yaluji.model.entiy.Message;
+import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.model.entiy.QuestionDetail;
 import com.kingja.yaluji.model.entiy.SceneryIntroduce;
 import com.kingja.yaluji.model.entiy.ScenicType;
-import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.model.entiy.TicketDetail;
+import com.kingja.yaluji.model.entiy.VersionInfo;
 import com.kingja.yaluji.model.entiy.Visitor;
 import com.kingja.yaluji.model.entiy.WeixinPayResult;
 
@@ -205,7 +205,7 @@ public interface ApiService {
     /*版本检测*/
     @FormUrlEncoded
     @POST("/app/version/detail")
-    Observable<HttpResult<VersionInfo>> checkUpdate(@Field("version") String version, @Field("flag") int flag);
+    Observable<HttpResult<VersionInfo>> getVersion(@Field("version") String version, @Field("flag") int flag);
 
 
     /*获取美文列表*/
@@ -264,7 +264,7 @@ public interface ApiService {
 
     /*领取成功补全游客信息*/
     @POST("/app/paper/completeTourist")
-    Observable<HttpResult<Object>> prefectVisitor(@Body RequestBody requestBody);
+    Observable<HttpResult<Order>> prefectVisitor(@Body RequestBody requestBody);
     //=================================================================================
 
 

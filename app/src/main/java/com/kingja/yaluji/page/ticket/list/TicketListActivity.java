@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,8 +37,6 @@ import com.kingja.yaluji.view.CityPop;
 import com.kingja.yaluji.view.DatePop;
 import com.kingja.yaluji.view.DiscountPop;
 import com.kingja.yaluji.view.PullToBottomListView;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,6 +79,8 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     InitializePresenter initializePresenter;
     @BindView(R.id.tv_search)
     TextView tvSearch;
+    @BindView(R.id.iv_go_top)
+    ImageView ivGoTop;
     private List<ScenicType> scenicTypes = new ArrayList<>();
     private List<City> cities = new ArrayList<>();
     private List<Ticket> ticketList = new ArrayList<>();
@@ -138,6 +139,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     protected void initView() {
         ticketAdapter = new TicketAdapter(this, ticketList);
         plv.setAdapter(ticketAdapter);
+        plv.setGoTop(ivGoTop);
     }
 
     @Override
@@ -217,6 +219,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
             scenicType.setDesc("不限");
             scenicTypes.add(0, scenicType);
             ScenicTypeAdapter scenicTypeAdapter = new ScenicTypeAdapter(this, scenicTypes);
+            scenicTypeAdapter.selectItem(0);
             new PopHelper.Builder(this)
                     .setAdapter(scenicTypeAdapter)
                     .setPopSpinner(spinerType)
@@ -321,5 +324,12 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     public void onRefresh() {
         srl.setRefreshing(false);
         initNet();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

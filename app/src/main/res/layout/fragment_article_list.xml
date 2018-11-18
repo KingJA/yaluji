@@ -4,7 +4,9 @@
               android:layout_height="match_parent"
               android:background="@color/bg_hi"
               android:orientation="vertical">
-
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
     <android.support.v4.widget.SwipeRefreshLayout
         android:background="@color/white_hi"
         android:id="@+id/srl"
@@ -21,6 +23,16 @@
             android:dividerHeight="1px"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
+        <ImageView
+            android:id="@+id/iv_go_top"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="15dp"
+            android:layout_marginRight="12dp"
+            android:background="@mipmap/ic_go_top"
+            android:visibility="gone"/>
+    </RelativeLayout>
 
 </LinearLayout>

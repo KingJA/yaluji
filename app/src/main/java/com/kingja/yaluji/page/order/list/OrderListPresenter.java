@@ -59,7 +59,7 @@ public class OrderListPresenter implements OrderListContract.Presenter {
                 (new ResultObserver<Object>(mView) {
                     @Override
                     protected void onSuccess(Object object) {
-                        mView.onDeleteOrderSuccess(position);
+                        mView.onDeleteOrderSuccess(orderId,position);
                     }
                 });
     }

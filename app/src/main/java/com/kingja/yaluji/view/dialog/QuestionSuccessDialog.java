@@ -177,7 +177,7 @@ public class QuestionSuccessDialog extends BaseDialog implements VisitorSingleCo
         if (position == visitorTabAdapter.getItemCount() - 1) {
             Intent intent = new Intent(getContext(), VisitorListActivity.class);
             intent.putExtra(Constants.Extra.FromTitketDetail, true);
-            LoginChecker.goActivity((Activity) getContext(), intent);
+            LoginChecker.goActivity(getContext(), intent);
         } else {
             visitorTabAdapter.select(position);
             fillVisitorInfo(visitor);

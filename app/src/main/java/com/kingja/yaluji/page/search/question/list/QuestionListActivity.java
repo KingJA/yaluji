@@ -2,9 +2,11 @@ package com.kingja.yaluji.page.search.question.list;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.kingja.yaluji.R;
@@ -21,10 +23,10 @@ import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.page.answer.detail.QuestionDetailActivity;
 import com.kingja.yaluji.page.relife.RelifeContract;
 import com.kingja.yaluji.page.relife.RelifePresenter;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.util.SpSir;
-import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
 import com.kingja.yaluji.view.dialog.ConfirmDialog;
 import com.kingja.yaluji.view.dialog.QuestionExplainDialog;
@@ -44,6 +46,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
@@ -66,6 +69,8 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     PullToBottomListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
+    @BindView(R.id.iv_go_top)
+    ImageView ivGoTop;
     private List<Question> questionList = new ArrayList<>();
     private QuestionAdapter questionAdapter;
     private QuestionExplainDialog questionExplainDialog;
@@ -151,12 +156,13 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     protected void initView() {
         questionAdapter = new QuestionAdapter(this, questionList);
         plv.setAdapter(questionAdapter);
+        plv.setGoTop(ivGoTop);
     }
 
     @Override
     protected void initData() {
         questionExplainDialog = new QuestionExplainDialog(this);
-        confirmDialog = new ConfirmDialog(this, "复活成功，请重新答题");
+        confirmDialog = new ConfirmDialog(this, "复活成功，请继续答题");
         srl.setOnRefreshListener(this);
     }
 
@@ -206,6 +212,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void shareSuccess(ShareSuccessEvent event) {
+        LogUtil.e(TAG, "问题列表复活:" + SpSir.getInstance().getShapePage());
         if (SpSir.getInstance().getShapePage() == Status.SharePage.QUESTION_LIST) {
             relifePresenter.reLife(paperId);
         }
@@ -215,5 +222,12 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
     public void onReLifeSuccess() {
         initNet();
         confirmDialog.show();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

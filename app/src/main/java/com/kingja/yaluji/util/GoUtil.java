@@ -19,6 +19,11 @@ public class GoUtil {
                 clazz);
         activity.startActivity(intent);
     }
+    public static void goActivity(Context activity, Class clazz) {
+        Intent intent = new Intent(activity,
+                clazz);
+        activity.startActivity(intent);
+    }
     public static void goActivityOutOfActivity(Context context, Class clazz) {
         Intent intent = new Intent(context,
                 clazz);

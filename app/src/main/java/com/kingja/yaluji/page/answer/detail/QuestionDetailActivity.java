@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.AdapterView;
@@ -25,6 +24,7 @@ import com.kingja.yaluji.model.entiy.QuestionDetail;
 import com.kingja.yaluji.page.answer.success.AnswerSuccessActivity;
 import com.kingja.yaluji.page.relife.RelifeContract;
 import com.kingja.yaluji.page.relife.RelifePresenter;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.util.SoundPlayer;
@@ -50,7 +50,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 
@@ -202,15 +201,16 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                 if (SpSir.getInstance().getSound()) {
                     SoundPlayer.getInstance().playVoice(R.raw.answer_ok);
                 }
-                questionDetailPresenter.getQuestionDetail(paperId);
+                questionDetailPresenter.getNewQuestionDetail(paperId);
                 break;
             case Status.AnswerResult.WRONG:
+                EventBus.getDefault().post(new RefreshQuestionEvent());
                 if (SpSir.getInstance().getSound()) {
                     SoundPlayer.getInstance().playVoice(R.raw.answer_error);
                 }
                 failDialog = new QuestionFailDialog(this, answerResult.getRebornTimes());
                 failDialog.setOnCancelListener(dialogInterface -> {
-                    quitAndRefresh();
+                    quit();
                 });
                 failDialog.setOnConfirmListener(() -> {
                     SpSir.getInstance().putSharePage(Status.SharePage.QUESTION_DETAIL);
@@ -219,13 +219,14 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                 failDialog.show();
                 break;
             case Status.AnswerResult.SUCCESS:
+                EventBus.getDefault().post(new RefreshQuestionEvent());
                 if (SpSir.getInstance().getSound()) {
                     SoundPlayer.getInstance().playVoice(R.raw.answer_success);
                 }
                 successDialog = new QuestionSuccessDialog(this, answerResult.getCouponAmount(), String.valueOf
                         (answerResult.getCouponLimit()));
                 successDialog.setOnCancelListener(dialogInterface -> {
-                    quitAndRefresh();
+                    quit();
                 });
                 successDialog.setOnVisitorSelectedListener(touristId -> {
                     AnswerSuccessActivity.goActivity(QuestionDetailActivity.this, answerResult.getCouponName(),
@@ -235,15 +236,16 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
                 successDialog.show();
                 break;
             case Status.AnswerResult.NO_RELIFE:
+                EventBus.getDefault().post(new RefreshQuestionEvent());
                 if (SpSir.getInstance().getSound()) {
                     SoundPlayer.getInstance().playVoice(R.raw.answer_fail);
                 }
                 confirmDialog = new ConfirmDialog(this, "答题失败超过3次，即将退出当前页面");
                 confirmDialog.setOnConfirmListener(() -> {
-                    quitAndRefresh();
+                    quit();
                 });
                 confirmDialog.setOnCancelListener(dialogInterface -> {
-                    quitAndRefresh();
+                    quit();
                 });
                 confirmDialog.show();
                 break;
@@ -269,9 +271,8 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
 
-    private void quitAndRefresh() {
+    private void quit() {
         finish();
-        EventBus.getDefault().post(new RefreshQuestionEvent());
     }
 
     @Override
@@ -294,12 +295,12 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Override
     public void onReLifeSuccess() {
-        ConfirmDialog relifeSuccessDialog = new ConfirmDialog(this, "复活成功，请重新答题");
+        ConfirmDialog relifeSuccessDialog = new ConfirmDialog(this, "复活成功，请继续答题");
         relifeSuccessDialog.setOnConfirmListener(() -> {
-            quitAndRefresh();
+            questionDetailPresenter.getQuestionDetail(paperId);
         });
         relifeSuccessDialog.setOnCancelListener(dialogInterface -> {
-            quitAndRefresh();
+            quit();
         });
         relifeSuccessDialog.show();
     }
@@ -313,7 +314,7 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
         public void onTick(long millisUntilFinished) {
             long leftSecond = Math.round((double) millisUntilFinished / 1000);
             tvTime.setText(String.valueOf(leftSecond));
-            if (leftSecond == 4&&SpSir.getInstance().getSound()) {
+            if (leftSecond == 4 && SpSir.getInstance().getSound()) {
                 SoundPlayer.getInstance().playVoice(R.raw.answer_timeover);
             }
         }
@@ -331,8 +332,25 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void shareSuccess(ShareSuccessEvent event) {
+        LogUtil.e(TAG, "问题详情复活:" + SpSir.getInstance().getShapePage());
         if (SpSir.getInstance().getShapePage() == Status.SharePage.QUESTION_DETAIL) {
             relifePresenter.reLife(paperId);
         }
+    }
+
+    @Override
+    public void showErrorMessage(int code, String message) {
+        super.showErrorMessage(code, message);
+        message.replace("#", "\n");
+        ConfirmDialog errorDialog = new ConfirmDialog(this, message);
+        errorDialog.setOnConfirmListener(() -> {
+            finish();
+        });
+        errorDialog.show();
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

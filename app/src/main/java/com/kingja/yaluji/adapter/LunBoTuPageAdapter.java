@@ -5,6 +5,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewParent;
 import android.widget.ImageView;
 
 import com.kingja.yaluji.imgaeloader.ImageLoader;
@@ -41,16 +42,25 @@ public class LunBoTuPageAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView(lunBoTuList.get(position % lunBoTuList.size()));
+//        container.removeView(lunBoTuList.get(position % lunBoTuList.size()));
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         ImageView imageView = lunBoTuList.get(position % lunBoTuList.size());
-        if(imageView.getParent()!=null){
-            ((ViewPager)imageView.getParent()).removeView(imageView);
+        ViewParent parent = imageView.getParent();
+        if (parent != null) {
+            ((ViewPager) imageView.getParent()).removeView(imageView);
+            if (((ViewPager) parent).getChildCount() < lunBoTuList.size()) {
+                container.addView(imageView);
+            }
+        } else {
+            container.addView(imageView);
         }
-        container.addView(imageView);
         return imageView;
+//        if (parent != null && ((ViewPager) parent).getChildCount() < lunBoTuList.size()) {
+//            container.addView(imageView);
+//        }
+
     }
 }

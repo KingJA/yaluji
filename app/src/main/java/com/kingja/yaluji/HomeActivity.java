@@ -1,6 +1,5 @@
 package com.kingja.yaluji;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,11 +12,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.kingja.yaluji.base.BaseTitleActivity;
-import com.kingja.yaluji.page.home.HomeFragment;
 import com.kingja.yaluji.fragment.MineFragment;
 import com.kingja.yaluji.fragment.OrderFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
-import com.kingja.yaluji.service.initialize.InitializeService;
+import com.kingja.yaluji.page.home.HomeFragment;
+import com.kingja.yaluji.update.VersionUpdateSir;
+import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 
 import butterknife.BindView;
@@ -102,7 +102,7 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     protected void initNet() {
-
+        new VersionUpdateSir(HomeActivity.this).checkUpdate();
     }
 
     @Override
@@ -153,6 +153,7 @@ public class HomeActivity extends BaseTitleActivity {
     protected void onDestroy() {
         super.onDestroy();
         fragmentMap.clear();
+        SpSir.getInstance().clearMsgCount();
     }
 
     //防止Fragment重生重叠

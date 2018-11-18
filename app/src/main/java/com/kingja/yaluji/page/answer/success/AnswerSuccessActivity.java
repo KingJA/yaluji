@@ -12,12 +12,17 @@ import com.kingja.yaluji.R;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.constant.Status;
+import com.kingja.yaluji.event.AddOrderEvent;
 import com.kingja.yaluji.event.RefreshQuestionEvent;
 import com.kingja.yaluji.event.ShareSuccessEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.model.entiy.Order;
+import com.kingja.yaluji.model.entiy.PrefectVisitorResult;
 import com.kingja.yaluji.page.search.question.list.QuestionListActivity;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.ShareUtil;
+import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
@@ -78,6 +83,7 @@ public class AnswerSuccessActivity extends BaseTitleActivity implements AnswerSu
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.stv_share:
+                SpSir.getInstance().putSharePage(Status.SharePage.NONE);
                 share(SendMessageToWX.Req.WXSceneTimeline);
                 break;
             case R.id.stv_backToList:
@@ -157,6 +163,7 @@ public class AnswerSuccessActivity extends BaseTitleActivity implements AnswerSu
         answerSuccessPresenter.prefectVisitor(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("paperId", paperId)
                 .addFormDataPart("touristId", touristId)
+                .addFormDataPart("flag", "1")
                 .build());
     }
 
@@ -174,8 +181,8 @@ public class AnswerSuccessActivity extends BaseTitleActivity implements AnswerSu
     }
 
     @Override
-    public void onPrefectVisitorSuccess() {
-
+    public void onPrefectVisitorSuccess(Order order) {
+        EventBus.getDefault().post(new AddOrderEvent(order));
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -4,6 +4,8 @@ import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.Article;
+import com.kingja.yaluji.model.entiy.Order;
+import com.kingja.yaluji.model.entiy.PrefectVisitorResult;
 import com.kingja.yaluji.model.entiy.ResultObserver;
 import com.kingja.yaluji.page.article.list.ArticleListContract;
 
@@ -35,10 +37,10 @@ public class AnswerSuccessPresenter implements AnswerSuccessContract.Presenter {
     public void prefectVisitor(RequestBody requestBody) {
         mApi.getApiService().prefectVisitor(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<Object>(mView) {
+                (new ResultObserver<Order>(mView) {
                     @Override
-                    protected void onSuccess(Object object) {
-                        mView.onPrefectVisitorSuccess();
+                    protected void onSuccess(Order order) {
+                        mView.onPrefectVisitorSuccess(order);
                     }
                 });
     }

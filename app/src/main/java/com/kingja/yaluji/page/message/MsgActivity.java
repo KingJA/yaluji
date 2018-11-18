@@ -1,6 +1,8 @@
 package com.kingja.yaluji.page.message;
 
+import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.widget.ImageView;
 
 import com.kingja.loadsir.callback.Callback;
 import com.kingja.loadsir.core.LoadService;
@@ -18,7 +20,6 @@ import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
 import com.kingja.yaluji.view.PullToBottomListView;
-import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:消息列表
@@ -41,6 +43,8 @@ public class MsgActivity extends BaseTitleActivity implements MessageContract.Vi
     MoveSwipeRefreshLayout srl;
     @Inject
     MessagePresenter messagePresenter;
+    @BindView(R.id.iv_go_top)
+    ImageView ivGoTop;
     private MsgAdapter mMsgAdapter;
     private List<Message> messages = new ArrayList<>();
     private LoadService loadService;
@@ -78,6 +82,7 @@ public class MsgActivity extends BaseTitleActivity implements MessageContract.Vi
     protected void initView() {
         mMsgAdapter = new MsgAdapter(this, messages);
         lv.setAdapter(mMsgAdapter);
+        lv.setGoTop(ivGoTop);
         loadService = LoadSir.getDefault().register(lv, (Callback.OnReloadListener) v -> initNet());
     }
 
@@ -160,5 +165,12 @@ public class MsgActivity extends BaseTitleActivity implements MessageContract.Vi
         } else {
             ToastUtil.showText("到底啦");
         }
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

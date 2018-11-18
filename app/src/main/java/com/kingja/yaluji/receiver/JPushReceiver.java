@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.google.gson.Gson;
+import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.event.MsgCountEvent;
 import com.kingja.yaluji.model.entiy.Notification;
 import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
@@ -74,7 +75,7 @@ public class JPushReceiver extends BroadcastReceiver {
                 Log.e(TAG, "productId : " + productId);
                 Intent intent = new Intent(context, TicketDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("productId", productId);
+                intent.putExtra(Constants.Extra.ProductId, productId);
                 context.startActivity(intent);
             }
             String orderId = notification.getOrderId();
@@ -82,7 +83,7 @@ public class JPushReceiver extends BroadcastReceiver {
                 Log.e(TAG, "orderId : " + productId);
                 Intent intent = new Intent(context, OrderDetailActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                intent.putExtra("orderId", productId);
+                intent.putExtra(Constants.Extra.OrderId, productId);
                 context.startActivity(intent);
             }
         }

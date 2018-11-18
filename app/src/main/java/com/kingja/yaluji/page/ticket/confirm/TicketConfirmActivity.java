@@ -10,8 +10,11 @@ import com.kingja.yaluji.R;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.constant.Status;
+import com.kingja.yaluji.event.AddOrderEvent;
 import com.kingja.yaluji.event.RefreshOrderEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.OrderResult;
 import com.kingja.yaluji.model.entiy.TicketDetail;
 import com.kingja.yaluji.page.ticket.success.TicketSuccessActivity;
@@ -140,18 +143,25 @@ public class TicketConfirmActivity extends BaseTitleActivity implements TicketCo
         intent.putExtra(Constants.Extra.Quantity, quantity);
         intent.putExtra(Constants.Extra.TicketDetail, ticketDetail);
         context.startActivity(intent);
-        context.finish();
     }
 
     @Override
     public void onSumbitOrderSuccess(OrderResult orderResult) {
-        EventBus.getDefault().post(new RefreshOrderEvent());
+        Order order = new Order();
+        order.setId(orderResult.getOrderId());
+        order.setStatus(Status.TicketStatus.WAIT_USE);
+        order.setPayamount(ticketDetail.getBuyPrice());
+        order.setSubject(ticketDetail.getTicketName());
+        order.setQuantity(Integer.valueOf(quantity));
+        order.setVisitDate(ticketDetail.getVisitDate());
+        EventBus.getDefault().post(new AddOrderEvent(order));
         TicketSuccessActivity.goActivity(this, ticketDetail.getTicketName(), String.valueOf(ticketDetail.getBuyPrice
                 ()), ticketDetail.getVisitDate(), quantity);
     }
 
     @Override
     public void showErrorMessage(int code, String message) {
+        message.replace("#","\n");
         ConfirmDialog errorDialog = new ConfirmDialog(this, message);
         errorDialog.setOnConfirmListener(() -> {
             finish();

@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.AnswerResult;
+import com.kingja.yaluji.model.entiy.LoadSirObserver;
 import com.kingja.yaluji.model.entiy.QuestionDetail;
 import com.kingja.yaluji.model.entiy.ResultObserver;
 
@@ -31,6 +32,18 @@ public class QuestionDetailPresenter implements QuestionDetailContract.Presenter
 
     @Override
     public void getQuestionDetail(String paperId) {
+        mApi.getApiService().getQuestionDetail(paperId).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new LoadSirObserver<QuestionDetail>(mView) {
+                    @Override
+                    protected void onSuccess(QuestionDetail questionDetail) {
+                        mView.onGetQuestionDetailSuccess(questionDetail);
+                    }
+                });
+    }
+
+    @Override
+    public void getNewQuestionDetail(String paperId) {
         mApi.getApiService().getQuestionDetail(paperId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
                 (new ResultObserver<QuestionDetail>(mView) {

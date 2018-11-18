@@ -2,8 +2,11 @@ package com.kingja.yaluji.page.search.ticket;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.TicketAdapter;
@@ -24,7 +27,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
 /**
@@ -39,6 +44,9 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
     PullToBottomListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
+    @BindView(R.id.iv_go_top)
+    ImageView ivGoTop;
+    Unbinder unbinder;
     private List<Ticket> ticketList = new ArrayList<>();
     @Inject
     TicketListPresenter ticketListPresenter;
@@ -50,6 +58,7 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
         Ticket ticket = (Ticket) parent.getItemAtPosition(position);
         TicketDetailActivity.goActivity(getActivity(), ticket.getId());
     }
+
     public static TicketListSearchFragment newInstance(String keyword) {
         TicketListSearchFragment fragment = new TicketListSearchFragment();
         Bundle args = new Bundle();
@@ -78,7 +87,7 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
     protected void initView() {
         ticketAdapter = new TicketAdapter(getActivity(), ticketList);
         plv.setAdapter(ticketAdapter);
-
+        plv.setGoTop(ivGoTop);
     }
 
     @Override
@@ -126,5 +135,19 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

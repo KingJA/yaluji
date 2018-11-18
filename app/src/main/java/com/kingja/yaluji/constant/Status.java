@@ -64,10 +64,16 @@ public class Status {
 
     public interface SharePage {
         //问题列表
+        int NONE = -1;
         int QUESTION_LIST = 1;
         //问题详情
         int QUESTION_DETAIL = 2;
     }
+    public interface ArticleType {
+        int ARTICLE_SMALL = 0;
+        int ARTICLE_BIG = 1;
+    }
+
 
     public enum OrderStatus implements CodeEnum {
         WAIT_PAY(0, "待支付"),

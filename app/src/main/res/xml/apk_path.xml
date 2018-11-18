@@ -5,4 +5,6 @@
     <external-path path="." name="apkPath" />
     <external-path name="beta_external_path" path="Download/"/>
     <external-path name="beta_external_files_path" path="Android/data/"/>
+    <cache-path name="apkPath" path="." />
+    <external-cache-path name="apksdPath" path="." />
 </paths>

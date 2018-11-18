@@ -5,18 +5,36 @@
               android:layout_height="match_parent"
               android:background="@color/bg_hi"
               android:orientation="vertical">
-    <com.kingja.yaluji.view.MoveSwipeRefreshLayout
-        android:id="@+id/srl"
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.kingja.yaluji.view.PullToBottomListView
-            android:id="@+id/lv"
+        <com.kingja.yaluji.view.MoveSwipeRefreshLayout
+            android:id="@+id/srl"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@color/gray_hi"
-            android:dividerHeight="1px"
-            tools:listitem="@layout/item_msg"/>
-    </com.kingja.yaluji.view.MoveSwipeRefreshLayout>
+            android:layout_height="match_parent">
 
+
+            <com.kingja.yaluji.view.PullToBottomListView
+                android:id="@+id/lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@color/gray_hi"
+                android:dividerHeight="1px"
+                tools:listitem="@layout/item_msg"/>
+        </com.kingja.yaluji.view.MoveSwipeRefreshLayout>
+            <ImageView
+                android:id="@+id/iv_go_top"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="15dp"
+                android:layout_marginRight="12dp"
+                android:background="@mipmap/ic_go_top"
+                android:visibility="gone"/>
+
+
+    </RelativeLayout>
 </LinearLayout>

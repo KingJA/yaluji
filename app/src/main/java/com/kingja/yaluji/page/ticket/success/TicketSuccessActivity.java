@@ -14,10 +14,14 @@ import com.kingja.yaluji.adapter.TicketGvAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
+import com.kingja.yaluji.page.ticket.list.TicketListActivity;
+import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.ShareUtil;
+import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.view.FixedGridView;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
@@ -80,12 +84,14 @@ public class TicketSuccessActivity extends BaseTitleActivity implements TicketSu
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_backToList:
-                finish();
+                GoUtil.goActivity(this, TicketListActivity.class);
                 break;
             case R.id.iv_wxFrends:
+                SpSir.getInstance().putSharePage(Status.SharePage.NONE);
                 share(SendMessageToWX.Req.WXSceneTimeline);
                 break;
             case R.id.iv_wxFrend:
+                SpSir.getInstance().putSharePage(Status.SharePage.NONE);
                 share(SendMessageToWX.Req.WXSceneSession);
                 break;
             default:

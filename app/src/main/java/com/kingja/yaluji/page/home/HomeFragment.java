@@ -1,13 +1,10 @@
 package com.kingja.yaluji.page.home;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +19,8 @@ import com.kingja.yaluji.adapter.ViewHolder;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.event.MsgCountEvent;
+import com.kingja.yaluji.event.RefreshHome;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
@@ -38,9 +37,12 @@ import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.SpSir;
-import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
-import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
+import com.kingja.yaluji.view.PullToBottomListView;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,10 +50,8 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import butterknife.Unbinder;
 
 /**
  * Description:TODO
@@ -74,8 +74,6 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     ImageView ivTicket;
     @BindView(R.id.iv_question)
     ImageView ivQuestion;
-    @BindView(R.id.flv)
-    FixedListView flv;
 
     @Inject
     HomePresenter homePresenter;
@@ -87,6 +85,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     RelativeLayout rlMsg;
     @BindView(R.id.tv_keyword)
     TextView tvKeyword;
+    @BindView(R.id.plv)
+    PullToBottomListView plv;
+    @BindView(R.id.iv_go_top)
+    ImageView ivGoTop;
     private CommonAdapter adapter;
     private List<ArticleSimpleItem> articleSimpleItemList = new ArrayList<>();
     private List<View> points = new ArrayList<>();
@@ -114,7 +116,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
         }
     }
 
-    @OnItemClick(R.id.flv)
+    @OnItemClick(R.id.plv)
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
         ArticleSimpleItem articleSimpleItem = (ArticleSimpleItem) parent.getItemAtPosition(position);
         ArticleDetailActivity.goActivity(getActivity(), articleSimpleItem.getId());
@@ -123,7 +125,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     @Override
     protected void initVariable() {
-
+        EventBus.getDefault().register(this);
     }
 
     @Override
@@ -145,7 +147,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 helper.setRoundImageByUrl(R.id.iv_article, item.getHeadimg(), 6);
             }
         };
-        flv.setAdapter(adapter);
+        plv.setAdapter(adapter);
+        plv.setGoTop(ivGoTop);
     }
 
     @Override
@@ -193,7 +196,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
             }
 
             vp.setAdapter(new LunBoTuPageAdapter(imageViews));
-            vp.addOnPageChangeListener(new ViewPager.SimpleOnPageChangeListener() {
+            if (simpleOnPageChangeListener != null) {
+                vp.removeOnPageChangeListener(simpleOnPageChangeListener);
+            }
+            vp.addOnPageChangeListener(simpleOnPageChangeListener=new ViewPager.SimpleOnPageChangeListener() {
                 @Override
                 public void onPageSelected(int position) {
                     for (int i = 0; i < points.size(); i++) {
@@ -205,11 +211,10 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                     }
                 }
             });
-//            vp.setCurrentItem(Integer.MAX_VALUE / 2 - (Integer.MAX_VALUE / 2) % imageViews.size());
         }
 
     }
-
+  private   ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener;
 
     @Override
     public void onGetArticleListSuccess(List<ArticleSimpleItem> articleSimpleItemList) {
@@ -220,6 +225,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     }
 
     private void initDot(List<LunBoTu> lunBoTuList) {
+        llDot.removeAllViews();
+        points.clear();
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AppUtil.dp2px(6), AppUtil.dp2px(6));
         layoutParams.setMargins(0, 0, AppUtil.dp2px(6), 0);
         for (int i = 0; i < lunBoTuList.size(); i++) {
@@ -233,16 +240,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
             points.add(view);
             llDot.addView(points.get(i), layoutParams);
         }
-
-//        for (int i = 0; i < lunBoTuList.size(); i++) {
-//            llDot.addView(points.get(i), layoutParams);
-//        }
     }
 
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtil.e(TAG, "是否隐藏:" + hidden);
+        LogUtil.e(TAG,"轮播 onHiddenChanged:"+hidden);
         if (hidden) {
             autoHandler.removeCallbacks(autoTask);
         } else {
@@ -252,7 +255,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     @Override
     public void onStart() {
-        LogUtil.e(TAG, "可见:");
+        LogUtil.e(TAG,"轮播 onStart");
         initHint();
         autoHandler.postDelayed(autoTask, Constants.AUTO_LUNBOTU);
         super.onStart();
@@ -260,7 +263,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     @Override
     public void onPause() {
-        LogUtil.e(TAG, "不可见:");
+        LogUtil.e(TAG,"轮播 onPause");
         autoHandler.removeCallbacks(autoTask);
         super.onPause();
     }
@@ -273,12 +276,12 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     public void onDestroyView() {
         super.onDestroyView();
         autoHandler.removeCallbacks(autoTask);
-        unbinder.unbind();
     }
 
     @Override
     public void onRefresh() {
         rsl.setRefreshing(false);
+        initNet();
     }
 
     class AutoRannable implements Runnable {
@@ -287,6 +290,26 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
             autoHandler.removeCallbacks(autoTask);
             vp.setCurrentItem(vp.getCurrentItem() + 1);
             autoHandler.postDelayed(autoTask, Constants.AUTO_LUNBOTU);
+        }
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshMsgCount(MsgCountEvent msgCountEvent) {
+        resetMsgCount();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshHome(RefreshHome refreshHome) {
+       initNet();
+    }
+
+    private void resetMsgCount() {
+        int msgCount = SpSir.getInstance().getMsgCount();
+        if (msgCount != 0) {
+            tvMsgCount.setVisibility(View.VISIBLE);
+            tvMsgCount.setText(String.valueOf(msgCount));
+        } else {
+            tvMsgCount.setVisibility(View.GONE);
         }
     }
 

@@ -2,8 +2,11 @@ package com.kingja.yaluji.page.search.article;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.CommonAdapter;
@@ -13,7 +16,6 @@ import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
-import com.kingja.yaluji.model.entiy.Article;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.view.PullToBottomListView;
@@ -24,7 +26,9 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnItemClick;
+import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
 /**
@@ -39,6 +43,9 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
     PullToBottomListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
+    @BindView(R.id.iv_go_top)
+    ImageView ivGoTop;
+    Unbinder unbinder;
     private List<ArticleSimpleItem> articleList = new ArrayList<>();
     @Inject
     ArticleListSearchPresenter articleListSearchPresenter;
@@ -87,7 +94,7 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
             }
         };
         plv.setAdapter(adapter);
-
+        plv.setGoTop(ivGoTop);
     }
 
     @Override
@@ -135,5 +142,19 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
         } else {
             showEmptyCallback();
         }
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // TODO: inflate a fragment view
+        View rootView = super.onCreateView(inflater, container, savedInstanceState);
+        unbinder = ButterKnife.bind(this, rootView);
+        return rootView;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }

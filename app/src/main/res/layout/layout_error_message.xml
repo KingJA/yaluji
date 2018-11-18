@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:gravity="center"
+              android:id="@+id/ll_error"
+              android:orientation="vertical">
+
+    <ImageView
+        android:background="@mipmap/ic_callback_error_network"
+        android:layout_width="160dp"
+        android:layout_height="110dp"/>
+
+    <TextView
+        android:layout_margin="18dp"
+        style="@style/font_orange_13"
+        android:id="@+id/tv_layout_errorMsg"
+        android:text="哎呀，网络发生异常"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+
+
+</LinearLayout>

@@ -3,6 +3,7 @@ package com.kingja.yaluji.page.order.orderdetail;
 import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
+import com.kingja.yaluji.model.entiy.LoadSirObserver;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.ResultObserver;
 
@@ -42,7 +43,7 @@ public class OrderDetailPresenter implements OrderDetailContract.Presenter {
     public void getOrderDetail(String orderId) {
         mApi.getApiService().getOrderDetail(orderId).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<OrderDetail>(mView) {
+                (new LoadSirObserver<OrderDetail>(mView) {
                     @Override
                     protected void onSuccess(OrderDetail orderDetail) {
                         mView.onGetOrderDetailSuccess(orderDetail);

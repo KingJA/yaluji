@@ -37,7 +37,7 @@
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:id="@+id/et_search_keyword"
-                style="@style/font_9_12"
+                style="@style/font_3_12"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"

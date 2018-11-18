@@ -82,6 +82,7 @@ public class CityPop extends BasePop {
                 }
             }
         });
+        cityAdapter.selectItem(0);
     }
 
     private List<City.Strict> getDistricts(City city) {

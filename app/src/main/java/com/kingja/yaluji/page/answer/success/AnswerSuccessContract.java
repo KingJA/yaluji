@@ -3,6 +3,8 @@ package com.kingja.yaluji.page.answer.success;
 
 import com.kingja.yaluji.base.BasePresenter;
 import com.kingja.yaluji.base.BaseView;
+import com.kingja.yaluji.model.entiy.Order;
+import com.kingja.yaluji.model.entiy.PrefectVisitorResult;
 
 import okhttp3.RequestBody;
 
@@ -14,7 +16,7 @@ import okhttp3.RequestBody;
  */
 public interface AnswerSuccessContract {
     interface View extends BaseView {
-        void onPrefectVisitorSuccess();
+        void onPrefectVisitorSuccess(Order order);
     }
 
     interface Presenter extends BasePresenter<View> {

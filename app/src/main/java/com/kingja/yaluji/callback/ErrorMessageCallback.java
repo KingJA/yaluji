@@ -15,6 +15,6 @@ import com.kingja.yaluji.R;
 public class ErrorMessageCallback extends Callback {
     @Override
     protected int onCreateView() {
-        return R.layout.layout_error_network;
+        return R.layout.layout_error_message;
     }
 }
