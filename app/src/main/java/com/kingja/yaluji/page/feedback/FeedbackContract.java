@@ -19,6 +19,7 @@ public interface FeedbackContract {
 
     interface Presenter extends BasePresenter<View> {
         void sendFeedback(RequestBody requestBody);
+        void sendNoImgFeedback(RequestBody requestBody);
 
     }
 }

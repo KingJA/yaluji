@@ -3,6 +3,7 @@ package com.kingja.yaluji.page.article.detail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.AdapterView;
@@ -76,11 +77,12 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
                 .getItemAtPosition(position);
         articleDetailPresenter.getArticleDetail(articlesBean.getId());
     }
+
     @OnClick({R.id.ll_article_get})
     public void onclick(View view) {
         switch (view.getId()) {
             case R.id.ll_article_get:
-                SearchResultActivity.goActivity(this,keyword);
+                SearchResultActivity.goActivity(this, keyword);
                 break;
             default:
                 break;
@@ -139,10 +141,11 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
 
     @Override
     public void onGetArticleDetailSuccess(ArticleDetail articleDetail) {
-        svArticleDetail.scrollTo(0,0);
+        svArticleDetail.scrollTo(0, 0);
         ArticleDetail.ArticleBean article = articleDetail.getArticle();
         if (article != null) {
             keyword = article.getKeywords();
+            llArticleGet.setVisibility(TextUtils.isEmpty(keyword)?View.GONE:View.VISIBLE);
             tvArticleTitle.setString(article.getTitle());
             tvArticleCndate.setString(article.getCndate());
             wbArticle.loadDataWithBaseURL("about:blank", article.getContent(), "text/html", "utf-8",
@@ -185,9 +188,7 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

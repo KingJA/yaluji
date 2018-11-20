@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.ArticleDetail;
+import com.kingja.yaluji.model.entiy.LoadSirObserver;
 import com.kingja.yaluji.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
@@ -31,7 +32,7 @@ public class ArticleDetailPresenter implements ArticleDetailContract.Presenter {
     public void getArticleDetail(String articleId) {
         mApi.getApiService().getArticleDetail(articleId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<ArticleDetail>(mView) {
+                (new LoadSirObserver<ArticleDetail>(mView) {
                     @Override
                     protected void onSuccess(ArticleDetail articleDetail) {
                         mView.onGetArticleDetailSuccess(articleDetail);

@@ -61,7 +61,6 @@ import okhttp3.MultipartBody;
  */
 public class QuestionDetailActivity extends BaseTitleActivity implements QuestionDetailContract.View, RelifeContract
         .View {
-
     @BindView(R.id.tv_paperTitle)
     StringTextView tvPaperTitle;
     @BindView(R.id.tv_questionTitle)
@@ -340,17 +339,11 @@ public class QuestionDetailActivity extends BaseTitleActivity implements Questio
 
     @Override
     public void showErrorMessage(int code, String message) {
-        super.showErrorMessage(code, message);
-        message.replace("#", "\n");
+        message = message.replace("#", "\n");
         ConfirmDialog errorDialog = new ConfirmDialog(this, message);
         errorDialog.setOnConfirmListener(() -> {
             finish();
         });
         errorDialog.show();
-    }
-
-    @Override
-    public boolean ifRegisterLoadSir() {
-        return true;
     }
 }

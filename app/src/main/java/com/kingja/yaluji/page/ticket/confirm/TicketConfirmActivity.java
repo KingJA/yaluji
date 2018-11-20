@@ -161,7 +161,7 @@ public class TicketConfirmActivity extends BaseTitleActivity implements TicketCo
 
     @Override
     public void showErrorMessage(int code, String message) {
-        message.replace("#","\n");
+        message = message.replace("#", "\n");
         ConfirmDialog errorDialog = new ConfirmDialog(this, message);
         errorDialog.setOnConfirmListener(() -> {
             finish();

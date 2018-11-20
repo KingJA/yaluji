@@ -238,6 +238,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     @Override
     protected void initData() {
         visitorTabAdapter.setOnItemClickListener(this);
+
     }
 
     @Override
@@ -274,6 +275,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         tvDetailSellCount.setString(ticketDetail.getSellCount());
         tvDetailTotalCount.setString(ticketDetail.getTotalCount());
         tvDetailBuyLimit.setString(ticketDetail.getBuyLimit());
+        ccvTicketDetail.setMaxNumber(ticketDetail.getBuyLimit());
         setTicketStatus();
         initTimer();
 

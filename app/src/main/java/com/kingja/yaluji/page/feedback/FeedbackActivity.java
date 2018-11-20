@@ -28,6 +28,7 @@ import com.zhihu.matisse.MimeType;
 import com.zhihu.matisse.engine.impl.GlideEngine;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,7 +61,7 @@ public class FeedbackActivity extends BaseTitleActivity implements FeedbackContr
     private String content;
     private RxPermissions rxPermissions;
     private static final int REQUEST_CODE_CHOOSE = 0;
-    private List<Uri> photos;
+    private List<Uri> photos = new ArrayList<>();
 
     @OnClick({R.id.tv_confirm, R.id.iv_photo})
     public void onViewClicked(View view) {
@@ -119,7 +120,6 @@ public class FeedbackActivity extends BaseTitleActivity implements FeedbackContr
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             photos = Matisse.obtainResult(data);
             if (photos != null && photos.size() > 0) {
@@ -150,12 +150,13 @@ public class FeedbackActivity extends BaseTitleActivity implements FeedbackContr
         MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("title", title)
                 .addFormDataPart("content", content);
-        if (photos.size() > 0) {
+        if (photos != null && photos.size() > 0) {
             File photoFile = FileUtil.getFileByUri(photos.get(0), this);
             bodyBuilder.addFormDataPart("imageFile", photoFile.getName(), RequestBody.create(MediaType.parse
                     ("image/*"), photoFile));
             feedbackPresenter.sendFeedback(bodyBuilder.build());
         }
+        feedbackPresenter.sendNoImgFeedback(bodyBuilder.build());
     }
 
     @Override

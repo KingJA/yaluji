@@ -20,6 +20,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
 import com.kingja.yaluji.util.AppUtil;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
 import com.kingja.yaluji.view.PullToBottomListView;
@@ -141,9 +142,14 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Override
     public void onGetTicketListSuccess(List<Order> orderList) {
-        if (orderList != null && orderList.size() > 0) {
+        checkList(orderList);
+    }
+
+    private void checkList(List<Order> orderList) {
+        if (orderList != null) {
             mOrderAdapter.setData(orderList);
-        } else {
+        }
+        if (orderList.size() == 0) {
             showEmptyCallback();
         }
     }
@@ -167,24 +173,12 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void addOrder(AddOrderEvent event) {
+        showSuccessCallback();
         mOrderAdapter.addOrder(event.getOrder());
+        LogUtil.e(TAG, "订单状态:" + ticketStatus + " 数量:" + mOrderAdapter.getCount());
     }
 
     public void refreshOrder(RefreshOrderEvent event) {
         initNet();
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
     }
 }

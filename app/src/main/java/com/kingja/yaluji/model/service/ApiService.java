@@ -258,6 +258,10 @@ public interface ApiService {
     @POST("/app/feedback/addFeedback")
     Observable<HttpResult<Object>> sendFeedback(@Body RequestBody requestBody);
 
+    /*我要反馈-无图*/
+    @POST("/app/feedback/addNoImgFeedback")
+    Observable<HttpResult<Object>> sendNoImgFeedback(@Body RequestBody requestBody);
+
     /*我要合作*/
     @POST("/app/cooperate/addCooperate")
     Observable<HttpResult<Object>> doBusiness(@Body RequestBody requestBody);

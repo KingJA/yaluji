@@ -39,6 +39,18 @@ public class FeedbackPresenter implements FeedbackContract.Presenter {
                 });
     }
 
+    @Override
+    public void sendNoImgFeedback(RequestBody requestBody) {
+        mApi.getApiService().sendNoImgFeedback(requestBody).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<Object>(mView) {
+                    @Override
+                    protected void onSuccess(Object object) {
+                        mView.onSendFeedbackSuccess();
+                    }
+                });
+    }
+
 
     @Override
     public void attachView(@NonNull FeedbackContract.View view) {

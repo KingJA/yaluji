@@ -34,7 +34,7 @@ public class QuestionDetailPresenter implements QuestionDetailContract.Presenter
     public void getQuestionDetail(String paperId) {
         mApi.getApiService().getQuestionDetail(paperId).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<QuestionDetail>(mView) {
+                (new ResultObserver<QuestionDetail>(mView) {
                     @Override
                     protected void onSuccess(QuestionDetail questionDetail) {
                         mView.onGetQuestionDetailSuccess(questionDetail);

@@ -51,8 +51,9 @@ public class UpdateDialog extends BaseDialog {
 
     @Override
     protected void initData() {
+        String latestContent = versionInfo.getLatestContent().replace("#","\n");
         tvVersionName.setText(versionInfo.getLatestVersionName());
-        tvContent.setText(versionInfo.getLatestContent());
+        tvContent.setText(latestContent);
     }
 
     @Override
