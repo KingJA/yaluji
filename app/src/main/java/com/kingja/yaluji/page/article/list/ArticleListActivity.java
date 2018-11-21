@@ -10,6 +10,7 @@ import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.ArticleAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
+import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Article;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
@@ -92,8 +93,8 @@ public class ArticleListActivity extends BaseTitleActivity implements ArticleLis
     protected void initNet() {
         articleListPresenter.getArticleList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("categoryId", "")
-                .addFormDataPart("page", "1")
-                .addFormDataPart("pageSize", "10")
+                .addFormDataPart("page", String.valueOf(Constants.PAGE_FIRST))
+                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
                 .addFormDataPart("type", "2")
                 .build());
     }
@@ -111,5 +112,10 @@ public class ArticleListActivity extends BaseTitleActivity implements ArticleLis
     public void onRefresh() {
         srl.setRefreshing(false);
         initNet();
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
     }
 }

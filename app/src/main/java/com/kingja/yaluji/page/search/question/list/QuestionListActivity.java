@@ -173,7 +173,7 @@ public class QuestionListActivity extends BaseTitleActivity implements QuestionL
         if (LoginChecker.isLogin()) {
             questionListPresenter.getQuestionList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("page", String.valueOf(currentPageSize))
-                    .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE))
+                    .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
                     .build());
         } else {
             showUnLoginCallback();

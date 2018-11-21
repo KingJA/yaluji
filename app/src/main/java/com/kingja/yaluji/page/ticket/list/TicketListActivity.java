@@ -21,6 +21,7 @@ import com.kingja.yaluji.adapter.ScenicTypeAdapter;
 import com.kingja.yaluji.adapter.TicketAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
+import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.City;
 import com.kingja.yaluji.model.entiy.HotSearch;
@@ -286,8 +287,8 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
                 .addFormDataPart("useDates", useDates)
                 .addFormDataPart("discountRate", "")
                 .addFormDataPart("keyword", "")
-                .addFormDataPart("page", "1")
-                .addFormDataPart("pageSize", "5")
+                .addFormDataPart("page", String.valueOf(Constants.PAGE_FIRST))
+                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
                 .addFormDataPart("status", "1")
                 .addFormDataPart("buyLimit", buyLimit)
                 .addFormDataPart("discountOrder", discountOrder)
