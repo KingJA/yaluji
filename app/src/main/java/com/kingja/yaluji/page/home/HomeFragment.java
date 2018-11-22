@@ -144,7 +144,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
             @Override
             public void convert(ViewHolder helper, ArticleSimpleItem item) {
                 helper.setText(R.id.tv_articleTitle, item.getTitle());
-                helper.setRoundImageByUrl(R.id.iv_article, item.getHeadimg(), 6);
+                helper.setRoundImageByUrl(R.id.iv_article, item.getHeadimg(), Constants.CORNER);
             }
         };
         plv.setAdapter(adapter);

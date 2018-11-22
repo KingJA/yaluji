@@ -11,6 +11,7 @@ import com.kingja.yaluji.R;
  */
 public class Constants {
     public static final String BASE_URL = "http://api.ddchick.com";
+    public static final int CORNER = 8;
     public static final int PAGE_SIZE = 20;
     public static final int THUMB_SIZE = 150;
     public static final int PAGE_SIZE_5 = 5;

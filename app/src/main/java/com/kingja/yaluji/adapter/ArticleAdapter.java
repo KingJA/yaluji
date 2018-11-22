@@ -11,6 +11,7 @@ import com.kingja.supershapeview.view.SuperShapeImageView;
 import com.kingja.supershapeview.view.SuperShapeLinearLayout;
 import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.model.entiy.Article;
@@ -65,8 +66,13 @@ public class ArticleAdapter extends BaseLvAdapter<Article> {
             }
         }
         if (articleType == Status.ArticleType.ARTICLE_BIG) {
+            boolean singleBigArticle = isSingleBigArticle(position);
             bigViewHolder.tv_article_date.setText(list.get(position).getPeriodDate());
             bigViewHolder.tv_articleTitle.setText(list.get(position).getTitle());
+            SuperManager superManager = bigViewHolder.iv_article.getSuperManager();
+            superManager.setCorner(AppUtil.dp2px(Constants.CORNER), AppUtil.dp2px(Constants.CORNER), singleBigArticle
+                    ? AppUtil.dp2px(Constants.CORNER) : 0, singleBigArticle ? AppUtil.dp2px(Constants.CORNER) : 0);
+            superManager.beSuperImageView();
             ImageLoader.getInstance().loadImage(context, list.get(position).getHeadimg(), bigViewHolder.iv_article);
         } else {
             boolean lastSmallArticle = isLastSmallArticle(position);
@@ -74,7 +80,8 @@ public class ArticleAdapter extends BaseLvAdapter<Article> {
             ImageLoader.getInstance().loadImage(context, list.get(position).getHeadimg(), smallViewHolder.iv_article);
             smallViewHolder.v_divider.setVisibility(lastSmallArticle ? View.GONE : View.VISIBLE);
             SuperManager superManager = smallViewHolder.ll_content.getSuperManager();
-            superManager.setCorner(0,0,lastSmallArticle?AppUtil.dp2px(10):0,lastSmallArticle?AppUtil.dp2px(10):0);
+            superManager.setCorner(0, 0, lastSmallArticle ? AppUtil.dp2px(Constants.CORNER) : 0, lastSmallArticle ?
+                    AppUtil.dp2px(Constants.CORNER) : 0);
             superManager.beSuperView();
         }
         return convertView;
@@ -94,6 +101,17 @@ public class ArticleAdapter extends BaseLvAdapter<Article> {
         boolean result = list.get(position).getPeriodDate().equals(list.get(position + 1).getPeriodDate());
         LogUtil.e("ArticleAdapter", "position:" + position + " result:" + result);
         return !result;
+    }
+
+    private boolean isSingleBigArticle(int position) {
+        boolean first = (position == 0 && !list.get(position).getPeriodDate().equals(list.get(position + 1)
+                .getPeriodDate()));
+        boolean middle = position != 0 && position != list.size() - 1 && !list.get(position).getPeriodDate().equals
+                (list.get(position - 1).getPeriodDate()) &&
+                !list.get(position).getPeriodDate().equals(list.get(position + 1).getPeriodDate());
+        boolean last = (position == list.size() - 1 && !list.get(position).getPeriodDate().equals(list.get(position -
+                1).getPeriodDate()));
+        return first || middle || last;
     }
 
     @Override

@@ -32,9 +32,9 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:background="@color/bg_hi"
         android:layout_width="match_parent"
-        android:layout_height="142dp">
+        android:layout_height="142dp"
+        android:background="@color/bg_hi">
 
 
         <com.kingja.supershapeview.view.SuperShapeImageView
@@ -42,17 +42,18 @@
             android:layout_width="match_parent"
             android:layout_height="142dp"
             android:scaleType="centerCrop"
-            app:super_topRightRadius="10dp"
-            app:super_topLeftRadius="10dp"
-            android:src="@drawable/ic_placeholder"/>
+            android:src="@drawable/ic_placeholder"
+            app:super_topLeftRadius="6dp"
+            app:super_topRightRadius="6dp"/>
 
         <TextView
             android:id="@+id/tv_articleTitle"
-            style="@style/font_f_14"
-            android:layout_width="wrap_content"
+            style="@style/font_f_17"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_margin="12dp"
+            android:layout_margin="16dp"
+            android:gravity="center"
             android:text="内容内容内容内容内容内容内容内容内容内容内容内容"/>
 
 
