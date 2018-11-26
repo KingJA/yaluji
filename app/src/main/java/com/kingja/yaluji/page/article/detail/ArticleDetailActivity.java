@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -20,8 +21,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleDetail;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.page.search.result.SearchResultActivity;
-import com.kingja.yaluji.util.DialogUtil;
-import com.kingja.yaluji.util.LoginChecker;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.view.FixedListView;
 import com.kingja.yaluji.view.StringTextView;
 
@@ -48,8 +48,8 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
     StringTextView tvArticleTitle;
     @BindView(R.id.tv_article_cndate)
     StringTextView tvArticleCndate;
-    @BindView(R.id.wb_article)
-    WebView wbArticle;
+//    @BindView(R.id.wb_article)
+//    WebView wbArticle;
     @BindView(R.id.ll_article_get)
     LinearLayout llArticleGet;
     @BindView(R.id.tv_article_previousArticle)
@@ -66,6 +66,8 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
     LinearLayout llArticleNextArticle;
     @BindView(R.id.sv_articleDetail)
     ScrollView svArticleDetail;
+    @BindView(R.id.ll_wb_root)
+    LinearLayout llWbRoot;
     private String articleId;
     private CommonAdapter recommendAdapter;
     private List<ArticleSimpleItem> recommendArticles = new ArrayList<>();
@@ -131,7 +133,20 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
 
     @Override
     protected void initData() {
-
+//        wbArticle.setWebViewClient(new WebViewClient() {
+//            @Override
+//            public void onPageFinished(WebView view, String url) {
+//                super.onPageFinished(view, url);
+//                //这个是一定要加上那个的,配合scrollView和WebView的height=wrap_content属性使用
+//                LogUtil.e(TAG, "onPageFinished");
+//                int w = View.MeasureSpec.makeMeasureSpec(0,
+//                        View.MeasureSpec.UNSPECIFIED);
+//                int h = View.MeasureSpec.makeMeasureSpec(0,
+//                        View.MeasureSpec.UNSPECIFIED);
+//                //重新测量
+//                view.measure(w, h);
+//            }
+//        });
     }
 
     @Override
@@ -145,11 +160,15 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
         ArticleDetail.ArticleBean article = articleDetail.getArticle();
         if (article != null) {
             keyword = article.getKeywords();
-            llArticleGet.setVisibility(TextUtils.isEmpty(keyword)?View.GONE:View.VISIBLE);
+            llArticleGet.setVisibility(TextUtils.isEmpty(keyword) ? View.GONE : View.VISIBLE);
             tvArticleTitle.setString(article.getTitle());
             tvArticleCndate.setString(article.getCndate());
+            WebView wbArticle = new WebView(this);
             wbArticle.loadDataWithBaseURL("about:blank", article.getContent(), "text/html", "utf-8",
                     null);
+            if (llWbRoot.getChildCount() == 0) {
+                llWbRoot.addView(wbArticle);
+            }
         }
         ArticleDetail.PreviousArticleBean previousArticle = articleDetail.getPreviousArticle();
         if (previousArticle != null) {
@@ -190,5 +209,12 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

@@ -2,11 +2,11 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv_articleDetail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white_hi"
-    android:fillViewport="true"
-    android:id="@+id/sv_articleDetail">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,36 +36,46 @@
                 android:layout_marginBottom="32dp"
                 android:layout_marginTop="6dp"
                 android:text="2018-10-22"/>
+        </LinearLayout>
 
-            <WebView
-                android:id="@+id/wb_article"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:id="@+id/ll_wb_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"/>
 
-            <LinearLayout
-                android:id="@+id/ll_article_get"
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="24dp"
-                android:background="@mipmap/bg_article_btn"
-                android:gravity="center">
+   <!--     <WebView
+            android:id="@+id/wb_article"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>-->
 
-                <ImageView
-                    android:layout_width="21dp"
-                    android:layout_height="17dp"
-                    android:layout_marginRight="8dp"
-                    android:background="@mipmap/ic_gesture"/>
+        <LinearLayout
+            android:id="@+id/ll_article_get"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="24dp"
+            android:background="@mipmap/bg_article_btn"
+            android:gravity="center">
 
-                <TextView
-                    style="@style/font_f_15"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="去领优惠券"/>
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="17dp"
+                android:layout_marginRight="8dp"
+                android:background="@mipmap/ic_gesture"/>
 
-            </LinearLayout>
+            <TextView
+                style="@style/font_f_15"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="去领优惠券"/>
 
         </LinearLayout>
+
 
         <View style="@style/div_hor_6_gray"/>
 
