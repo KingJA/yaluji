@@ -48,7 +48,7 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
     StringTextView tvArticleTitle;
     @BindView(R.id.tv_article_cndate)
     StringTextView tvArticleCndate;
-//    @BindView(R.id.wb_article)
+    //    @BindView(R.id.wb_article)
 //    WebView wbArticle;
     @BindView(R.id.ll_article_get)
     LinearLayout llArticleGet;
@@ -166,9 +166,10 @@ public class ArticleDetailActivity extends BaseTitleActivity implements ArticleD
             WebView wbArticle = new WebView(this);
             wbArticle.loadDataWithBaseURL("about:blank", article.getContent(), "text/html", "utf-8",
                     null);
-            if (llWbRoot.getChildCount() == 0) {
-                llWbRoot.addView(wbArticle);
+            if (llWbRoot.getChildCount() != 0) {
+                llWbRoot.removeViewAt(0);
             }
+            llWbRoot.addView(wbArticle);
         }
         ArticleDetail.PreviousArticleBean previousArticle = articleDetail.getPreviousArticle();
         if (previousArticle != null) {

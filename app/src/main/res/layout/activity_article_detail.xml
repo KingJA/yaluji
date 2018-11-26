@@ -33,12 +33,13 @@
                 style="@style/font_6_15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="32dp"
                 android:layout_marginTop="6dp"
                 android:text="2018-10-22"/>
         </LinearLayout>
 
         <LinearLayout
+            android:layout_marginTop="22dp"
+            android:layout_marginBottom="24dp"
             android:id="@+id/ll_wb_root"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -55,10 +56,10 @@
             android:id="@+id/ll_article_get"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="20dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:layout_marginTop="24dp"
+
             android:background="@mipmap/bg_article_btn"
             android:gravity="center">
 
