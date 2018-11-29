@@ -4,8 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ import com.kingja.yaluji.page.modifynickname.ModifyNicknameActivity;
 import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.FileUtil;
 import com.kingja.yaluji.util.GoUtil;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.SpSir;
 import com.orhanobut.logger.Logger;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -37,6 +41,9 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.io.File;
+import java.math.BigInteger;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -48,6 +55,10 @@ import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
+import top.zibin.luban.OnRenameListener;
 
 /**
  * Description:TODO
@@ -94,7 +105,8 @@ public class PersonalActivity extends BaseTitleActivity implements PersonalContr
                             openCamera();
                         } else if (permission.shouldShowRequestPermissionRationale) {
                             // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-                            DialogUtil.showDoubleDialog(PersonalActivity.this, "为保证您正常浏览图片，需要获取读写手机存储权限，请允许", new MaterialDialog.SingleButtonCallback() {
+                            DialogUtil.showDoubleDialog(PersonalActivity.this, "为保证您正常浏览图片，需要获取读写手机存储权限，请允许", new
+                                    MaterialDialog.SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     checkPhotoPermission();
@@ -102,7 +114,9 @@ public class PersonalActivity extends BaseTitleActivity implements PersonalContr
                             });
                         } else {
                             // 用户拒绝了该权限，并且选中『不再询问』
-                            DialogUtil.showDoubleDialog(PersonalActivity.this, "未取得读写手机存储权限，将无法为部分图片提供预览。请前往应用权限设置打开权限。", new MaterialDialog.SingleButtonCallback() {
+                            DialogUtil.showDoubleDialog(PersonalActivity.this,
+                                    "未取得读写手机存储权限，将无法为部分图片提供预览。请前往应用权限设置打开权限。", new MaterialDialog
+                                            .SingleButtonCallback() {
                                 @Override
                                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                                     startAppSettings();
@@ -114,6 +128,7 @@ public class PersonalActivity extends BaseTitleActivity implements PersonalContr
                 });
 
     }
+
     private void startAppSettings() {
         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
         intent.setData(Uri.fromParts("package", getPackageName(), null));
@@ -139,17 +154,62 @@ public class PersonalActivity extends BaseTitleActivity implements PersonalContr
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_CHOOSE && resultCode == RESULT_OK) {
             mSelected = Matisse.obtainResult(data);
-            uploadHeadImg(mSelected.get(0));
+//            uploadHeadImg(mSelected.get(0));
+            compressPhoto(mSelected.get(0));
         }
     }
 
     private void uploadHeadImg(Uri uri) {
         Logger.d("uri:" + uri.toString());
+
         File headImgFile = FileUtil.getFileByUri(uri, this);
+
         RequestBody body = RequestBody.create(MediaType.parse("image/jpg"), headImgFile);
         MultipartBody.Part photoPart = MultipartBody.Part.createFormData("headimg", headImgFile.getName(), body);
         personalPresenter.uploadHeadImg(photoPart);
     }
+
+    private <T> void compressPhoto(Uri uri) {
+        File headImgFile = FileUtil.getFileByUri(uri, this);
+        Luban.with(this)
+                .load(headImgFile)
+                .ignoreBy(100)
+                .setFocusAlpha(false)
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        LogUtil.e(TAG, "path:"+path);
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        LogUtil.e(TAG, "开始压缩");
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        LogUtil.e(TAG, "大小:"+file.length());
+                        LogUtil.e(TAG, "file:"+file.getAbsolutePath());
+                        LogUtil.e(TAG, "name:"+file.getName());
+                        LogUtil.e(TAG, "开始成功");
+                        RequestBody body = RequestBody.create(MediaType.parse("image/jpg"), file);
+                        MultipartBody.Part photoPart = MultipartBody.Part.createFormData("headimg", file.getName(), body);
+                        personalPresenter.uploadHeadImg(photoPart);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        LogUtil.e(TAG, "开始失败");
+                        File headImgFile = FileUtil.getFileByUri(uri, PersonalActivity.this);
+                        RequestBody body = RequestBody.create(MediaType.parse("image/jpg"), headImgFile);
+                        MultipartBody.Part photoPart = MultipartBody.Part.createFormData("headimg", headImgFile.getName(), body);
+                        personalPresenter.uploadHeadImg(photoPart);
+                    }
+                }).launch();
+    }
+
 
     @Override
     public void initVariable() {

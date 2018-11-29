@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -17,9 +18,11 @@ import com.kingja.yaluji.R;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.page.headimg.PersonalActivity;
 import com.kingja.yaluji.util.CheckUtil;
 import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.FileUtil;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.ToastUtil;
 import com.tbruyelle.rxpermissions2.Permission;
 import com.tbruyelle.rxpermissions2.RxPermissions;
@@ -41,6 +44,9 @@ import io.reactivex.functions.Consumer;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import top.zibin.luban.CompressionPredicate;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 /**
  * Description:TODO
@@ -62,6 +68,7 @@ public class FeedbackActivity extends BaseTitleActivity implements FeedbackContr
     private RxPermissions rxPermissions;
     private static final int REQUEST_CODE_CHOOSE = 0;
     private List<Uri> photos = new ArrayList<>();
+    private MultipartBody.Builder bodyBuilder;
 
     @OnClick({R.id.tv_confirm, R.id.iv_photo})
     public void onViewClicked(View view) {
@@ -147,16 +154,49 @@ public class FeedbackActivity extends BaseTitleActivity implements FeedbackContr
     }
 
     private void sendFeedBack() {
-        MultipartBody.Builder bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
+        bodyBuilder = new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("title", title)
                 .addFormDataPart("content", content);
         if (photos != null && photos.size() > 0) {
-            File photoFile = FileUtil.getFileByUri(photos.get(0), this);
-            bodyBuilder.addFormDataPart("imageFile", photoFile.getName(), RequestBody.create(MediaType.parse
-                    ("image/*"), photoFile));
-            feedbackPresenter.sendFeedback(bodyBuilder.build());
+            compressPhoto(photos.get(0));
         }
         feedbackPresenter.sendNoImgFeedback(bodyBuilder.build());
+    }
+
+    private <T> void compressPhoto(Uri uri) {
+        File headImgFile = FileUtil.getFileByUri(uri, this);
+        Luban.with(this)
+                .load(headImgFile)
+                .ignoreBy(100)
+                .setFocusAlpha(false)
+                .filter(new CompressionPredicate() {
+                    @Override
+                    public boolean apply(String path) {
+                        LogUtil.e(TAG, "path:"+path);
+                        return !(TextUtils.isEmpty(path) || path.toLowerCase().endsWith(".gif"));
+                    }
+                })
+                .setCompressListener(new OnCompressListener() {
+                    @Override
+                    public void onStart() {
+                        LogUtil.e(TAG, "开始压缩");
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        bodyBuilder.addFormDataPart("imageFile", file.getName(), RequestBody.create(MediaType.parse
+                                ("image/*"), file));
+                        feedbackPresenter.sendFeedback(bodyBuilder.build());
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        File photoFile = FileUtil.getFileByUri(uri, FeedbackActivity.this);
+                        bodyBuilder.addFormDataPart("imageFile", photoFile.getName(), RequestBody.create(MediaType.parse
+                                ("image/*"), photoFile));
+                        feedbackPresenter.sendFeedback(bodyBuilder.build());
+                    }
+                }).launch();
     }
 
     @Override
