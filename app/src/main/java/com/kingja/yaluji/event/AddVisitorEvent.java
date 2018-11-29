@@ -15,6 +15,7 @@ public class AddVisitorEvent extends Visitor {
         this.id=visitor.getId();
         this.name=visitor.getName();
         this.mobile=visitor.getMobile();
+        this.idcode=visitor.getIdcode();
         this.isdefault=visitor.getIsdefault();
         this.isSelected=true;
     }

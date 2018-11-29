@@ -3,6 +3,8 @@ package com.kingja.yaluji.imgaeloader;
 import android.content.Context;
 import android.widget.ImageView;
 
+import com.kingja.yaluji.R;
+
 /**
  * Description：TODO
  * Create Time：2017/3/9 11:08
@@ -24,12 +26,16 @@ public class ImageLoader implements IImageLoader {
 
     @Override
     public void loadRoundImage(Context context, String url, int resourceId, ImageView view, int connerWidth) {
-        imageLoader.loadRoundImage(context, url, resourceId, view,connerWidth);
+        imageLoader.loadRoundImage(context, url, resourceId, view, connerWidth);
     }
 
     @Override
     public void loadCircleImage(Context context, String url, int resourceId, ImageView view) {
         imageLoader.loadCircleImage(context, url, resourceId, view);
+    }
+
+    public void loadCircleImage(Context context, String url, ImageView view) {
+        imageLoader.loadCircleImage(context, url, R.drawable.ic_placeholder, view);
     }
 
     public void loadImage(Context context, String url, ImageView view) {

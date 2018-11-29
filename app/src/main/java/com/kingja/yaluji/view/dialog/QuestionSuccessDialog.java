@@ -1,6 +1,5 @@
 package com.kingja.yaluji.view.dialog;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -22,10 +21,10 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.event.AddVisitorEvent;
 import com.kingja.yaluji.event.PrfectVisitorEvent;
 import com.kingja.yaluji.model.entiy.Visitor;
-import com.kingja.yaluji.page.answer.detail.QuestionDetailActivity;
 import com.kingja.yaluji.page.visitor.list.VisitorListActivity;
 import com.kingja.yaluji.page.visitor.single.VisitorSingleContract;
 import com.kingja.yaluji.page.visitor.single.VisitorSinglePresenter;
+import com.kingja.yaluji.util.CheckUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.RvItemDecoration;
@@ -79,9 +78,12 @@ public class QuestionSuccessDialog extends BaseDialog implements VisitorSingleCo
         switch (view.getId()) {
             case R.id.stv_get_ticket:
                 if (onVisitorSelectedListener != null) {
-                    onVisitorSelectedListener.onVisitorSelected(touristId);
+                    if (CheckUtil.checkEmpty(touristId, "请选择游客")) {
+                        onVisitorSelectedListener.onVisitorSelected(touristId);
+                        dismiss();
+                    }
                 }
-                dismiss();
+
                 break;
             default:
                 break;

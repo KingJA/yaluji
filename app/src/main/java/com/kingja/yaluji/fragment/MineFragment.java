@@ -3,6 +3,7 @@ package com.kingja.yaluji.fragment;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -51,7 +52,7 @@ import cn.jpush.android.api.JPushInterface;
 public class MineFragment extends BaseFragment {
 
     @BindView(R.id.iv_mine_head)
-    SuperShapeImageView ivMineHead;
+    ImageView ivMineHead;
     @BindView(R.id.tv_nickname)
     TextView tvNickname;
     @BindView(R.id.tv_quit)
@@ -99,7 +100,7 @@ public class MineFragment extends BaseFragment {
             //已登录
             String nickname = SpSir.getInstance().getNickname();
             String headImg = SpSir.getInstance().getHeadImg();
-            ImageLoader.getInstance().loadImage(getActivity(), headImg, ivMineHead);
+            ImageLoader.getInstance().loadCircleImage(getActivity(), headImg, ivMineHead);
             tvNickname.setText(nickname);
             tvQuit.setVisibility(View.VISIBLE);
             llMinePersonal.setOnClickListener(v -> {
@@ -199,7 +200,7 @@ public class MineFragment extends BaseFragment {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void setHeadImg(RefreshHeadImgEvent refreshHeadImgEvent) {
         String headImg = SpSir.getInstance().getHeadImg();
-        ImageLoader.getInstance().loadImage(getActivity(), headImg, ivMineHead);
+        ImageLoader.getInstance().loadCircleImage(getActivity(), headImg, ivMineHead);
     }
 
     @Override

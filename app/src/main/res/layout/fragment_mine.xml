@@ -46,14 +46,13 @@
             android:layout_marginLeft="12dp"
             android:gravity="center_vertical">
 
-            <com.kingja.supershapeview.view.SuperShapeImageView
+            <ImageView
                 android:id="@+id/iv_mine_head"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="16dp"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/ic_launcher"
-                app:super_cornerRadius="60dp"/>
+                android:src="@mipmap/ic_launcher"/>
 
             <TextView
                 android:id="@+id/tv_nickname"

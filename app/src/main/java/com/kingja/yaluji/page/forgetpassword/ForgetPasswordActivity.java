@@ -79,7 +79,7 @@ public class ForgetPasswordActivity extends BaseTitleActivity implements ForgetP
 
 
     private void getCode(String mobile) {
-        countTimer = new CountTimer(10, stvForgetpwdGetCode);
+        countTimer = new CountTimer(60, stvForgetpwdGetCode);
         stvForgetpwdGetCode.setClickable(false);
         countTimer.start();
         forgetPasswordPresenter.getCode(mobile, 2);

@@ -81,7 +81,7 @@ public class RegisterActivity extends BaseTitleActivity implements RegisterContr
 
 
     private void getCode(String mobile) {
-        countTimer = new CountTimer(10, stvRegisterGetCode);
+        countTimer = new CountTimer(60, stvRegisterGetCode);
         stvRegisterGetCode.setClickable(false);
         countTimer.start();
         registerPresenter.getCode(mobile, 1);

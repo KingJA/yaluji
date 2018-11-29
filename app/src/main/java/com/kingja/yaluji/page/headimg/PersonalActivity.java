@@ -190,7 +190,7 @@ public class PersonalActivity extends BaseTitleActivity implements PersonalContr
     @Override
     protected void initData() {
         String headImg = SpSir.getInstance().getHeadImg();
-        ImageLoader.getInstance().loadImage(this, headImg, ivPersonalHead);
+        ImageLoader.getInstance().loadCircleImage(this, headImg, ivPersonalHead);
         tvNickname.setText(SpSir.getInstance().getNickname());
     }
 
@@ -218,6 +218,6 @@ public class PersonalActivity extends BaseTitleActivity implements PersonalContr
     public void onUploadHeadImgSuccess(String url) {
         SpSir.getInstance().putHeadImg(url);
         EventBus.getDefault().post(new RefreshHeadImgEvent());
-        ImageLoader.getInstance().loadImage(this, url, ivPersonalHead);
+        ImageLoader.getInstance().loadCircleImage(this, url, ivPersonalHead);
     }
 }
