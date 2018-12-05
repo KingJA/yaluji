@@ -15,6 +15,14 @@ public class Status {
         //结束
         int OVER = 3;
     }
+    public interface TicketSellStatus {
+        //在抢
+        int SELLING = 1;
+        //待抢
+        int TOSELL = 0;
+        //全部
+        int ALL = 2;
+    }
 
     public interface PayType {
         //支付宝

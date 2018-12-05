@@ -1,6 +1,8 @@
 package com.kingja.yaluji.page.ticket.list;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
@@ -19,9 +21,12 @@ import com.kingja.yaluji.R;
 import com.kingja.yaluji.activity.SearchDetailActivity;
 import com.kingja.yaluji.adapter.ScenicTypeAdapter;
 import com.kingja.yaluji.adapter.TicketAdapter;
+import com.kingja.yaluji.adapter.TicketPageAdapter;
+import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
-import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.constant.Status;
+import com.kingja.yaluji.event.TicketFilterEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.City;
 import com.kingja.yaluji.model.entiy.HotSearch;
@@ -39,6 +44,8 @@ import com.kingja.yaluji.view.DatePop;
 import com.kingja.yaluji.view.DiscountPop;
 import com.kingja.yaluji.view.PullToBottomListView;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +55,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.OnItemClick;
-import okhttp3.MultipartBody;
 
 /**
  * Description:TODO
@@ -75,13 +81,15 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     @Inject
-    TicketListPresenter ticketListPresenter;
-    @Inject
     InitializePresenter initializePresenter;
     @BindView(R.id.tv_search)
     TextView tvSearch;
     @BindView(R.id.iv_go_top)
     ImageView ivGoTop;
+    @BindView(R.id.tab)
+    TabLayout tab;
+    @BindView(R.id.vp)
+    ViewPager vp;
     private List<ScenicType> scenicTypes = new ArrayList<>();
     private List<City> cities = new ArrayList<>();
     private List<Ticket> ticketList = new ArrayList<>();
@@ -93,6 +101,9 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     private String areaId = "";
     private String discountOrder = "";
     private String buyLimit = "";
+    private String[] tabTitles = {"抢券中", "待上架"};
+    private int[] tabImgs = {R.mipmap.ic_ticket_selling, R.mipmap.ic_ticket_tosell};
+    private BaseFragment[] fragments = new BaseFragment[2];
 
     @OnClick({R.id.ll_search})
     public void onViewClicked(View view) {
@@ -127,7 +138,6 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
-        ticketListPresenter.attachView(this);
         initializePresenter.attachView(this);
     }
 
@@ -145,6 +155,20 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
 
     @Override
     protected void initData() {
+        tab.setTabMode(TabLayout.MODE_FIXED);
+        tab.addTab(tab.newTab().setText(tabTitles[0]));
+        tab.addTab(tab.newTab().setText(tabTitles[1]));
+        fragments[0]=TicketListFragment.newInstance(Status.TicketSellStatus.SELLING);
+        fragments[1]=TicketListFragment.newInstance(Status.TicketSellStatus.TOSELL);
+        TicketPageAdapter ticketPageAdapter = new TicketPageAdapter(this, fragments, tabImgs, tabTitles);
+        vp.setAdapter(ticketPageAdapter);
+        vp.setOffscreenPageLimit(tabTitles.length);
+        tab.setupWithViewPager(vp);
+        for (int i = 0; i < tab.getTabCount(); i++) {
+            TabLayout.Tab t = tab.getTabAt(i);
+            t.setCustomView(ticketPageAdapter.getTabView(i));
+        }
+
         srl.setOnRefreshListener(this);
         initHint();
         popConfig = new PopConfig.Builder()
@@ -169,7 +193,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
             public void onDiscountSelected(String discountOrder, String buyLimit) {
                 TicketListActivity.this.discountOrder = discountOrder;
                 TicketListActivity.this.buyLimit = buyLimit;
-                initNet();
+                postRefreshTicketList();
             }
         });
         spinerDiscount.setOnSpinnerStatusChangedListener(opened -> {
@@ -229,7 +253,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
                         Log.e(TAG, "景区ID: " + item.getCode() + " 景区名称: " + item.getDesc());
                         productTypeId = item.getCode();
                         scenicTypeAdapter.selectItem(position);
-                        initNet();
+                        postRefreshTicketList();
                     })
                     .build();
         }
@@ -243,7 +267,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
         datePop.setOnDateSelectedListener(dates -> {
             useDates = dates;
             datePop.dismiss();
-            initNet();
+            postRefreshTicketList();
         });
         spinerDate.setOnSpinnerStatusChangedListener(opened -> {
             if (opened) {
@@ -263,7 +287,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
                 Log.e(TAG, "区域ID: " + areaId + " 区域名称: " + areaName);
                 this.areaId = areaId;
                 cityPop.dismiss();
-                initNet();
+                postRefreshTicketList();
             });
             cityPop.setOnDismissListener(() -> {
                 spinerArea.close();
@@ -279,20 +303,12 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
 
     }
 
+    private void postRefreshTicketList() {
+        EventBus.getDefault().post(new TicketFilterEvent(areaId,productTypeId,useDates,buyLimit,discountOrder));
+    }
+
     @Override
     protected void initNet() {
-        ticketListPresenter.getTicketList(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("areaId", areaId)
-                .addFormDataPart("productTypeId", productTypeId)
-                .addFormDataPart("useDates", useDates)
-                .addFormDataPart("discountRate", "")
-                .addFormDataPart("keyword", "")
-                .addFormDataPart("page", String.valueOf(Constants.PAGE_FIRST))
-                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
-                .addFormDataPart("status", "1")
-                .addFormDataPart("buyLimit", buyLimit)
-                .addFormDataPart("discountOrder", discountOrder)
-                .build());
     }
 
     @Override

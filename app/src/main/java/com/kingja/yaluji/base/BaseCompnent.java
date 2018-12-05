@@ -29,6 +29,7 @@ import com.kingja.yaluji.page.search.result.SearchResultActivity;
 import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListActivity;
+import com.kingja.yaluji.page.ticket.list.TicketListFragment;
 import com.kingja.yaluji.page.ticket.success.TicketSuccessActivity;
 import com.kingja.yaluji.page.visitor.add.VisitorAddActivity;
 import com.kingja.yaluji.page.visitor.edit.VisitorEditActivity;
@@ -43,7 +44,10 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(TicketListFragment target);
+
     void inject(VersionUpdateSir target);
+
     void inject(OrderListFragment target);
 
     void inject(OrderDetailActivity target);

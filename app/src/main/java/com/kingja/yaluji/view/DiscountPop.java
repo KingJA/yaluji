@@ -45,8 +45,8 @@ public class DiscountPop extends BasePop {
         discountList.add(new Discount("全额抵扣", "0"));
         discountList.add(new Discount("抵扣额升序", "1"));
         discountList.add(new Discount("抵扣额降序", "2"));
-        discountList.add(new Discount("折扣额升序", "3"));
-        discountList.add(new Discount("折扣额降序", "4"));
+        discountList.add(new Discount("折扣率升序", "3"));
+        discountList.add(new Discount("折扣率降序", "4"));
     }
 
     @Override

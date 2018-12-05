@@ -5,7 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 
 import com.kingja.yaluji.R;
-import com.kingja.yaluji.adapter.TicketPageAdapter;
+import com.kingja.yaluji.adapter.OrderPageAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.injector.component.AppComponent;
@@ -45,9 +45,9 @@ public class OrderFragment extends BaseFragment {
         tabOrder.addTab(tabOrder.newTab().setText(items[1]));
         mFragmentArr[0] = OrderListFragment.newInstance(Status.TicketStatus.WAIT_USE);
         mFragmentArr[1] = OrderListFragment.newInstance(Status.TicketStatus.ALL);
-        TicketPageAdapter mTicketPageAdapter = new TicketPageAdapter(getChildFragmentManager(), mFragmentArr,
+        OrderPageAdapter mOrderPageAdapter = new OrderPageAdapter(getChildFragmentManager(), mFragmentArr,
                 items);
-        vpContentOrder.setAdapter(mTicketPageAdapter);
+        vpContentOrder.setAdapter(mOrderPageAdapter);
         tabOrder.setupWithViewPager(vpContentOrder);
     }
 

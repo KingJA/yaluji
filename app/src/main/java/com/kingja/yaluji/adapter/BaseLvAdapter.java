@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -21,11 +22,11 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
 
     public BaseLvAdapter(Context context, List<T> list) {
         this.context = context;
-        this.list = list;
+        this.list = list==null?new ArrayList<>():list;
     }
 
     public void setData(List<T> list) {
-        this.list = list;
+        this.list = list==null?new ArrayList<>():list;
         selectPosition = -1;
         this.notifyDataSetChanged();
     }
