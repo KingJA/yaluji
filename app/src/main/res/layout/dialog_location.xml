@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:background="@mipmap/bg_dialog_ticket">
+            <TextView
+                android:lineSpacingExtra="12dp"
+                style="@style/font_f_15"
+                android:layout_marginBottom="16dp"
+                android:layout_alignParentBottom="true"
+                android:text="开启定位\n获取更多优惠券信息"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+
+
+
+        <View style="@style/div_hor_gray"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.kingja.supershapeview.view.SuperShapeTextView
+                android:id="@+id/tv_cancel"
+                style="@style/font_3_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="以后再说"
+                app:super_bottomLeftRadius="8dp"
+                app:super_solidColor="@color/white_hi"/>
+
+            <View style="@style/div_ver_gray"/>
+
+            <com.kingja.supershapeview.view.SuperShapeTextView
+                android:id="@+id/tv_confirm"
+                style="@style/font_orange_16"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:padding="14dp"
+                android:text="开启定位获取"
+                app:super_bottomRightRadius="8dp"
+                app:super_solidColor="@color/white_hi"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

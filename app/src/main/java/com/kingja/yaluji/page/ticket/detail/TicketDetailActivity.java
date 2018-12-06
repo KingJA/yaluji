@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.OrientationHelper;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -129,6 +130,8 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     private String visitDate;
     private String ticketName;
     private String scenicid;
+    private String startTime;
+    private Timer timer;
 
     @OnClick({R.id.rl_ticket_introduce, R.id.ll_detail_get})
     public void onclick(View view) {
@@ -242,6 +245,14 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (timer != null) {
+            timer.cancel();
+        }
+    }
+
+    @Override
     protected void initNet() {
         ticketDetailPresenter.getTicketDetail(productId);
         ticketDetailPresenter.getVisitors(Constants.PAGE_FIRST, Constants.PAGE_SIZE_100);
@@ -257,6 +268,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
         idcodeNeed = ticketDetail.getIdcodeNeed();
         status = ticketDetail.getStatus();
         endTime = ticketDetail.getEndTime();
+        startTime = ticketDetail.getStartTime();
         buyPrice = ticketDetail.getBuyPrice();
         visitDate = ticketDetail.getVisitDate();
         ticketName = ticketDetail.getTicketName();
@@ -286,7 +298,7 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
             case Status.SellStatus.SELLOUT:
                 llDetailGet.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_hi));
                 llDetailGet.setEnabled(false);
-                stvConfirm.setText("已领完");
+                stvConfirm.setText("已抢完");
                 break;
             case Status.SellStatus.OVER:
                 llDetailGet.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_hi));
@@ -298,24 +310,53 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
                 llDetailGet.setEnabled(true);
                 stvConfirm.setText("领取");
                 break;
+            case Status.SellStatus.TOSELL:
+                llDetailGet.setBackgroundColor(ContextCompat.getColor(this, R.color.gray_hi));
+                llDetailGet.setEnabled(false);
+                stvConfirm.setText("暂未开抢");
+                break;
         }
     }
 
     private void initTimer() {
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                if (DateUtil.isOverDue(endTime)) {
-                    llDetailGet.setBackgroundColor(ContextCompat.getColor(TicketDetailActivity.this, R.color.gray_hi));
-                    llDetailGet.setEnabled(false);
-                    stvConfirm.setText("已结束");
-                    timer.cancel();
+        if (status == Status.SellStatus.TOSELL) {
+            //待售
+            startTimer(new TimerTask() {
+                @Override
+                public void run() {
+                    Log.e(TAG, "判断是否开始: ");
+                    if (DateUtil.isBeginSell(startTime)) {
+                        llDetailGet.setBackgroundResource(R.mipmap.bg_ticket_detail);
+                        llDetailGet.setEnabled(true);
+                        stvConfirm.setText("领取");
+                        timer.cancel();
+                    }
                 }
+            });
+        } else if (status == Status.SellStatus.SELLING) {
+            //在售
+            startTimer(new TimerTask() {
+                @Override
+                public void run() {
+                    Log.e(TAG, "判断是否结束: ");
+                    if (DateUtil.isOverDue(endTime)) {
+                        llDetailGet.setBackgroundColor(ContextCompat.getColor(TicketDetailActivity.this, R.color
+                                .gray_hi));
+                        llDetailGet.setEnabled(false);
+                        stvConfirm.setText("已结束");
+                        timer.cancel();
+                    }
 
-            }
-        }, 0, 1000);
+                }
+            });
+        }
     }
+
+    private void startTimer(TimerTask timerTask) {
+        timer = new Timer();
+        timer.schedule(timerTask, 0, 1000);
+    }
+
 
     @Override
     public void onGetVisitorsSuccess(List<Visitor> visitors) {

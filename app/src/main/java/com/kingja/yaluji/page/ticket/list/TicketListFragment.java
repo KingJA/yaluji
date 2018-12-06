@@ -5,6 +5,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 
 import com.kingja.yaluji.R;
@@ -16,6 +17,7 @@ import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.TicketFilterEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Ticket;
+import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.view.PullToBottomListView;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,6 +30,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnItemClick;
 import butterknife.Unbinder;
 import okhttp3.MultipartBody;
 
@@ -49,6 +52,13 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
     ImageView ivGoTop;
     private int ticketStatus;
     private TicketAdapter ticketAdapter;
+
+    @OnItemClick(R.id.plv)
+    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
+        Ticket ticket = (Ticket) parent.getItemAtPosition(position);
+        TicketDetailActivity.goActivity(getActivity(), ticket.getId());
+    }
+
 
     public static TicketListFragment newInstance(int ticketStatus) {
         TicketListFragment fragment = new TicketListFragment();

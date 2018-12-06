@@ -29,6 +29,8 @@ public class SpSir {
     private static final String NO_SHOW = "NO_SHOW";
     private static final String SOUND = "SOUND";
     private static final String SHAPE_PAGE = "SHAPE_PAGE";
+    private static final String RequirePermission = "RequirePermission";
+    private static final String LastLocationDate = "LastLocationDate";
     private static SpSir mSpSir;
     private SharedPreferences mSp;
 
@@ -85,6 +87,10 @@ public class SpSir {
         return getString(City);
     }
 
+    public String getLastLocationDate() {
+        return getString(LastLocationDate);
+    }
+
     public String getHistoryKeyword() {
         return getString(History_Keyword);
     }
@@ -101,12 +107,20 @@ public class SpSir {
         return getBoolean(SOUND, true);
     }
 
+    public boolean hasRequirePermission() {
+        return getBoolean(RequirePermission, false);
+    }
+
     public int getShapePage() {
         return getInt(SHAPE_PAGE, Status.SharePage.QUESTION_LIST);
     }
 
     /*================================PUT================================*/
 
+
+    public void putLastLocationDate(String lastLocationDate) {
+        putString(LastLocationDate, lastLocationDate);
+    }
 
     public void putNickName(String nickName) {
         putString(NICKNAME, nickName);
@@ -146,6 +160,10 @@ public class SpSir {
 
     public void putSound(boolean sound) {
         putBoolean(SOUND, sound);
+    }
+
+    public void setRequirePermission(boolean hasRequired) {
+        putBoolean(RequirePermission, hasRequired);
     }
 
     public void putSharePage(int sharePage) {

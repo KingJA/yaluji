@@ -1,17 +1,32 @@
 package com.kingja.yaluji.page.ticket.list;
 
+import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.kingja.popwindowsir.PopConfig;
@@ -20,7 +35,6 @@ import com.kingja.popwindowsir.PopSpinner;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.activity.SearchDetailActivity;
 import com.kingja.yaluji.adapter.ScenicTypeAdapter;
-import com.kingja.yaluji.adapter.TicketAdapter;
 import com.kingja.yaluji.adapter.TicketPageAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.BaseTitleActivity;
@@ -31,18 +45,24 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.City;
 import com.kingja.yaluji.model.entiy.HotSearch;
 import com.kingja.yaluji.model.entiy.ScenicType;
-import com.kingja.yaluji.model.entiy.Ticket;
-import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
+import com.kingja.yaluji.page.ticket.location.LocationContract;
+import com.kingja.yaluji.page.ticket.location.LocationPresenter;
 import com.kingja.yaluji.service.initialize.InitializeContract;
 import com.kingja.yaluji.service.initialize.InitializePresenter;
 import com.kingja.yaluji.util.AppUtil;
+import com.kingja.yaluji.util.DateUtil;
+import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.SpSir;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.CityPop;
 import com.kingja.yaluji.view.DatePop;
 import com.kingja.yaluji.view.DiscountPop;
-import com.kingja.yaluji.view.PullToBottomListView;
+import com.kingja.yaluji.view.dialog.BaseDialog;
+import com.kingja.yaluji.view.dialog.LocationDialog;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -54,7 +74,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.OnItemClick;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 /**
  * Description:TODO
@@ -62,8 +83,7 @@ import butterknife.OnItemClick;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class TicketListActivity extends BaseTitleActivity implements TicketListContract.View, InitializeContract
-        .View, SwipeRefreshLayout.OnRefreshListener {
+public class TicketListActivity extends BaseTitleActivity implements InitializeContract.View, LocationContract.View {
     @BindView(R.id.ll_search)
     LinearLayout llSearch;
     @BindView(R.id.spiner_area)
@@ -76,24 +96,20 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     PopSpinner spinerDiscount;
     @BindView(R.id.ll_spinner_root)
     LinearLayout llSpinnerRoot;
-    @BindView(R.id.plv)
-    PullToBottomListView plv;
-    @BindView(R.id.srl)
-    SwipeRefreshLayout srl;
     @Inject
     InitializePresenter initializePresenter;
+    @Inject
+    LocationPresenter locationPresenter;
     @BindView(R.id.tv_search)
     TextView tvSearch;
-    @BindView(R.id.iv_go_top)
-    ImageView ivGoTop;
     @BindView(R.id.tab)
     TabLayout tab;
     @BindView(R.id.vp)
     ViewPager vp;
+    @BindView(R.id.iv_more_ticket)
+    ImageView ivMoreTicket;
     private List<ScenicType> scenicTypes = new ArrayList<>();
     private List<City> cities = new ArrayList<>();
-    private List<Ticket> ticketList = new ArrayList<>();
-    private TicketAdapter ticketAdapter;
     private CityPop cityPop;
     private PopConfig popConfig;
     private String productTypeId = "";
@@ -104,23 +120,23 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     private String[] tabTitles = {"抢券中", "待上架"};
     private int[] tabImgs = {R.mipmap.ic_ticket_selling, R.mipmap.ic_ticket_tosell};
     private BaseFragment[] fragments = new BaseFragment[2];
+    private LocationDialog locationDialog;
 
-    @OnClick({R.id.ll_search})
+    @OnClick({R.id.ll_search, R.id.iv_more_ticket})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.ll_search:
                 GoUtil.goActivity(this, SearchDetailActivity.class);
+                break;
+            case R.id.iv_more_ticket:
+                ivMoreTicket.setVisibility(View.GONE);
+                locationDialog.show();
                 break;
             default:
                 break;
         }
     }
 
-    @OnItemClick(R.id.plv)
-    public void itemClick(AdapterView<?> parent, View view, int position, long id) {
-        Ticket ticket = (Ticket) parent.getItemAtPosition(position);
-        TicketDetailActivity.goActivity(this, ticket.getId());
-    }
 
     @Override
     public void initVariable() {
@@ -139,6 +155,7 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
                 .build()
                 .inject(this);
         initializePresenter.attachView(this);
+        locationPresenter.attachView(this);
     }
 
     @Override
@@ -148,18 +165,120 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
 
     @Override
     protected void initView() {
-        ticketAdapter = new TicketAdapter(this, ticketList);
-        plv.setAdapter(ticketAdapter);
-        plv.setGoTop(ivGoTop);
+    }
+
+    public void checkLocationPermission() {
+        Disposable disposable = new RxPermissions(this).requestEach(Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                        if (permission.granted) {
+                            uploadLocationInfo();
+                        } else if (permission.shouldShowRequestPermissionRationale) {
+                            // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
+                            DialogUtil.showDoubleDialog(TicketListActivity.this, "为获取更多优惠券信息，需要获取手机定位权限，请允许", new
+                                    MaterialDialog.SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction
+                                                which) {
+                                            checkLocationPermission();
+                                        }
+                                    });
+                        } else {
+                            // 用户拒绝了该权限，并且选中『不再询问』
+                            DialogUtil.showDoubleDialog(TicketListActivity.this,
+                                    "未取得获取手机定位权限，将无法获取更多优惠券信息。请前往应用权限设置打开权限。", new MaterialDialog
+                                            .SingleButtonCallback() {
+                                        @Override
+                                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction
+                                                which) {
+                                            startAppSettings();
+                                        }
+                                    });
+
+                        }
+                    }
+                });
+
+    }
+
+    private void uploadLocationInfo() {
+        if (TextUtils.isEmpty(SpSir.getInstance().getToken())) {
+            return;
+        }
+        //1.获得位置服务
+        final LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        if (locationManager == null) {
+            Toast.makeText(this, "没有可用的位置服务", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        String locationProdiver = getLocationProdiver(locationManager);
+
+        LocationListener locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                locationManager.removeUpdates(this);
+                Log.e("上传定位", "Latitude:" + location.getLatitude() + " Longitude:" + location
+                        .getLongitude());
+                locationPresenter.uploadLocation(String.valueOf(location.getLatitude()), String.valueOf(location
+                        .getLongitude()));
+
+            }
+
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+            }
+        };
+        //2.判断权限绑定监听
+        if (locationProdiver != null) {
+            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
+                    == PackageManager.PERMISSION_GRANTED || ActivityCompat.checkSelfPermission(this, Manifest
+                    .permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                locationManager.requestLocationUpdates(locationProdiver, 0, 0f, locationListener);
+            }
+        }
+    }
+
+    private String getLocationProdiver(LocationManager locationManager) {
+        List<String> prodiverlist = locationManager.getProviders(true);
+        if (prodiverlist.contains(LocationManager.NETWORK_PROVIDER)) {
+            return LocationManager.NETWORK_PROVIDER;//网络定位
+        } else if (prodiverlist.contains(LocationManager.GPS_PROVIDER)) {
+            return LocationManager.GPS_PROVIDER;//GPS定位
+        } else {
+            Toast.makeText(this, "没有可用的定位模块", Toast.LENGTH_SHORT).show();
+        }
+        return null;
+    }
+
+    private void startAppSettings() {
+        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+        intent.setData(Uri.fromParts("package", getPackageName(), null));
+        startActivity(intent);
     }
 
     @Override
     protected void initData() {
+        locationDialog = new LocationDialog(this);
+        locationDialog.setOnConfirmListener(new BaseDialog.OnConfirmListener() {
+            @Override
+            public void onConfirm() {
+                checkLocationPermission();
+            }
+        });
         tab.setTabMode(TabLayout.MODE_FIXED);
         tab.addTab(tab.newTab().setText(tabTitles[0]));
         tab.addTab(tab.newTab().setText(tabTitles[1]));
-        fragments[0]=TicketListFragment.newInstance(Status.TicketSellStatus.SELLING);
-        fragments[1]=TicketListFragment.newInstance(Status.TicketSellStatus.TOSELL);
+        fragments[0] = TicketListFragment.newInstance(Status.TicketSellStatus.SELLING);
+        fragments[1] = TicketListFragment.newInstance(Status.TicketSellStatus.TOSELL);
         TicketPageAdapter ticketPageAdapter = new TicketPageAdapter(this, fragments, tabImgs, tabTitles);
         vp.setAdapter(ticketPageAdapter);
         vp.setOffscreenPageLimit(tabTitles.length);
@@ -169,7 +288,6 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
             t.setCustomView(ticketPageAdapter.getTabView(i));
         }
 
-        srl.setOnRefreshListener(this);
         initHint();
         popConfig = new PopConfig.Builder()
                 .setPopHeight((int) (AppUtil.getScreenHeight() * 0.55f))
@@ -203,6 +321,12 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
                 discountPop.dismiss();
             }
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        moreTicketHandler.removeCallbacks(moreTicketRunnable);
     }
 
     private void initHint() {
@@ -278,6 +402,14 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
         });
     }
 
+    @Override
+    public void hideLoading() {
+    }
+
+    @Override
+    public void showLoading() {
+
+    }
 
     private void initCityPop() {
         if (cities != null && cities.size() > 0) {
@@ -304,21 +436,50 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     }
 
     private void postRefreshTicketList() {
-        EventBus.getDefault().post(new TicketFilterEvent(areaId,productTypeId,useDates,buyLimit,discountOrder));
+        EventBus.getDefault().post(new TicketFilterEvent(areaId, productTypeId, useDates, buyLimit, discountOrder));
     }
 
     @Override
     protected void initNet() {
+        if (SpSir.getInstance().hasRequirePermission()) {
+            //已经询问过
+            applyLocationPermission();
+        } else {
+            //未申请过权限
+            checkLocationPermission();
+            SpSir.getInstance().setRequirePermission(true);
+        }
+
     }
 
-    @Override
-    public void onGetTicketListSuccess(List<Ticket> ticketList) {
-        if (ticketList != null && ticketList.size() > 0) {
-            ticketAdapter.setData(ticketList);
+    public void applyLocationPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            //检查是否已经给了权限
+            int checkpermission = ContextCompat.checkSelfPermission(getApplicationContext(),
+                    Manifest.permission.ACCESS_FINE_LOCATION);
+            if (checkpermission != PackageManager.PERMISSION_GRANTED) {//没有给权限
+                //显示定位浮标
+                ivMoreTicket.setVisibility(View.VISIBLE);
+                moreTicketHandler.postDelayed(moreTicketRunnable, 10 * 1000);
+            } else {
+                //上传定位
+                if (!DateUtil.getNowDate().equals(SpSir.getInstance().getLastLocationDate())) {
+                    uploadLocationInfo();
+                }
+
+            }
         } else {
-            ticketAdapter.setData(new ArrayList<>());
+            //上传定位
+            if (!DateUtil.getNowDate().equals(SpSir.getInstance().getLastLocationDate())) {
+                uploadLocationInfo();
+            }
         }
     }
+
+    private Handler moreTicketHandler = new Handler();
+    private Runnable moreTicketRunnable = () -> {
+        ivMoreTicket.setVisibility(View.GONE);
+    };
 
     @Override
     public void onGetHotSearch(List<HotSearch> hotSearches) {
@@ -338,15 +499,8 @@ public class TicketListActivity extends BaseTitleActivity implements TicketListC
     }
 
     @Override
-    public void onRefresh() {
-        srl.setRefreshing(false);
-        initNet();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
+    public void onUploadLocationSuccess() {
+        LogUtil.e(TAG, "上传成功");
+        SpSir.getInstance().putLastLocationDate(DateUtil.getNowDate());
     }
 }

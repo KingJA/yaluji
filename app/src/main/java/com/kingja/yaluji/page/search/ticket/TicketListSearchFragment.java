@@ -13,6 +13,7 @@ import com.kingja.yaluji.adapter.TicketAdapter;
 import com.kingja.yaluji.base.BaseFragment;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Ticket;
@@ -99,6 +100,7 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
     protected void initNet() {
         ticketListPresenter.getTicketList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("keyword", keyword)
+                .addFormDataPart("status", String.valueOf(Status.TicketSellStatus.ALL))
                 .addFormDataPart("page", String.valueOf(currentPageSize))
                 .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE))
                 .build());

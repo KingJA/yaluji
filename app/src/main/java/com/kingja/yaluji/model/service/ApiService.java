@@ -269,6 +269,12 @@ public interface ApiService {
     /*领取成功补全游客信息*/
     @POST("/app/paper/completeTourist")
     Observable<HttpResult<Order>> prefectVisitor(@Body RequestBody requestBody);
+
+
+    /*上传定位*/
+    @FormUrlEncoded
+    @POST("/app/user/addLocation")
+    Observable<HttpResult<Object>> uploadLocation(@Field("lat") String lat, @Field("lng") String lng);
     //=================================================================================
 
 

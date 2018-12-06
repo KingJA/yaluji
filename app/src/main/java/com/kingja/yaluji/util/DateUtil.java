@@ -14,7 +14,7 @@ public class DateUtil {
     private static final int MILLIS_DAY = 1000 * 60 * 60 * 24;
     private static final int MILLIS_HOUR = 1000 * 60 * 60;
     private static final int MILLIS_MIN = 1000 * 60;
-    private static final String FORMAT_DATE_HOUR_MIN_SEC ="yyyy-MM-dd HH:mm:ss";
+    private static final String FORMAT_DATE_HOUR_MIN_SEC = "yyyy-MM-dd HH:mm:ss";
 
     public static int[] getDeadlineDate(String deadline) {
         Date date = getDateFromString(deadline);
@@ -43,11 +43,26 @@ public class DateUtil {
 
     public static boolean isOverDue(String deadline) {
         long deadlineMillis = getDateFromString(deadline).getTime();
-        return deadlineMillis- System.currentTimeMillis()<0;
+        return deadlineMillis - System.currentTimeMillis() < 0;
     }
 
     public static boolean isBeginSell(String startTime) {
         long starttimeMillis = getDateFromString(startTime).getTime();
-        return starttimeMillis- System.currentTimeMillis()<=0;
+        return starttimeMillis - System.currentTimeMillis() <= 0;
     }
+
+    public static String getDateString(long time) {
+        return getDateString(time, "yyyy-MM-dd");
+    }
+
+    public static String getNowDate() {
+        return getDateString(new Date().getTime(), "yyyy-MM-dd");
+    }
+
+    public static String getDateString(long time, String fromat) {
+        Date d = new Date(time);
+        SimpleDateFormat sf = new SimpleDateFormat(fromat);
+        return sf.format(d);
+    }
+
 }

@@ -8,6 +8,8 @@ package com.kingja.yaluji.constant;
  */
 public class Status {
     public interface SellStatus {
+        //待抢
+        int TOSELL = 0;
         //在抢
         int SELLING = 1;
         //抢完

@@ -231,6 +231,10 @@
 # android.app
 -dontwarn com.bumptech.**
 -keep class com.bumptech.** { *; }
+
+# luban
+-dontwarn top.zibin.luban.**
+-keep class top.zibin.luban.** { *; }
 # alipay
 -dontwarn android.net.**
 -keep class android.net.SSLCertificateSocketFactory{*;}
