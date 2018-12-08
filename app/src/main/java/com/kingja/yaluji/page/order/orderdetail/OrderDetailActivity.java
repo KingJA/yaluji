@@ -2,6 +2,7 @@ package com.kingja.yaluji.page.order.orderdetail;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.widget.ImageView;
 
 import com.kingja.yaluji.R;
@@ -17,6 +18,7 @@ import com.kingja.yaluji.view.StringTextView;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Description:TODO
@@ -50,6 +52,8 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     DeleteTextView tvMarketPrice;
     @BindView(R.id.tv_payamount)
     StringTextView tvPayamount;
+    @BindView(R.id.tv_idcode)
+    StringTextView tvIdcode;
     private String orderId;
     @Inject
     OrderDetailPresenter orderDetailPresenter;
@@ -100,6 +104,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         tvSubject.setString(orderDetail.getSubject());
         tvTourists.setString(orderDetail.getTourists());
         tvUseDate.setString(orderDetail.getUseDate());
+        tvIdcode.setString(orderDetail.getIdcode());
         tvPaidAt.setString(orderDetail.getPaidAt());
         tvOrderNo.setString(orderDetail.getOrderNo());
         tvTicketcode.setString(orderDetail.getTicketcode());
@@ -121,5 +126,12 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

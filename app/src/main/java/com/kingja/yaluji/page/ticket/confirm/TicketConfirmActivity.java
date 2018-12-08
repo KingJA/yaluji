@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.kingja.supershapeview.view.SuperShapeTextView;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.AddOrderEvent;
-import com.kingja.yaluji.event.RefreshOrderEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.OrderResult;
@@ -20,12 +18,9 @@ import com.kingja.yaluji.model.entiy.TicketDetail;
 import com.kingja.yaluji.page.ticket.success.TicketSuccessActivity;
 import com.kingja.yaluji.view.DeleteTextView;
 import com.kingja.yaluji.view.StringTextView;
-import com.kingja.yaluji.view.dialog.BaseDialog;
 import com.kingja.yaluji.view.dialog.ConfirmDialog;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.io.Serializable;
 
 import javax.inject.Inject;
 
@@ -59,12 +54,15 @@ public class TicketConfirmActivity extends BaseTitleActivity implements TicketCo
 
     @Inject
     TicketConfirmPresenter ticketConfirmPresenter;
+    @BindView(R.id.tv_idcode)
+    StringTextView tvIdcode;
     private String productId;
     private String touristId;
     private String visitorName;
     private String visitorPhone;
     private String quantity;
     private TicketDetail ticketDetail;
+    private String visitorIdcode;
 
     @OnClick({R.id.stv_confirm, R.id.stv_cancel})
     public void onViewClicked(View view) {
@@ -87,6 +85,7 @@ public class TicketConfirmActivity extends BaseTitleActivity implements TicketCo
         touristId = getIntent().getStringExtra(Constants.Extra.TouristId);
         visitorName = getIntent().getStringExtra(Constants.Extra.VisitorName);
         visitorPhone = getIntent().getStringExtra(Constants.Extra.VisitorPhone);
+        visitorIdcode = getIntent().getStringExtra(Constants.Extra.Idcode);
         quantity = getIntent().getStringExtra(Constants.Extra.Quantity);
         ticketDetail = (TicketDetail) getIntent().getSerializableExtra(Constants.Extra.TicketDetail);
     }
@@ -118,6 +117,7 @@ public class TicketConfirmActivity extends BaseTitleActivity implements TicketCo
     @Override
     protected void initData() {
         tvSubject.setString(ticketDetail.getTicketName());
+        tvIdcode.setString(visitorIdcode);
         tvTourists.setString(visitorName + " " + visitorPhone);
         tvQuantity.setString(String.format("%s张", quantity));
         tvMarketPrice.setString(String.format("¥%d元", ticketDetail.getMarketPrice()));
@@ -133,11 +133,12 @@ public class TicketConfirmActivity extends BaseTitleActivity implements TicketCo
 
     }
 
-    public static void goActivity(Activity context, String productId, String touristId, String visitorName, String
+    public static void goActivity(Activity context, String productId, String touristId, String idcode, String visitorName, String
             visitorPhone, String quantity, TicketDetail ticketDetail) {
         Intent intent = new Intent(context, TicketConfirmActivity.class);
         intent.putExtra(Constants.Extra.ProductId, productId);
         intent.putExtra(Constants.Extra.TouristId, touristId);
+        intent.putExtra(Constants.Extra.Idcode, idcode);
         intent.putExtra(Constants.Extra.VisitorName, visitorName);
         intent.putExtra(Constants.Extra.VisitorPhone, visitorPhone);
         intent.putExtra(Constants.Extra.Quantity, quantity);
@@ -167,5 +168,12 @@ public class TicketConfirmActivity extends BaseTitleActivity implements TicketCo
             finish();
         });
         errorDialog.show();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        // TODO: add setContentView(...) invocation
+        ButterKnife.bind(this);
     }
 }

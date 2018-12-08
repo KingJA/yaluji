@@ -54,6 +54,17 @@ public class DialogUtil {
                 .onPositive(positiveCallback)
                 .show();
     }
+    public static void showDoubleDialog(Context context, String message,String confirmText,String cancelText, MaterialDialog.SingleButtonCallback
+            positiveCallback) {
+        new MaterialDialog.Builder(context)
+                .content(message)
+                .positiveText(confirmText)
+                .negativeText(cancelText)
+                .positiveColor(ContextCompat.getColor(context, R.color.orange_hi))
+                .negativeColor(ContextCompat.getColor(context, R.color.gray_hi))
+                .onPositive(positiveCallback)
+                .show();
+    }
 
     public static void showDoubleDialog(Context context, String message, MaterialDialog.SingleButtonCallback
             negativecallback, MaterialDialog.SingleButtonCallback positiveCallback) {

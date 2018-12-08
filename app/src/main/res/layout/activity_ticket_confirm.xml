@@ -62,6 +62,7 @@
                         android:text="张三 18888888888"/>
                 </LinearLayout>
 
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -127,7 +128,27 @@
                         android:layout_weight="3"
                         android:text="抵用0元/张"/>
                 </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="身份证号"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_idcode"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="333333333333333333"/>
+                </LinearLayout>
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

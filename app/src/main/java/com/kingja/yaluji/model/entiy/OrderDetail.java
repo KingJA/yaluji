@@ -37,6 +37,7 @@ public class OrderDetail {
     private String subject;
     private String qrcodeurl;
     private String ticketcode;
+    private String idcode;
     private String from;
     private String tourists;
     private int informed;
@@ -51,6 +52,14 @@ public class OrderDetail {
     private String paidAt;
     private int marketPrice;
     private int buyPrice;
+
+    public String getIdcode() {
+        return idcode;
+    }
+
+    public void setIdcode(String idcode) {
+        this.idcode = idcode;
+    }
 
     public int getMarketPrice() {
         return marketPrice;

@@ -185,7 +185,8 @@ public class TicketDetailActivity extends BaseTitleActivity implements TicketDet
     private void sumbmitOrder() {
         String visitorName = tvVisitorName.getText().toString().trim();
         String visitorPhone = tvVisitorPhone.getText().toString().trim();
-        TicketConfirmActivity.goActivity(this, productId, touristId, visitorName, visitorPhone, String
+        String visitorIdcode = tvVisitorIdcode.getText().toString().trim();
+        TicketConfirmActivity.goActivity(this, productId, touristId,visitorIdcode, visitorName, visitorPhone, String
                 .valueOf(ccvTicketDetail.getNumber()), ticketDetail);
 
     }

@@ -55,7 +55,6 @@ import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.SpSir;
-import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.CityPop;
 import com.kingja.yaluji.view.DatePop;
 import com.kingja.yaluji.view.DiscountPop;
@@ -72,7 +71,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
@@ -176,7 +174,7 @@ public class TicketListActivity extends BaseTitleActivity implements InitializeC
                             uploadLocationInfo();
                         } else if (permission.shouldShowRequestPermissionRationale) {
                             // 用户拒绝了该权限，没有选中『不再询问』（Never ask again）,那么下次再次启动时，还会提示请求权限的对话框
-                            DialogUtil.showDoubleDialog(TicketListActivity.this, "为获取更多优惠券信息，需要获取手机定位权限，请允许", new
+                            DialogUtil.showDoubleDialog(TicketListActivity.this, "开启定位,获取更多优惠券信息", "开启定位", "以后再说", new
                                     MaterialDialog.SingleButtonCallback() {
                                         @Override
                                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction
@@ -187,7 +185,7 @@ public class TicketListActivity extends BaseTitleActivity implements InitializeC
                         } else {
                             // 用户拒绝了该权限，并且选中『不再询问』
                             DialogUtil.showDoubleDialog(TicketListActivity.this,
-                                    "未取得获取手机定位权限，将无法获取更多优惠券信息。请前往应用权限设置打开权限。", new MaterialDialog
+                                    "未开启定位，无法获取更多优惠券信息。请前往应用权限设置打开权限。", new MaterialDialog
                                             .SingleButtonCallback() {
                                         @Override
                                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction
