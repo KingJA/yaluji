@@ -135,6 +135,7 @@ dependencies {
 
     /*Bugly错误上传，升级*/
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
+
     /*图片压缩*/
     implementation 'top.zibin:Luban:1.1.8'
 }
