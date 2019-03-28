@@ -157,7 +157,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="4dp"
-                            android:text="低值金额："/>
+                            android:text="抵值金额："/>
 
                         <com.kingja.yaluji.view.StringTextView
                             android:id="@+id/tv_detail_buyPrice_small"
