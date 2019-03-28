@@ -302,6 +302,8 @@
             </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 
             <com.kingja.supershapeview.view.SuperShapeRelativeLayout
+                android:visibility="gone"
+                android:id="@+id/ssrl_qcode_img"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="12dp"
@@ -317,6 +319,37 @@
                     android:layout_width="180dp"
                     android:layout_height="180dp"
                     android:layout_centerInParent="true"/>
+            </com.kingja.supershapeview.view.SuperShapeRelativeLayout>
+
+
+            <com.kingja.supershapeview.view.SuperShapeRelativeLayout
+                android:visibility="gone"
+                android:id="@+id/ssrl_qcode"
+                android:layout_width="240dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="24dp"
+                android:orientation="vertical"
+                app:super_cornerRadius="4dp"
+                app:super_solidColor="@color/white_hi"
+                app:super_strokeColor="@color/gray_hi"
+                app:super_strokeWidth="1px">
+
+                <android.support.v4.view.ViewPager
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/vp_order"
+                    android:layout_centerHorizontal="true"
+                    android:layout_width="220dp"
+                    android:layout_height="210dp"/>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/vp_order"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_centerHorizontal="true"
+                    android:orientation="horizontal"
+                    android:id="@+id/ll_pointContainer"/>
             </com.kingja.supershapeview.view.SuperShapeRelativeLayout>
         </com.kingja.supershapeview.view.SuperShapeLinearLayout>
 

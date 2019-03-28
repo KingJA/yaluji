@@ -3,17 +3,27 @@ package com.kingja.yaluji.page.order.orderdetail;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
+import android.text.TextUtils;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
+import com.kingja.supershapeview.view.SuperShapeRelativeLayout;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.adapter.QcodePagerAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.OrderDetail;
+import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.view.DeleteTextView;
 import com.kingja.yaluji.view.StringTextView;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -40,8 +50,6 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     StringTextView tvOrderNo;
     @BindView(R.id.tv_ticketcode)
     StringTextView tvTicketcode;
-    @BindView(R.id.iv_qcodeImg)
-    ImageView ivQcodeImg;
     @BindView(R.id.tv_quantity)
     StringTextView tvQuantity;
     @BindView(R.id.tv_visitMethod)
@@ -54,6 +62,17 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     StringTextView tvPayamount;
     @BindView(R.id.tv_idcode)
     StringTextView tvIdcode;
+    @BindView(R.id.vp_order)
+    ViewPager vpOrder;
+    @BindView(R.id.ll_pointContainer)
+    LinearLayout llPointContainer;
+    @BindView(R.id.iv_qcodeImg)
+    ImageView ivQcodeImg;
+    @BindView(R.id.ssrl_qcode_img)
+    SuperShapeRelativeLayout ssrlQcodeImg;
+    @BindView(R.id.ssrl_qcode)
+    SuperShapeRelativeLayout ssrlQcode;
+    private List<View> points = new ArrayList<>();
     private String orderId;
     @Inject
     OrderDetailPresenter orderDetailPresenter;
@@ -113,7 +132,66 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
         tvUseRemarks.setString(orderDetail.getUseRemarks());
         tvMarketPrice.setString(String.format("¥%d元", orderDetail.getMarketPrice()));
         tvPayamount.setString(String.format("抵用%d元/张", orderDetail.getPayamount()));
-        ImageLoader.getInstance().loadImage(this, orderDetail.getQrcodeurl(), ivQcodeImg);
+        String qrcodeurl = orderDetail.getQrcodeurl();
+        if (!TextUtils.isEmpty(qrcodeurl)) {
+            if (qrcodeurl.endsWith("png")) {
+                //鸭鹿鸡平台链接
+                ssrlQcodeImg.setVisibility(View.VISIBLE);
+                ImageLoader.getInstance().loadImage(this, orderDetail.getQrcodeurl(), ivQcodeImg);
+            } else {
+                //自我游链接
+                ssrlQcode.setVisibility(View.VISIBLE);
+                String[] qcodes = qrcodeurl.split(",");
+                initDot(qcodes);
+                vpOrder.setAdapter(new QcodePagerAdapter(this, qcodes));
+                vpOrder.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                    @Override
+                    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                    }
+
+                    @Override
+                    public void onPageSelected(int position) {
+                        if (qcodes.length < 2) {
+                            return;
+                        }
+                        for (int i = 0; i < points.size(); i++) {
+                            if (i == position) {
+                                points.get(i).setBackgroundResource(R.mipmap.ic_dot_sel);
+                            } else {
+                                points.get(i).setBackgroundResource(R.mipmap.ic_dot_nor);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onPageScrollStateChanged(int state) {
+
+                    }
+                });
+            }
+        }
+
+    }
+
+    private void initDot(String[] qcodes) {
+        if (qcodes.length < 2) {
+            return;
+        }
+        for (int i = 0; i < qcodes.length; i++) {
+            View view = new View(this);
+            if (i == 0) {
+                view.setBackgroundResource(R.mipmap.ic_dot_sel);
+            } else {
+                view.setBackgroundResource(R.mipmap.ic_dot_nor);
+            }
+            points.add(view);
+        }
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(AppUtil.dp2px(10), AppUtil.dp2px(10));
+        layoutParams.setMargins(0, 0, AppUtil.dp2px(10), 0);
+        for (int i = 0; i < qcodes.length; i++) {
+            llPointContainer.addView(points.get(i), layoutParams);
+        }
 
     }
 
