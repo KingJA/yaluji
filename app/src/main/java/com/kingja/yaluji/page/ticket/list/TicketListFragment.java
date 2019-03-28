@@ -18,7 +18,9 @@ import com.kingja.yaluji.event.TicketFilterEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
+import com.kingja.yaluji.view.PullToMoreListView;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -41,11 +43,11 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class TicketListFragment extends BaseFragment implements TicketListContract.View, SwipeRefreshLayout
-        .OnRefreshListener {
+        .OnRefreshListener, PullToMoreListView.OnScrollToBottom {
     @Inject
     TicketListPresenter ticketListPresenter;
     @BindView(R.id.plv)
-    PullToBottomListView plv;
+    PullToMoreListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     @BindView(R.id.iv_go_top)
@@ -91,6 +93,7 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
         ticketAdapter = new TicketAdapter(getActivity(), null);
         plv.setAdapter(ticketAdapter);
         plv.setGoTop(ivGoTop);
+        plv.setOnScrollToBottom(this);
     }
 
     @Override
@@ -98,22 +101,26 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
         srl.setOnRefreshListener(this);
     }
 
-    private String areaId="";
-    private String productTypeId="";
-    private String useDates="";
-    private String buyLimit="";
-    private String discountOrder="";
+    private String areaId = "";
+    private String productTypeId = "";
+    private String useDates = "";
+    private String buyLimit = "";
+    private String discountOrder = "";
 
     @Override
     protected void initNet() {
+        callNet();
+    }
+
+    private void callNet() {
         ticketListPresenter.getTicketList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("areaId", areaId)
                 .addFormDataPart("productTypeId", productTypeId)
                 .addFormDataPart("useDates", useDates)
                 .addFormDataPart("discountRate", "")
                 .addFormDataPart("keyword", "")
-                .addFormDataPart("page", String.valueOf(Constants.PAGE_FIRST))
-                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
+                .addFormDataPart("page", String.valueOf(plv.getPageIndex()))
+                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_20))
                 .addFormDataPart("status", String.valueOf(ticketStatus))
                 .addFormDataPart("buyLimit", buyLimit)
                 .addFormDataPart("discountOrder", discountOrder)
@@ -137,33 +144,44 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
         this.useDates = filterEvent.getUseDates();
         this.buyLimit = filterEvent.getBuyLimit();
         this.discountOrder = filterEvent.getDiscountOrder();
-        ticketListPresenter.getTicketList(new MultipartBody.Builder().setType(MultipartBody.FORM)
-                .addFormDataPart("areaId", areaId)
-                .addFormDataPart("productTypeId", productTypeId)
-                .addFormDataPart("useDates", useDates)
-                .addFormDataPart("discountRate", "")
-                .addFormDataPart("keyword", "")
-                .addFormDataPart("page", String.valueOf(Constants.PAGE_FIRST))
-                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
-                .addFormDataPart("status", String.valueOf(ticketStatus))
-                .addFormDataPart("buyLimit", buyLimit)
-                .addFormDataPart("discountOrder", discountOrder)
-                .build());
+        onRefresh();
     }
 
     @Override
     public void onGetTicketListSuccess(List<Ticket> ticketList) {
         if (ticketList != null && ticketList.size() > 0) {
-            ticketAdapter.setData(ticketList);
-        }else{
-            showEmptyCallback();
+            if (plv.getPageIndex() == 1) {
+                ticketAdapter.setData(ticketList);
+            } else {
+                ticketAdapter.addData(ticketList);
+            }
+        } else {
+            if (plv.getPageIndex() == 1) {
+                showEmptyCallback();
+            } else {
+                ToastUtil.showText("到底啦");
+            }
         }
+    }
 
+    @Override
+    public void showLoading() {
+        srl.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoading() {
+        srl.setRefreshing(false);
     }
 
     @Override
     public void onRefresh() {
-        srl.setRefreshing(false);
-        initNet();
+        plv.reset();
+        callNet();
+    }
+
+    @Override
+    public void onScrollToBottom(int pageIndex) {
+        callNet();
     }
 }

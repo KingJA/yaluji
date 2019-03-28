@@ -21,6 +21,7 @@ import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListContract;
 import com.kingja.yaluji.page.ticket.list.TicketListPresenter;
 import com.kingja.yaluji.view.PullToBottomListView;
+import com.kingja.yaluji.view.PullToMoreListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,7 +43,7 @@ import okhttp3.MultipartBody;
 public class TicketListSearchFragment extends BaseFragment implements OnSearchListener, TicketListContract.View,
         SwipeRefreshLayout.OnRefreshListener {
     @BindView(R.id.plv)
-    PullToBottomListView plv;
+    PullToMoreListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     @BindView(R.id.iv_go_top)

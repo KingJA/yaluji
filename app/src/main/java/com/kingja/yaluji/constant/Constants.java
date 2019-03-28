@@ -17,6 +17,7 @@ public class Constants {
     public static final int PAGE_SIZE_5 = 5;
     public static final int PAGE_FIRST = 1;
     public static final int PAGE_SIZE_100 = 500;
+    public static final int PAGE_SIZE_20 = 20;
     public static final int DEAD_TIME = 20;
     public static final int AUTO_LUNBOTU = 3000;
     public static final int ORDER_STATUS_UNUSED = 1;
