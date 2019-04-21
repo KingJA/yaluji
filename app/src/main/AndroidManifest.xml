@@ -72,6 +72,8 @@
             android:theme="@style/AppTheme.Fullscreen.Translucent"/>
         <activity android:name=".page.introduce.SceneryIntroduceActivity"/>
         <activity android:name=".page.ticket.confirm.TicketConfirmActivity"/>
+        <activity android:name=".activity.FirstDialogActivity"
+            android:theme="@style/NoTitleTranslucentTheme"/>
 
         <service android:name=".service.initialize.InitializeService"/>
 

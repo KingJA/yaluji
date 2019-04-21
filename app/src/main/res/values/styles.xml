@@ -7,6 +7,12 @@
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="NoTitleTranslucentTheme" parent="AppTheme.NoActionBar" >
+        <item name="android:windowBackground">@color/bg_transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation.Translucent</item>
+    </style>
     <!--<style name="AppTheme.Fullscreen.Translucent">-->
     <!--<item name="android:windowBackground">@android:color/transparent</item>-->
     <!--<item name="android:windowIsTranslucent">true</item>-->

@@ -14,6 +14,7 @@ import com.kingja.yaluji.constant.Status;
  * Email:kingjavip@gmail.com
  */
 public class SpSir {
+    private static final String FIRSIT_SEE = "FIRSIT_SEE";
     private static final String TOKEN = "token";
     private static final String NICKNAME = "nickName";
     private static final String HEADIMG = "headImg";
@@ -50,6 +51,10 @@ public class SpSir {
     }
 
     /*================================GET================================*/
+
+    public boolean isFirstSee() {
+        return getBoolean(FIRSIT_SEE, true);
+    }
 
     public String getNickname() {
         return getString(NICKNAME);
@@ -120,6 +125,10 @@ public class SpSir {
 
     public void putLastLocationDate(String lastLocationDate) {
         putString(LastLocationDate, lastLocationDate);
+    }
+
+    public void putFirstSee(boolean isFirstSee) {
+        putBoolean(FIRSIT_SEE, isFirstSee);
     }
 
     public void putNickName(String nickName) {

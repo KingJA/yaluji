@@ -11,12 +11,14 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.kingja.yaluji.activity.FirstDialogActivity;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.fragment.MineFragment;
 import com.kingja.yaluji.fragment.OrderFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.page.home.HomeFragment;
 import com.kingja.yaluji.update.VersionUpdateSir;
+import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 
@@ -97,7 +99,9 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-
+        if (SpSir.getInstance().isFirstSee()) {
+            GoUtil.goActivity(this, FirstDialogActivity.class);
+        }
     }
 
     @Override
