@@ -34,7 +34,7 @@ public class ContactUsActivity extends BaseTitleActivity {
     public void click(View view) {
         switch (view.getId()) {
             case R.id.stv_contact_phone:
-                callPhone("057788218708");
+                callPhone("057788755877");
                 break;
             case R.id.tv_version:
                 tvVersion.setText(VersionUtil.getVerName(this) + "/" + VersionUtil.getVersionCode(this));
