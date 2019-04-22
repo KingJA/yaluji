@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kingja.supershapeview.view.SuperShapeTextView;
@@ -24,16 +25,14 @@ import butterknife.OnClick;
  * Email:kingjavip@gmail.com
  */
 public class ContactUsActivity extends BaseTitleActivity {
-    @BindView(R.id.stv_contact_phone)
-    SuperShapeTextView stvContactPhone;
     @BindView(R.id.tv_version)
     TextView tvVersion;
     private long[] mHits = new long[5];
 
-    @OnClick({R.id.stv_contact_phone, R.id.tv_version})
+    @OnClick({R.id.ll_contact_phone, R.id.tv_version})
     public void click(View view) {
         switch (view.getId()) {
-            case R.id.stv_contact_phone:
+            case R.id.ll_contact_phone:
                 callPhone("057788755877");
                 break;
             case R.id.tv_version:

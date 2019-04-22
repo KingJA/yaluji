@@ -20,6 +20,7 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_18">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/c_9</item>
@@ -34,10 +35,12 @@
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_10">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/c_9</item>
     </style>
+
     <style name="font_9_13">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/c_9</item>
@@ -127,10 +130,12 @@
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/c_6</item>
     </style>
+
     <style name="font_6_11">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">@color/c_6</item>
     </style>
+
     <style name="font_6_14">
         <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/c_6</item>
@@ -210,10 +215,12 @@
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/c_gold</item>
     </style>
+
     <style name="font_orange_10">
         <item name="android:textSize">10sp</item>
         <item name="android:textColor">@color/orange_hi</item>
     </style>
+
     <style name="font_orange_13">
         <item name="android:textSize">13sp</item>
         <item name="android:textColor">@color/orange_hi</item>
@@ -221,6 +228,11 @@
 
     <style name="font_orange_15">
         <item name="android:textSize">15sp</item>
+        <item name="android:textColor">@color/orange_hi</item>
+    </style>
+
+    <style name="font_orange_14">
+        <item name="android:textSize">14sp</item>
         <item name="android:textColor">@color/orange_hi</item>
     </style>
 
@@ -269,14 +281,17 @@
         <item name="android:textSize">15sp</item>
         <item name="android:textColor">@color/red_hi</item>
     </style>
+
     <style name="font_red_18">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/red_hi</item>
     </style>
+
     <style name="font_red_33">
         <item name="android:textSize">33sp</item>
         <item name="android:textColor">@color/red_hi</item>
     </style>
+
     <style name="font_ccf_11">
         <item name="android:textSize">11sp</item>
         <item name="android:textColor">#ccffffff</item>
