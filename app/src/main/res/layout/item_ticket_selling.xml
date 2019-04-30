@@ -294,7 +294,7 @@
                         android:layout_alignParentRight="true"
                         android:background="@mipmap/bg_ticket_qiang"
                         android:gravity="center"
-                        android:text="立即抢券"/>
+                        android:text="免费抢券"/>
 
                 </RelativeLayout>
 
