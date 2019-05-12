@@ -238,6 +238,10 @@
 # alipay
 -dontwarn android.net.**
 -keep class android.net.SSLCertificateSocketFactory{*;}
+
+# alipay
+-dontwarn com.flipboard:bottomsheet.**
+-keep class com.flipboard:bottomsheet.** { *; }
 # 注解
 -keep class * extends java.lang.annotation.Annotation { *; }
 -keep interface * extends java.lang.annotation.Annotation { *; }

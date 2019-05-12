@@ -137,6 +137,8 @@ dependencies {
     implementation 'com.tencent.bugly:crashreport_upgrade:latest.release'
     /*图片压缩*/
     implementation 'top.zibin:Luban:1.1.8'
+    /*bottomsheet*/
+    implementation 'com.flipboard:bottomsheet-core:1.5.3'
 }
 
 

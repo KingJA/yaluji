@@ -4,11 +4,15 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.QuestionAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
@@ -29,10 +33,10 @@ import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.util.SpSir;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
 import com.kingja.yaluji.view.dialog.ConfirmDialog;
 import com.kingja.yaluji.view.dialog.PraiseExplainDialog;
-import com.kingja.yaluji.view.dialog.QuestionExplainDialog;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
@@ -74,12 +78,15 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
     SwipeRefreshLayout srl;
     @BindView(R.id.iv_go_top)
     ImageView ivGoTop;
+    @BindView(R.id.bottomsheet)
+    BottomSheetLayout bottomsheet;
     private List<Question> questionList = new ArrayList<>();
     private QuestionAdapter questionAdapter;
     private PraiseExplainDialog questionExplainDialog;
     private IWXAPI api;
     private String paperId;
     private ConfirmDialog confirmDialog;
+    private View bottomSheetView;
 
     private void regToWeixin() {
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
@@ -90,7 +97,8 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.rl_question_explain:
-                questionExplainDialog.show();
+                bottomsheet.showWithSheetView(bottomSheetView);
+//                questionExplainDialog.show();
                 break;
             default:
                 break;
@@ -164,9 +172,29 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
 
     @Override
     protected void initData() {
+        initBottomSheet();
         questionExplainDialog = new PraiseExplainDialog(this);
         confirmDialog = new ConfirmDialog(this, "复活成功，请继续答题");
         srl.setOnRefreshListener(this);
+    }
+
+    private void initBottomSheet() {
+        bottomSheetView = LayoutInflater.from(this).inflate(R.layout.bottom_share, bottomsheet, false);
+        LinearLayout ll_share_friendGroup = bottomSheetView.findViewById(R.id.ll_share_friendGroup);
+        LinearLayout ll_share_friends = bottomSheetView.findViewById(R.id.ll_share_friends);
+        TextView tv_share_cancel = bottomSheetView.findViewById(R.id.tv_share_cancel);
+        ll_share_friendGroup.setOnClickListener(v -> {
+            ToastUtil.showText("朋友圈");
+            bottomsheet.dismissSheet();
+        });
+        ll_share_friends.setOnClickListener(v -> {
+            ToastUtil.showText("微信好友");
+            bottomsheet.dismissSheet();
+        });
+        tv_share_cancel.setOnClickListener(v -> {
+            ToastUtil.showText("取消");
+            bottomsheet.dismissSheet();
+        });
     }
 
     private int currentPageSize = 1;
