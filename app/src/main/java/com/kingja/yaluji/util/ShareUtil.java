@@ -2,6 +2,8 @@ package com.kingja.yaluji.util;
 
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
@@ -43,5 +45,7 @@ public class ShareUtil {
 		
 		return null;
 	}
+
+
 	
 }

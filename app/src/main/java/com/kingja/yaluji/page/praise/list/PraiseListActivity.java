@@ -2,6 +2,8 @@ package com.kingja.yaluji.page.praise.list;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Rect;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -40,6 +42,7 @@ import com.kingja.yaluji.view.dialog.PraiseExplainDialog;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -47,6 +50,7 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -119,20 +123,23 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
     }
 
     private void share(int shareTo) {
-        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.bg_share);
-        WXImageObject imgObj = new WXImageObject(bmp);
-        WXMediaMessage msg = new WXMediaMessage();
-        msg.mediaObject = imgObj;
-        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, Constants.THUMB_SIZE, Constants.THUMB_SIZE, true);
-        bmp.recycle();
-        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);  // 设置所图；
+        //初始化一个WXWebpageObject，填写url
+        WXWebpageObject webpage = new WXWebpageObject();
+        webpage.webpageUrl = "https://www.baidu.com";
+        //用 WXWebpageObject 对象初始化一个 WXMediaMessage 对象
+        WXMediaMessage msg = new WXMediaMessage(webpage);
+        msg.title = "鸭鹿鸡 ";
+        msg.description = "集赞6个";
+        Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_share);
+        msg.thumbData =ShareUtil.bmpToByteArray(thumbBmp, true);
+        //构造一个Req
         SendMessageToWX.Req req = new SendMessageToWX.Req();
-        req.transaction = buildTransaction("img");
+        req.transaction = buildTransaction("webpage");
         req.message = msg;
         req.scene = shareTo;
+        //调用api接口，发送数据到微信
         api.sendReq(req);
     }
-
     private String buildTransaction(String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
@@ -186,10 +193,12 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
         ll_share_friendGroup.setOnClickListener(v -> {
             ToastUtil.showText("朋友圈");
             bottomsheet.dismissSheet();
+            share(SendMessageToWX.Req.WXSceneTimeline);
         });
         ll_share_friends.setOnClickListener(v -> {
             ToastUtil.showText("微信好友");
             bottomsheet.dismissSheet();
+            share(SendMessageToWX.Req.WXSceneSession);
         });
         tv_share_cancel.setOnClickListener(v -> {
             ToastUtil.showText("取消");
