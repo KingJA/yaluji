@@ -74,6 +74,8 @@
         <activity android:name=".page.ticket.confirm.TicketConfirmActivity"/>
         <activity android:name=".activity.FirstDialogActivity"
             android:theme="@style/NoTitleTranslucentTheme"/>
+        <activity android:name=".page.praise.list.PraiseListActivity"/>
+        <activity android:name=".activity.GuideActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
 

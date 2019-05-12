@@ -1,12 +1,17 @@
 package com.kingja.yaluji.page.order.list;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.OrderAdapter;
 import com.kingja.yaluji.base.BaseFragment;
@@ -20,6 +25,7 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
 import com.kingja.yaluji.util.AppUtil;
+import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
@@ -36,6 +42,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 
 /**
@@ -52,12 +59,32 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     PullToBottomListView plv;
     @BindView(R.id.iv_go_top)
     ImageView ivGoTop;
-    Unbinder unbinder;
+    @BindView(R.id.iv_service)
+    ImageView ivService;
     private List<Order> orderList = new ArrayList<>();
     @Inject
     OrderListPresenter orderListPresenter;
     private OrderAdapter mOrderAdapter;
     private int ticketStatus;
+
+    @OnClick({R.id.iv_service})
+    public void onclick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_service:
+                DialogUtil.showDoubleDialog(getActivity(), "客服电话:0577-88755877", "拨打", "取消", (dialog, which) -> {
+                    callPhone(getString(R.string.service_number));
+                });
+                break;
+
+        }
+    }
+
+    public void callPhone(String phoneNum) {
+        Intent intent = new Intent(Intent.ACTION_DIAL);
+        Uri data = Uri.parse("tel:" + phoneNum);
+        intent.setData(data);
+        startActivity(intent);
+    }
 
     public static OrderListFragment newInstance(int ticketStatus) {
         OrderListFragment fragment = new OrderListFragment();
@@ -108,6 +135,7 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
                 OrderDetailActivity.goActivity(getActivity(), orderId);
             }
         });
+        ivService.setVisibility(ticketStatus == Status.TicketStatus.WAIT_USE ? View.VISIBLE : View.GONE);
     }
 
 

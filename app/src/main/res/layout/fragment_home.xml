@@ -154,7 +154,7 @@
                 style="@style/font_3_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="优惠券"/>
+                android:text="免费领券"/>
 
 
         </LinearLayout>
@@ -179,7 +179,7 @@
                 style="@style/font_3_12"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="有奖问答"/>
+                android:text="点赞领券"/>
 
 
         </LinearLayout>

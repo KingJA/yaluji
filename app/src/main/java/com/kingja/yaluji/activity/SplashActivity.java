@@ -12,6 +12,8 @@ import com.kingja.yaluji.HomeActivity;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.service.initialize.InitializeService;
 import com.kingja.yaluji.util.GoUtil;
+import com.kingja.yaluji.util.LogUtil;
+import com.kingja.yaluji.util.SpSir;
 
 
 /**
@@ -21,6 +23,7 @@ import com.kingja.yaluji.util.GoUtil;
  * Email:kingjavip@gmail.com
  */
 public class SplashActivity extends AppCompatActivity {
+    private static final String TAG = "SplashActivity";
     private int DELAY_MILLIS = 2000;
     private Handler dispatchHander;
     private DispatcherRunnable dispatcherRunnable;
@@ -42,7 +45,15 @@ public class SplashActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            GoUtil.goActivityAndFinish(SplashActivity.this, HomeActivity.class);
+            if (SpSir.getInstance().isFirstBoot()) {
+                //todo 启动页
+                LogUtil.e(TAG,"启动页");
+                GoUtil.goActivityAndFinish(SplashActivity.this, GuideActivity.class);
+            }else{
+                LogUtil.e(TAG,"主页");
+                GoUtil.goActivityAndFinish(SplashActivity.this, HomeActivity.class);
+            }
+
         }
     }
 

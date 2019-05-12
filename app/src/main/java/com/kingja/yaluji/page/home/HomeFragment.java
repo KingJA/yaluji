@@ -28,6 +28,7 @@ import com.kingja.yaluji.model.entiy.LunBoTu;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.page.article.list.ArticleListActivity;
 import com.kingja.yaluji.page.message.MsgActivity;
+import com.kingja.yaluji.page.praise.list.PraiseListActivity;
 import com.kingja.yaluji.page.search.question.list.QuestionListActivity;
 import com.kingja.yaluji.page.search.result.SearchResultActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListActivity;
@@ -103,7 +104,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 GoUtil.goActivity(getActivity(), TicketListActivity.class);
                 break;
             case R.id.iv_question:
-                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
+//                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
+                LoginChecker.goActivity(getActivity(), PraiseListActivity.class);
                 break;
             case R.id.rl_msg:
                 LoginChecker.goActivity(getActivity(), MsgActivity.class);
