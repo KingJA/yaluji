@@ -14,6 +14,7 @@ import com.kingja.yaluji.model.entiy.Message;
 import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.OrderResult;
+import com.kingja.yaluji.model.entiy.PraiseItem;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.model.entiy.QuestionDetail;
 import com.kingja.yaluji.model.entiy.SceneryIntroduce;
@@ -276,6 +277,15 @@ public interface ApiService {
     @POST("/app/user/addLocation")
     Observable<HttpResult<Object>> uploadLocation(@Field("lat") String lat, @Field("lng") String lng);
     //=================================================================================
+
+
+    /*鸡赞列表-未登陆*/
+    @POST("/app/like/nouser/list")
+    Observable<HttpResult<List<PraiseItem>>> getPraiseListByVisitor(@Body RequestBody requestBody);
+
+    /*鸡赞列表-已登陆*/
+    @POST("/app/like/list")
+    Observable<HttpResult<List<PraiseItem>>> getPraiseList(@Body RequestBody requestBody);
 
 
 }

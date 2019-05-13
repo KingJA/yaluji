@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.adapter.PraiseAdapter;
 import com.kingja.yaluji.adapter.QuestionAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
@@ -25,6 +26,7 @@ import com.kingja.yaluji.event.RefreshQuestionEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.event.ShareSuccessEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.model.entiy.PraiseItem;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.page.answer.detail.QuestionDetailActivity;
 import com.kingja.yaluji.page.relife.RelifeContract;
@@ -68,12 +70,7 @@ import okhttp3.MultipartBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PraiseListActivity extends BaseTitleActivity implements QuestionListContract.View, SwipeRefreshLayout
-        .OnRefreshListener, RelifeContract.View {
-    @Inject
-    QuestionListPresenter questionListPresenter;
-    @Inject
-    RelifePresenter relifePresenter;
+public class PraiseListActivity extends BaseTitleActivity implements SwipeRefreshLayout.OnRefreshListener, PraiseListContract.View {
     @BindView(R.id.rl_question_explain)
     RelativeLayout ivQuestionExplain;
     @BindView(R.id.plv)
@@ -84,13 +81,15 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
     ImageView ivGoTop;
     @BindView(R.id.bottomsheet)
     BottomSheetLayout bottomsheet;
-    private List<Question> questionList = new ArrayList<>();
-    private QuestionAdapter questionAdapter;
+    private List<PraiseItem> praiseItemList = new ArrayList<>();
+    private PraiseAdapter praiseAdapter;
     private PraiseExplainDialog questionExplainDialog;
     private IWXAPI api;
     private String paperId;
     private ConfirmDialog confirmDialog;
     private View bottomSheetView;
+
+    @Inject PraiseListPresenter praiseListPresenter;
 
     private void regToWeixin() {
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
@@ -131,7 +130,7 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
         msg.title = "鸭鹿鸡 ";
         msg.description = "集赞6个";
         Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_share);
-        msg.thumbData =ShareUtil.bmpToByteArray(thumbBmp, true);
+        msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);
         //构造一个Req
         SendMessageToWX.Req req = new SendMessageToWX.Req();
         req.transaction = buildTransaction("webpage");
@@ -140,6 +139,7 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
         //调用api接口，发送数据到微信
         api.sendReq(req);
     }
+
     private String buildTransaction(String type) {
         return (type == null) ? String.valueOf(System.currentTimeMillis()) : type + System.currentTimeMillis();
     }
@@ -161,8 +161,7 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
                 .appComponent(appComponent)
                 .build()
                 .inject(this);
-        questionListPresenter.attachView(this);
-        relifePresenter.attachView(this);
+        praiseListPresenter.attachView(this);
     }
 
     @Override
@@ -172,8 +171,8 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
 
     @Override
     protected void initView() {
-        questionAdapter = new QuestionAdapter(this, questionList);
-        plv.setAdapter(questionAdapter);
+        praiseAdapter = new PraiseAdapter(this, praiseItemList);
+        plv.setAdapter(praiseAdapter);
         plv.setGoTop(ivGoTop);
     }
 
@@ -211,21 +210,17 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
     @Override
     protected void initNet() {
         if (LoginChecker.isLogin()) {
-            questionListPresenter.getQuestionList(new MultipartBody.Builder().setType(MultipartBody.FORM)
+            praiseListPresenter.getPraiseList(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("keyword", "")
                     .addFormDataPart("page", String.valueOf(currentPageSize))
                     .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
                     .build());
         } else {
-            showUnLoginCallback();
-        }
-    }
-
-    @Override
-    public void onGetQuestionListSuccess(List<Question> questionList) {
-        if (questionList != null && questionList.size() > 0) {
-            questionAdapter.setData(questionList);
-        } else {
-            showEmptyCallback();
+            praiseListPresenter.getPraiseListByVisitor(new MultipartBody.Builder().setType(MultipartBody.FORM)
+                    .addFormDataPart("keyword", "")
+                    .addFormDataPart("page", String.valueOf(currentPageSize))
+                    .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
+                    .build());
         }
     }
 
@@ -245,29 +240,13 @@ public class PraiseListActivity extends BaseTitleActivity implements QuestionLis
         initNet();
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void refreshQuestion(RefreshQuestionEvent event) {
-        initNet();
-    }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    public void shareSuccess(ShareSuccessEvent event) {
-        LogUtil.e(TAG, "问题列表复活:" + SpSir.getInstance().getShapePage());
-        if (SpSir.getInstance().getShapePage() == Status.SharePage.QUESTION_LIST) {
-            relifePresenter.reLife(paperId);
+    @Override
+    public void onGetPraiseListSuccess(List<PraiseItem> praiseItemList) {
+        if (praiseItemList != null && praiseItemList.size() > 0) {
+            praiseAdapter.setData(praiseItemList);
+        } else {
+            showEmptyCallback();
         }
-    }
-
-    @Override
-    public void onReLifeSuccess() {
-        initNet();
-        confirmDialog.show();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 }

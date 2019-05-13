@@ -104,8 +104,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 GoUtil.goActivity(getActivity(), TicketListActivity.class);
                 break;
             case R.id.iv_question:
-//                LoginChecker.goActivity(getActivity(), QuestionListActivity.class);
-                LoginChecker.goActivity(getActivity(), PraiseListActivity.class);
+                GoUtil.goActivity(getActivity(),PraiseListActivity.class);
                 break;
             case R.id.rl_msg:
                 LoginChecker.goActivity(getActivity(), MsgActivity.class);
