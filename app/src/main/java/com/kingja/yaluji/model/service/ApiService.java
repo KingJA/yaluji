@@ -287,5 +287,10 @@ public interface ApiService {
     @POST("/app/like/list")
     Observable<HttpResult<List<PraiseItem>>> getPraiseList(@Body RequestBody requestBody);
 
+//    /*审查*/
+//    @FormUrlEncoded
+//    @POST("/app/like/clickShare")
+//    Observable<HttpResult<Object>> uploadLocation(@Field("lat") String lat, @Field("lng") String lng);
+
 
 }
