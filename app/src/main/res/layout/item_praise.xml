@@ -67,7 +67,7 @@
 
 
         <TextView
-            android:id="@+id/tv_question_btn"
+            android:id="@+id/tv_praise_btn"
             style="@style/font_orange_13"
             android:background="@drawable/shape_r16_white"
             android:paddingLeft="12dp"

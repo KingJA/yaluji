@@ -17,6 +17,7 @@ public class Status {
         //结束
         int OVER = 3;
     }
+
     public interface TicketSellStatus {
         //在抢
         int SELLING = 1;
@@ -79,6 +80,7 @@ public class Status {
         //问题详情
         int QUESTION_DETAIL = 2;
     }
+
     public interface ArticleType {
         int ARTICLE_SMALL = 0;
         int ARTICLE_BIG = 1;
@@ -149,4 +151,16 @@ public class Status {
         //待使用
         String ADVERTISEMENT = "2";
     }
+
+    public interface PraiseStatus {
+        //0已参与点赞进行中
+        int Praising = 0;
+        //1未参与点赞
+        int UnPraised = 1;
+        //2已参与点赞成功
+        int PraisedSuccess = 2;
+        //3已参与点赞失败
+        int PraisedFail = 3;
+    }
+
 }

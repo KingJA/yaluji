@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.LoadSirObserver;
 import com.kingja.yaluji.model.entiy.PraiseItem;
+import com.kingja.yaluji.model.entiy.ResultObserver;
 
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class PraiseListPresenter implements PraiseListContract.Presenter {
                     }
                 });
     }
+
     @Override
     public void getPraiseList(RequestBody requestBody) {
         mApi.getApiService().getPraiseList(requestBody).subscribeOn(Schedulers.io()).observeOn
@@ -60,6 +62,18 @@ public class PraiseListPresenter implements PraiseListContract.Presenter {
                     @Override
                     protected void onSuccess(List<PraiseItem> praiseItemList) {
                         mView.onGetPraiseListSuccess(praiseItemList);
+                    }
+                });
+    }
+
+    @Override
+    public void checkPraise(String likeId, PraiseItem praiseItem) {
+        mApi.getApiService().checkPraise(likeId).subscribeOn(Schedulers.io()).observeOn
+                (AndroidSchedulers.mainThread()).subscribe
+                (new ResultObserver<String>(mView) {
+                    @Override
+                    protected void onSuccess(String shareUrl) {
+                        mView.onCheckPraiseSuccess(shareUrl,praiseItem);
                     }
                 });
     }

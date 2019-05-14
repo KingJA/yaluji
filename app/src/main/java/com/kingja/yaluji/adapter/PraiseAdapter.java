@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.kingja.supershapeview.view.SuperShapeImageView;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.model.entiy.PraiseItem;
 import com.kingja.yaluji.view.StringTextView;
@@ -37,13 +38,31 @@ public class PraiseAdapter extends BaseLvAdapter<PraiseItem> {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
+        PraiseItem praiseItem = list.get(position);
         viewHolder.ll_question.setBackgroundResource(Constants.BG_GRADIENTS[position % Constants.BG_GRADIENTS.length]);
-        viewHolder.stv_question_title.setString(list.get(position).getTitle());
-        viewHolder.stv_praise_require.setString(String.format("集赞%d个以上，即获得价值%d元", list.get(position).getLikeCount(),
-                list.get(position).getCouponAmount()));
-        viewHolder.stv_ticketInfo.setString(String.format("%s全额抵用券%d张", list.get(position).getTitle(),
-                list.get(position).getCouponUnitCount()));
+        viewHolder.stv_question_title.setString(praiseItem.getTitle());
+        viewHolder.stv_praise_require.setString(String.format("集赞%d个以上，即获得价值%d元", praiseItem.getLikeCount(),
+                praiseItem.getCouponAmount()));
+        viewHolder.stv_ticketInfo.setString(String.format("%s全额抵用券%d张", praiseItem.getTitle(),
+                praiseItem.getCouponUnitCount()));
+        switch (praiseItem.getUserStatus()) {
+            case Status.PraiseStatus.Praising:
+                //0已参与点赞进行中
+                viewHolder.tv_praise_btn.setText("查看详情");
+                break;
+            case Status.PraiseStatus.UnPraised:
+                //1未参与点赞
+                viewHolder.tv_praise_btn.setText("去转发");
+                break;
+            case Status.PraiseStatus.PraisedSuccess:
+                //2已参与点赞成功
+                viewHolder.tv_praise_btn.setText("查看详情");
+                break;
+            case Status.PraiseStatus.PraisedFail:
+                //3已参与点赞失败
+                viewHolder.tv_praise_btn.setText("查看详情");
+                break;
+        }
 
 
 //        viewHolder.tv_question_btn.setText(EnumUtil.getByCode(list.get(position).getUserStatus(), Status
@@ -55,11 +74,11 @@ public class PraiseAdapter extends BaseLvAdapter<PraiseItem> {
 //        viewHolder.tv_question_btn.setTextColor(list.get(position).getUserStatus() == Status.QuestionStatus
 //                .RELIFT.getCode() || list.get(position).getUserStatus() == Status.QuestionStatus.ANSWER.getCode() ?
 //                ContextCompat.getColor(context, R.color.orange_hi) : ContextCompat.getColor(context, R.color.c_6));
-        ImageLoader.getInstance().loadRoundImage(context, list.get(position).getHeadimg(), R.drawable.ic_placeholder,
+        ImageLoader.getInstance().loadRoundImage(context, praiseItem.getHeadimg(), R.drawable.ic_placeholder,
                 viewHolder.siv_question_headimg, 8);
         return convertView;
     }
-
+// "userStatus": "integer,用户状态     * 0已参与点赞进行中      * 1未参与点赞      * 2已参与点赞成功      * 3已参与点赞失败"
     @Override
     public int getCount() {
         return list.size();
@@ -70,7 +89,7 @@ public class PraiseAdapter extends BaseLvAdapter<PraiseItem> {
         StringTextView stv_question_title;
         StringTextView stv_praise_require;
         StringTextView stv_ticketInfo;
-        TextView tv_question_btn;
+        TextView tv_praise_btn;
         ImageView siv_question_headimg;
         LinearLayout ll_question;
 
@@ -80,7 +99,7 @@ public class PraiseAdapter extends BaseLvAdapter<PraiseItem> {
             siv_question_headimg = root.findViewById(R.id.siv_question_headimg);
             stv_praise_require = root.findViewById(R.id.stv_praise_require);
             stv_ticketInfo = root.findViewById(R.id.stv_ticketInfo);
-            tv_question_btn = root.findViewById(R.id.tv_question_btn);
+            tv_praise_btn = root.findViewById(R.id.tv_praise_btn);
             ll_question = root.findViewById(R.id.ll_question);
         }
     }

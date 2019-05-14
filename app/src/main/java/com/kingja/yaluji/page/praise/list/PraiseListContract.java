@@ -18,11 +18,16 @@ import okhttp3.RequestBody;
 public interface PraiseListContract {
     interface View extends BaseView {
         void onGetPraiseListSuccess(List<PraiseItem> praiseItemList);
+
+        void onCheckPraiseSuccess(String shareUrl, PraiseItem praiseItem);
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getPraiseListByVisitor( RequestBody requestBody);
-        void getPraiseList( RequestBody requestBody);
+        void getPraiseListByVisitor(RequestBody requestBody);
+
+        void getPraiseList(RequestBody requestBody);
+
+        void checkPraise(String likeId, PraiseItem praiseItem);
 
     }
 }
