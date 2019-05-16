@@ -154,7 +154,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         switch (praiseDetail.getStatus()) {
             case Status.PraiseDetailStatus.Praising:
                 //1代表 用户集赞进行中
-                tip = String.format("已有<font color=\"#f51305\">%s</font>人点赞，还差<font color=\"#d40000\">%s</font>个赞",
+                tip = String.format("已有<font color=\"#f51305\">%d人</font>点赞，还差<font color=\"#f51305\">%d个赞</font>",
                         praiseDetail.getAlreadyLikeCount(), praiseDetail.getRemainLikeCount());
                 llPraising.setVisibility(View.VISIBLE);
                 int[] deadlineDate = DateUtil.getDeadlineDate(praiseDetail.getEndDateTime());
@@ -182,7 +182,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 break;
             case Status.PraiseDetailStatus.PraisedFailByDayOver:
                 //3代表用户集赞超过24小时失败
-                tip = String.format("已有<font color=\"#f51305\">%s</font>人点赞，还差<font color=\"#d40000\">%s</font>个赞",
+                tip = String.format("已有<font color=\"#f51305\">%d人</font>点赞，还差<font color=\"#f51305\">%d个赞</font>",
                         praiseDetail.getAlreadyLikeCount(), praiseDetail.getRemainLikeCount());
                 llPraisedFailByDayOver.setVisibility(View.VISIBLE);
                 btnRepraise.setOnClickListener(new NoDoubleClickListener() {
@@ -194,7 +194,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 break;
             case Status.PraiseDetailStatus.PraisedFailByGameOver:
                 //4代表活动已结束但未完成集赞
-                tip = String.format("已有<font color=\"#f51305\">%s</font>人点赞，还差<font color=\"#d40000\">%s</font>个赞",
+                tip = String.format("已有<font color=\"#f51305\">%d人</font>点赞，还差<font color=\"#f51305\">%d个赞</font>",
                         praiseDetail.getAlreadyLikeCount(), praiseDetail.getRemainLikeCount());
                 tvPraisedFailByGameOver.setVisibility(View.VISIBLE);
 
