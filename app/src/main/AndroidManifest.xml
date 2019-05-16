@@ -76,6 +76,7 @@
             android:theme="@style/NoTitleTranslucentTheme"/>
         <activity android:name=".page.praise.list.PraiseListActivity"/>
         <activity android:name=".activity.GuideActivity"/>
+        <activity android:name=".page.praise.detail.PraiseDetailActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
 

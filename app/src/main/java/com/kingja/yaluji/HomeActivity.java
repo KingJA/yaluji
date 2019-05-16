@@ -99,9 +99,6 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        if (SpSir.getInstance().isFirstSee()) {
-            GoUtil.goActivity(this, FirstDialogActivity.class);
-        }
     }
 
     @Override

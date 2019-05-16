@@ -9,11 +9,11 @@
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="492dp">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="492dp"
             android:background="@mipmap/bg_dialog_praise_rule"/>
 
         <com.kingja.supershapeview.view.SuperShapeTextView

@@ -153,14 +153,23 @@ public class Status {
     }
 
     public interface PraiseStatus {
-        //0已参与点赞进行中
+        //0 进行中 已参加：按钮显示查看详情（可点击查看)
         int Praising = 0;
-        //1未参与点赞
+        //1 进行中 未参加：按钮显示去转发（可点击转发)
         int UnPraised = 1;
-        //2已参与点赞成功
-        int PraisedSuccess = 2;
-        //3已参与点赞失败
-        int PraisedFail = 3;
+        //2 已结束 已参加：盖章,不变灰，按钮显示查看详情（可点击查看)
+        int OverPraised = 2;
+        //3 已结束 未参加：盖章,变灰，按钮显示去转发（不可点击)
+        int OverUnpraised = 3;
     }
-
+    public interface PraiseDetailStatus {
+        //1代表 用户集赞进行中
+        int Praising = 1;
+        //2代表用户集赞成功
+        int PraisedSuccess = 2;
+        //3代表用户集赞超过24小时失败
+        int PraisedFailByDayOver = 3;
+        //4代表活动已结束但未完成集赞
+        int PraisedFailByGameOver = 4;
+    }
 }

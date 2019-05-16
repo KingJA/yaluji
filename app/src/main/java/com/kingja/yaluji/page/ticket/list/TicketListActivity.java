@@ -33,6 +33,7 @@ import com.kingja.popwindowsir.PopConfig;
 import com.kingja.popwindowsir.PopHelper;
 import com.kingja.popwindowsir.PopSpinner;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.activity.FirstDialogActivity;
 import com.kingja.yaluji.activity.SearchDetailActivity;
 import com.kingja.yaluji.adapter.ScenicTypeAdapter;
 import com.kingja.yaluji.adapter.TicketPageAdapter;
@@ -296,6 +297,9 @@ public class TicketListActivity extends BaseTitleActivity implements InitializeC
         initCityPop();
         initDatePop();
         initDiscountPop();
+        if (SpSir.getInstance().isFirstSee()) {
+            GoUtil.goActivity(this, FirstDialogActivity.class);
+        }
     }
 
     private void initDiscountPop() {

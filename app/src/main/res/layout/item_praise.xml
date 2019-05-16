@@ -7,6 +7,14 @@
               android:paddingLeft="10dp"
               android:paddingRight="10dp">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+
+
+
 
     <LinearLayout
         android:id="@+id/ll_question"
@@ -80,4 +88,14 @@
 
     </LinearLayout>
 
+        <ImageView
+            android:id="@+id/iv_stamp_over"
+            android:layout_marginRight="80dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+           android:layout_alignParentRight="true"
+            android:background="@mipmap/bg_praise_over"
+            android:layout_width="88dp"
+            android:layout_height="70dp"/>
+    </RelativeLayout>
 </LinearLayout>

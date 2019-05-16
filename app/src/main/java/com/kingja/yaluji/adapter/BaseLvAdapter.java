@@ -19,6 +19,7 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
     protected Context context;
     protected List<T> list;
     protected int selectPosition = -1;
+    protected OnItemClickListener onItemClickListener;
 
     public BaseLvAdapter(Context context, List<T> list) {
         this.context = context;
@@ -74,5 +75,12 @@ public abstract class BaseLvAdapter<T> extends BaseAdapter {
     public void removeItem(int position) {
         list.remove(position);
         this.notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener<T>{
+        void onItemClick(T t);
+    }
+    public void  setOnItemClickListener(OnItemClickListener onItemClickListener){
+        this.onItemClickListener = onItemClickListener;
     }
 }

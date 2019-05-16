@@ -14,6 +14,7 @@ import com.kingja.yaluji.model.entiy.Message;
 import com.kingja.yaluji.model.entiy.Order;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.model.entiy.OrderResult;
+import com.kingja.yaluji.model.entiy.PraiseDetail;
 import com.kingja.yaluji.model.entiy.PraiseItem;
 import com.kingja.yaluji.model.entiy.Question;
 import com.kingja.yaluji.model.entiy.QuestionDetail;
@@ -291,6 +292,16 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("/app/like/clickShare")
     Observable<HttpResult<String>> checkPraise(@Field("likeId") String likeId);
+
+    /*点赞成功回调*/
+    @FormUrlEncoded
+    @POST("/app/like/successShare")
+    Observable<HttpResult<String>> onPraiseSuccess(@Field("likeId") String likeId);
+
+   /*鸡赞详情*/
+    @FormUrlEncoded
+    @POST("/app/like/likeUserDetail")
+    Observable<HttpResult<PraiseDetail>> getPraiseDetail(@Field("likeUserId") String likeUserId);
 
 
 }

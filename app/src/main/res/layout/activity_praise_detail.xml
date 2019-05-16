@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.flipboard.bottomsheet.BottomSheetLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/bottomsheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@mipmap/bg_praise_detail"
+        android:orientation="vertical">
+
+        <!--标题-->
+        <LinearLayout
+            android:id="@+id/ll_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="11dp"
+                android:layout_height="19dp"
+                android:background="@mipmap/bg_back_praise"/>
+
+        </LinearLayout>
+
+        <ScrollView
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="204dp"
+                    android:background="@mipmap/bg_praise_detail_head"/>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    android:layout_marginTop="-70dp"
+                    android:orientation="vertical">
+
+                    <!--头部-->
+                    <LinearLayout
+                        android:padding="24dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/bg_praise_detail_top"
+                        android:gravity="center">
+
+
+                        <TextView
+                            android:gravity="center"
+                            android:id="@+id/tv_tip"
+                            style="@style/font_0_16"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text=""/>
+
+
+                    </LinearLayout>
+                    <!--中间-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/bg_praise_detail_mid"
+                        android:gravity="center"
+                        android:padding="24dp">
+                        <!--4代表活动已结束但未完成集赞-->
+                        <TextView
+                            android:id="@+id/tv_praisedFailByGameOver"
+                            style="@style/font_orange_13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="抱歉！该集赞题已结束，请选择其它集赞题。"
+                            android:visibility="gone"/>
+
+                        <!--3代表用户集赞超过24小时失败-->
+
+                        <LinearLayout
+                            android:id="@+id/ll_praisedFailByDayOver"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                style="@style/font_orange_13"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="24dp"
+                                android:gravity="center"
+                                android:lineSpacingExtra="8dp"
+                                android:text="抱歉！有效时间内未集满所需集赞数\n领券失败，请稍后再试或选择其它“集赞题”转发。"/>
+
+                            <View
+                                android:id="@+id/btn_repraise"
+                                android:layout_width="230dp"
+                                android:layout_height="46dp"
+                                android:background="@mipmap/bg_praise_btn_repraise"/>
+
+                        </LinearLayout>
+                        <!--1代表 用户集赞进行中-->
+
+                        <LinearLayout
+                            android:id="@+id/ll_praising"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+
+                            <LinearLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="24dp"
+                                android:gravity="center_vertical">
+
+                                <TextView
+                                    android:id="@+id/stv_date_day"
+                                    style="@style/font_f_18"
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:background="@color/orange_hi"
+                                    android:gravity="center"
+                                    android:text="2"/>
+
+                                <TextView
+                                    style="@style/font_orange_16"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginRight="6dp"
+                                    android:text=":"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/stv_date_hour"
+                                    style="@style/font_f_18"
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:background="@color/orange_hi"
+                                    android:gravity="center"
+                                    android:text="2"/>
+
+                                <TextView
+                                    style="@style/font_orange_16"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="6dp"
+                                    android:layout_marginRight="6dp"
+                                    android:text=":"
+                                    android:textStyle="bold"/>
+
+                                <TextView
+                                    android:id="@+id/stv_date_min"
+                                    style="@style/font_f_18"
+                                    android:layout_width="26dp"
+                                    android:layout_height="26dp"
+                                    android:background="@color/orange_hi"
+                                    android:gravity="center"
+                                    android:text="2"/>
+
+                                <TextView
+                                    style="@style/font_orange_16"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="12dp"
+                                    android:text="后点赞结束"/>
+                            </LinearLayout>
+
+                            <View
+                                android:id="@+id/btn_againPraise"
+                                android:layout_width="230dp"
+                                android:layout_height="46dp"
+                                android:background="@mipmap/bg_praise_btn_again"/>
+
+                        </LinearLayout>
+
+                        <!--2代表用户集赞成功-->
+
+                        <LinearLayout
+                            android:id="@+id/ll_praisedSuccess"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="gone">
+
+                            <TextView
+                                android:id="@+id/tv_ticketName"
+                                style="@style/font_red_18"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="16dp"
+                                android:gravity="center"
+                                android:text="雁荡山全额抵值券"/>
+
+                            <RelativeLayout
+                                android:layout_width="250dp"
+                                android:layout_height="92dp"
+                                android:background="@mipmap/bg_ticket_body">
+
+                                <LinearLayout
+                                    android:id="@+id/ll_getSuccess"
+                                    android:layout_width="92dp"
+                                    android:layout_height="92dp"
+                                    android:layout_alignParentRight="true"
+                                    android:background="@mipmap/bg_ticket_right"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        style="@style/font_f_18"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="4dp"
+                                        android:text="领券成功"/>
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            style="@style/font_f_12"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="数量:"/>
+
+                                        <TextView
+                                            android:id="@+id/tv_quantity"
+                                            style="@style/font_f_12"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="1"/>
+
+                                        <TextView
+                                            style="@style/font_f_12"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="张"/>
+                                    </LinearLayout>
+
+                                </LinearLayout>
+
+
+                                <LinearLayout
+                                    android:layout_width="172dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_toLeftOf="@id/ll_getSuccess"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content">
+
+                                        <TextView
+                                            style="@style/font_red_18"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginRight="4dp"
+                                            android:text="¥"/>
+
+                                        <TextView
+                                            android:id="@+id/tv_payamount"
+                                            style="@style/font_red_33"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="20"/>
+                                    </LinearLayout>
+
+                                    <TextView
+                                        style="@style/font_9_13"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginBottom="2dp"
+                                        android:layout_marginTop="2dp"
+                                        android:text="使用期限"/>
+
+                                    <TextView
+                                        android:id="@+id/tv_visitDate"
+                                        style="@style/font_9_13"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="2018-10-10至2018-12-11"/>
+
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+                    <!--底部-->
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="170dp"
+                        android:background="@mipmap/bg_praise_detail_bottom">
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+        </ScrollView>
+
+
+    </LinearLayout>
+</com.flipboard.bottomsheet.BottomSheetLayout>

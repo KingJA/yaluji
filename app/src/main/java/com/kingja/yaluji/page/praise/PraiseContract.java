@@ -1,4 +1,4 @@
-package com.kingja.yaluji.page.praise.list;
+package com.kingja.yaluji.page.praise;
 
 
 import com.kingja.yaluji.base.BasePresenter;
@@ -8,6 +8,7 @@ import com.kingja.yaluji.model.entiy.PraiseItem;
 import java.util.List;
 
 import okhttp3.RequestBody;
+import retrofit2.http.Field;
 
 /**
  * Description：TODO
@@ -15,20 +16,18 @@ import okhttp3.RequestBody;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public interface PraiseListContract {
+public interface PraiseContract {
     interface View extends BaseView {
-        void onGetPraiseListSuccess(List<PraiseItem> praiseItemList);
 
         void onCheckPraiseSuccess(String shareUrl, PraiseItem praiseItem);
         void onPraiseSuccess();
     }
 
     interface Presenter extends BasePresenter<View> {
-        void getPraiseListByVisitor(RequestBody requestBody);
 
-        void getPraiseList(RequestBody requestBody);
 
         void checkPraise(String likeId, PraiseItem praiseItem);
+
         void onPraiseSuccess(String likeId);
 
     }

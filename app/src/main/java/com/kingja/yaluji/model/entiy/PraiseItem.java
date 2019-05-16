@@ -1,12 +1,14 @@
 package com.kingja.yaluji.model.entiy;
 
+import java.io.Serializable;
+
 /**
  * Description:TODO
  * Create Time:2019/5/13 23:05
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class PraiseItem {
+public class PraiseItem implements Serializable{
 
     /**
      * id : cadfec4a9138443cb7fafe9b4fcfb3c0
@@ -33,6 +35,7 @@ public class PraiseItem {
     private int userStatus;
     private int status;
     private String statusText;
+    private String likeUserId;
 
     public String getId() {
         return id;
@@ -120,5 +123,13 @@ public class PraiseItem {
 
     public void setStatusText(String statusText) {
         this.statusText = statusText;
+    }
+
+    public String getLikeUserId() {
+        return likeUserId;
+    }
+
+    public void setLikeUserId(String likeUserId) {
+        this.likeUserId = likeUserId;
     }
 }

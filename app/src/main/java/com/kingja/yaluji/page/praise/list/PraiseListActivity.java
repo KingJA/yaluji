@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.adapter.BaseLvAdapter;
 import com.kingja.yaluji.adapter.PraiseAdapter;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
@@ -23,6 +24,7 @@ import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.PraiseItem;
 import com.kingja.yaluji.page.login.LoginActivity;
+import com.kingja.yaluji.page.praise.detail.PraiseDetailActivity;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.ShareUtil;
@@ -73,12 +75,11 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
     private PraiseAdapter praiseAdapter;
     private PraiseExplainDialog questionExplainDialog;
     private IWXAPI api;
-    private String paperId;
-    private ConfirmDialog confirmDialog;
     private View bottomSheetView;
 
     @Inject
     PraiseListPresenter praiseListPresenter;
+    private String likeId;
 
     private void regToWeixin() {
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
@@ -98,27 +99,7 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
 
     @OnItemClick(R.id.plv)
     public void itemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (TextUtils.isEmpty(SpSir.getInstance().getToken())) {
-            GoUtil.goActivity(this, LoginActivity.class);
-            return;
-        }
 
-        PraiseItem praiseItem = (PraiseItem) parent.getItemAtPosition(position);
-        switch (praiseItem.getUserStatus()) {
-            case Status.PraiseStatus.Praising:
-                //0已参与点赞进行中
-                break;
-            case Status.PraiseStatus.UnPraised:
-                //1未参与点赞
-                praiseListPresenter.checkPraise(praiseItem.getId(), praiseItem);
-                break;
-            case Status.PraiseStatus.PraisedSuccess:
-                //2已参与点赞成功
-                break;
-            case Status.PraiseStatus.PraisedFail:
-                //3已参与点赞失败
-                break;
-        }
     }
 
     String shareUrl;
@@ -140,7 +121,10 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
         req.message = msg;
         req.scene = shareTo;
         //调用api接口，发送数据到微信
-        api.sendReq(req);
+        boolean ifShareSuccess = api.sendReq(req);
+        if (ifShareSuccess) {
+            praiseListPresenter.onPraiseSuccess(likeId);
+        }
     }
 
     private String buildTransaction(String type) {
@@ -169,12 +153,37 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
 
     @Override
     protected String getContentTitle() {
-        return "鸡答";
+        return "鸡赞";
     }
 
     @Override
     protected void initView() {
         praiseAdapter = new PraiseAdapter(this, praiseItemList);
+        praiseAdapter.setOnItemClickListener((BaseLvAdapter.OnItemClickListener<PraiseItem>) praiseItem -> {
+            if (TextUtils.isEmpty(SpSir.getInstance().getToken())) {
+                GoUtil.goActivity(this, LoginActivity.class);
+                return;
+            }
+            switch (praiseItem.getUserStatus()) {
+                case Status.PraiseStatus.Praising:
+                    //0 进行中 已参加：按钮显示查看详情（可点击查看)
+                    PraiseDetailActivity.goActivity(PraiseListActivity.this, praiseItem.getLikeUserId(), praiseItem
+                            .getId(), praiseItem);
+                    break;
+                case Status.PraiseStatus.UnPraised:
+                    //1 进行中 未参加：按钮显示去转发（可点击转发)
+                    praiseListPresenter.checkPraise(praiseItem.getId(), praiseItem);
+                    break;
+                case Status.PraiseStatus.OverPraised:
+                    //2 已结束 已参加：盖章,不变灰，按钮显示查看详情（可点击查看)
+                    PraiseDetailActivity.goActivity(PraiseListActivity.this, praiseItem.getLikeUserId(), praiseItem
+                            .getId(), praiseItem);
+                    break;
+                case Status.PraiseStatus.OverUnpraised:
+                    //3 已结束 未参加：盖章,变灰，按钮显示去转发（不可点击)
+                    break;
+            }
+        });
         plv.setAdapter(praiseAdapter);
         plv.setGoTop(ivGoTop);
     }
@@ -183,7 +192,6 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
     protected void initData() {
         initBottomSheet();
         questionExplainDialog = new PraiseExplainDialog(this);
-        confirmDialog = new ConfirmDialog(this, "复活成功，请继续答题");
         srl.setOnRefreshListener(this);
     }
 
@@ -193,17 +201,14 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
         LinearLayout ll_share_friends = bottomSheetView.findViewById(R.id.ll_share_friends);
         TextView tv_share_cancel = bottomSheetView.findViewById(R.id.tv_share_cancel);
         ll_share_friendGroup.setOnClickListener(v -> {
-            ToastUtil.showText("朋友圈");
             bottomsheet.dismissSheet();
             share(SendMessageToWX.Req.WXSceneTimeline);
         });
         ll_share_friends.setOnClickListener(v -> {
-            ToastUtil.showText("微信好友");
             bottomsheet.dismissSheet();
             share(SendMessageToWX.Req.WXSceneSession);
         });
         tv_share_cancel.setOnClickListener(v -> {
-            ToastUtil.showText("取消");
             bottomsheet.dismissSheet();
         });
     }
@@ -257,10 +262,32 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
 
     @Override
     public void onCheckPraiseSuccess(String shareUrl, PraiseItem praiseItem) {
-        bottomsheet.showWithSheetView(bottomSheetView);
+        likeId = praiseItem.getId();
         this.shareUrl = shareUrl;
         this.shareDes = String.format("集赞%d个以上，即获得价值%d元%s全额抵用券%d张", praiseItem.getLikeCount(),
                 praiseItem.getCouponAmount(), praiseItem.getTitle(), praiseItem.getCouponUnitCount());
+        bottomsheet.showWithSheetView(bottomSheetView);
+    }
 
+    @Override
+    public void showLoadingCallback() {
+    }
+
+    @Override
+    public void hideLoading() {
+    }
+
+    @Override
+    public void onPraiseSuccess() {
+        initNet();
+    }
+
+    @Override
+    public void showErrorMessage(int code, String message) {
+        message = message.replace("#", "\n");
+        ConfirmDialog errorDialog = new ConfirmDialog(this, message);
+        errorDialog.setOnConfirmListener(() -> {
+        });
+        errorDialog.show();
     }
 }

@@ -54,6 +54,9 @@ public class Constants {
         String BusinessType = "businessType";
         String TouristId = "touristId";
         String Idcode = "idcode";
+        String LikeUserId = "likeUserId";
+        String LikeId = "likeId";
+        String PraiseItem = "PraiseItem";
     }
 
     public static final int BG_GRADIENTS[] = {R.drawable.gradient_pink,
