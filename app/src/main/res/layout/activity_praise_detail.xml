@@ -2,6 +2,7 @@
 
 <com.flipboard.bottomsheet.BottomSheetLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/bottomsheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -306,9 +307,34 @@
                     </LinearLayout>
                     <!--底部-->
                     <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginBottom="12dp"
+                        android:paddingTop="36dp"
+                        android:paddingBottom="20dp"
+                        android:paddingLeft="20dp"
+                        android:paddingRight="20dp"
+                        android:gravity="center"
                         android:layout_width="match_parent"
-                        android:layout_height="170dp"
+                        android:layout_height="wrap_content"
                         android:background="@mipmap/bg_praise_detail_bottom">
+
+                        <TextView
+                            style="@style/font_0_13"
+                            android:text="点赞好友"
+                            android:layout_marginBottom="12dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"/>
+
+                        <com.kingja.yaluji.view.FixedGridView
+                            android:id="@+id/fgv"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:numColumns="6"
+                            android:scrollbars="none"
+                            android:verticalSpacing="6dp"
+                            tools:listitem="@layout/item_praise_head"/>
 
 
                     </LinearLayout>

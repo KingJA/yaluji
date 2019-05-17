@@ -13,25 +13,31 @@ import android.widget.TextView;
 
 import com.flipboard.bottomsheet.BottomSheetLayout;
 import com.kingja.yaluji.R;
+import com.kingja.yaluji.adapter.CommonAdapter;
+import com.kingja.yaluji.adapter.ViewHolder;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.PraiseDetail;
+import com.kingja.yaluji.model.entiy.PraiseHeadImg;
 import com.kingja.yaluji.model.entiy.PraiseItem;
 import com.kingja.yaluji.page.praise.PraiseContract;
 import com.kingja.yaluji.page.praise.PraisePresenter;
 import com.kingja.yaluji.util.DateUtil;
 import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.ShareUtil;
-import com.kingja.yaluji.util.ToastUtil;
+import com.kingja.yaluji.view.FixedGridView;
 import com.kingja.yaluji.view.dialog.ConfirmDialog;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -82,6 +88,8 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
     LinearLayout llPraisedSuccess;
     @BindView(R.id.bottomsheet)
     BottomSheetLayout bottomsheet;
+    @BindView(R.id.fgv)
+    FixedGridView fgv;
     private String likeUserId;
     private String likeId;
     private String tip;
@@ -90,6 +98,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
     private View bottomSheetView;
     String shareUrl;
     String shareDes;
+    private CommonAdapter recommendAdapter;
 
     @OnClick({R.id.ll_back})
     public void onViewClicked(View view) {
@@ -101,6 +110,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 break;
         }
     }
+
     private void regToWeixin() {
         api = WXAPIFactory.createWXAPI(this, Constants.APP_ID_WEIXIN, true);
         api.registerApp(Constants.APP_ID_WEIXIN);
@@ -136,7 +146,20 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
 
     @Override
     protected void initView() {
+        recommendAdapter = new CommonAdapter<PraiseHeadImg>(this, null, R.layout
+                .item_praise_head) {
+            @Override
+            public void convert(ViewHolder helper, PraiseHeadImg item) {
+                helper.setText(R.id.tv_friendNickname, item.getFriendNickname());
+                helper.setCircleByUrl(R.id.iv_friendHeadimg, item.getFriendHeadimg());
+            }
 
+            @Override
+            public int getCount() {
+                return 16;
+            }
+        };
+        fgv.setAdapter(recommendAdapter);
     }
 
     @Override
@@ -151,6 +174,20 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
 
     @Override
     public void onGetPraiseDetailSuccess(PraiseDetail praiseDetail) {
+//        List<PraiseHeadImg> headImgList = praiseDetail.getLikeProgressList();
+//        if (headImgList != null && headImgList.size() > 0) {
+//            recommendAdapter.setData(headImgList);
+//        }
+        List<PraiseHeadImg> headImgList=new ArrayList<>();
+
+        for (int i = 0; i < 32; i++) {
+            PraiseHeadImg praiseHeadImg = new PraiseHeadImg();
+            praiseHeadImg.setFriendNickname("名字哈哈大幅"+i);
+            praiseHeadImg.setFriendHeadimg("/upload/image/20190422/20190422101614_478.jpg");
+            headImgList.add(praiseHeadImg);
+        }
+        recommendAdapter.setData(headImgList);
+
         switch (praiseDetail.getStatus()) {
             case Status.PraiseDetailStatus.Praising:
                 //1代表 用户集赞进行中

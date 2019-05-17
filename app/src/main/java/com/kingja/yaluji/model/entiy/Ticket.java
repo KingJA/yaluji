@@ -33,7 +33,7 @@ public class Ticket {
 
     private String id;
     private String productNo;
-    private int discount;
+    private double discount;
     private int isoneyuan;
     private int isRecommend;
     private int status;
@@ -68,11 +68,11 @@ public class Ticket {
         this.productNo = productNo;
     }
 
-    public int getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(int discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 
