@@ -313,19 +313,20 @@
                         android:paddingBottom="20dp"
                         android:paddingLeft="20dp"
                         android:paddingRight="20dp"
-                        android:gravity="center"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@mipmap/bg_praise_detail_bottom">
 
                         <TextView
+                            android:gravity="center"
                             style="@style/font_0_13"
                             android:text="点赞好友"
                             android:layout_marginBottom="12dp"
-                            android:layout_width="wrap_content"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"/>
 
                         <com.kingja.yaluji.view.FixedGridView
+                            android:layout_gravity="center"
                             android:id="@+id/fgv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"

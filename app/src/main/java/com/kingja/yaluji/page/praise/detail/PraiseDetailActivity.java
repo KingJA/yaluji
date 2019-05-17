@@ -154,10 +154,6 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 helper.setCircleByUrl(R.id.iv_friendHeadimg, item.getFriendHeadimg());
             }
 
-            @Override
-            public int getCount() {
-                return 16;
-            }
         };
         fgv.setAdapter(recommendAdapter);
     }
@@ -174,19 +170,10 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
 
     @Override
     public void onGetPraiseDetailSuccess(PraiseDetail praiseDetail) {
-//        List<PraiseHeadImg> headImgList = praiseDetail.getLikeProgressList();
-//        if (headImgList != null && headImgList.size() > 0) {
-//            recommendAdapter.setData(headImgList);
-//        }
-        List<PraiseHeadImg> headImgList=new ArrayList<>();
-
-        for (int i = 0; i < 32; i++) {
-            PraiseHeadImg praiseHeadImg = new PraiseHeadImg();
-            praiseHeadImg.setFriendNickname("名字哈哈大幅"+i);
-            praiseHeadImg.setFriendHeadimg("/upload/image/20190422/20190422101614_478.jpg");
-            headImgList.add(praiseHeadImg);
+        List<PraiseHeadImg> headImgList = praiseDetail.getLikeProgressList();
+        if (headImgList != null && headImgList.size() > 0) {
+            recommendAdapter.setData(headImgList);
         }
-        recommendAdapter.setData(headImgList);
 
         switch (praiseDetail.getStatus()) {
             case Status.PraiseDetailStatus.Praising:
@@ -213,9 +200,9 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 tip = "恭喜！已完成点赞数\n详情查看券包";
                 llPraisedSuccess.setVisibility(View.VISIBLE);
                 tvTicketName.setText(praiseDetail.getTitle());
-                tvPayamount.setText(praiseDetail.getCouponAmount());
-                tvQuantity.setText(praiseDetail.getCouponUnitCount());
-                tvVisitDate.setText(praiseDetail.getCouponUsePeriod());
+                tvPayamount.setText(String.valueOf(praiseDetail.getCouponAmount()));
+                tvQuantity.setText(String.valueOf(praiseDetail.getCouponUnitCount()));
+                tvVisitDate.setText(String.valueOf(praiseDetail.getCouponUsePeriod()));
                 break;
             case Status.PraiseDetailStatus.PraisedFailByDayOver:
                 //3代表用户集赞超过24小时失败
