@@ -20,12 +20,12 @@ import com.kingja.yaluji.util.LogUtil;
  * Email:kingjavip@gmail.com
  */
 public class GlideLoader implements IImageLoader {
-    private  final String TAG =getClass().getSimpleName() ;
+    private final String TAG = getClass().getSimpleName();
 
     @Override
     public void loadImage(Context context, String url, int resourceId, ImageView view) {
         Glide.with(context)
-                .load(Constants.BASE_URL + url)
+                .load(getWholeUrl(url))
                 .centerCrop()
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
@@ -37,7 +37,7 @@ public class GlideLoader implements IImageLoader {
     public void loadRoundImage(Context context, String url, int resourceId, ImageView view, int connerWidth) {
 //        LogUtil.e(TAG,"图片地址:"+Constants.BASE_URL + url);
         Glide.with(context)
-                .load(Constants.BASE_URL + url)
+                .load(getWholeUrl(url))
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
@@ -48,12 +48,17 @@ public class GlideLoader implements IImageLoader {
     @Override
     public void loadCircleImage(Context context, String url, int resourceId, ImageView view) {
         Glide.with(context)
-                .load(Constants.BASE_URL + url)
+                .load(getWholeUrl(url))
                 .centerCrop()
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
                 .error(R.mipmap.ic_img_fail)
                 .crossFade()
                 .transform(new CenterCrop(context), new GlideCircleTransform(context))
                 .into(view);
+    }
+
+    private String getWholeUrl(String url) {
+        return url.startsWith("http") ? url : Constants.BASE_URL + url;
+
     }
 }

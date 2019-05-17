@@ -58,7 +58,7 @@ public class PraisePresenter implements PraiseContract.Presenter {
                 (new LoadSirObserver<String>(mView) {
                     @Override
                     protected void onSuccess(String shareUrl) {
-                        mView.onPraiseSuccess();
+                        mView.onPraiseSuccess(shareUrl);
                     }
                 });
     }

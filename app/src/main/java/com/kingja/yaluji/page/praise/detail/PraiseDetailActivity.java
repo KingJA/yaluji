@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -19,6 +20,7 @@ import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
+import com.kingja.yaluji.event.RefreshPraiseListEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.PraiseDetail;
 import com.kingja.yaluji.model.entiy.PraiseHeadImg;
@@ -26,6 +28,7 @@ import com.kingja.yaluji.model.entiy.PraiseItem;
 import com.kingja.yaluji.page.praise.PraiseContract;
 import com.kingja.yaluji.page.praise.PraisePresenter;
 import com.kingja.yaluji.util.DateUtil;
+import com.kingja.yaluji.util.LogUtil;
 import com.kingja.yaluji.util.NoDoubleClickListener;
 import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.view.FixedGridView;
@@ -36,8 +39,12 @@ import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.inject.Inject;
 
@@ -65,11 +72,11 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
     @BindView(R.id.ll_praisedFailByDayOver)
     LinearLayout llPraisedFailByDayOver;
     @BindView(R.id.stv_date_day)
-    TextView stvDateDay;
-    @BindView(R.id.stv_date_hour)
     TextView stvDateHour;
-    @BindView(R.id.stv_date_min)
+    @BindView(R.id.stv_date_hour)
     TextView stvDateMin;
+    @BindView(R.id.stv_date_min)
+    TextView stvDateSec;
     @BindView(R.id.btn_againPraise)
     View btnAgainPraise;
     @BindView(R.id.ll_praising)
@@ -99,11 +106,12 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
     String shareUrl;
     String shareDes;
     private CommonAdapter recommendAdapter;
+    private Timer timer;
 
     @OnClick({R.id.ll_back})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.ll_tab_duck:
+            case R.id.ll_back:
                 finish();
                 break;
             default:
@@ -170,6 +178,10 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
 
     @Override
     public void onGetPraiseDetailSuccess(PraiseDetail praiseDetail) {
+        llPraising.setVisibility(View.GONE);
+        llPraisedSuccess.setVisibility(View.GONE);
+        llPraisedFailByDayOver.setVisibility(View.GONE);
+        tvPraisedFailByGameOver.setVisibility(View.GONE);
         List<PraiseHeadImg> headImgList = praiseDetail.getLikeProgressList();
         if (headImgList != null && headImgList.size() > 0) {
             recommendAdapter.setData(headImgList);
@@ -181,10 +193,23 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 tip = String.format("已有<font color=\"#f51305\">%d人</font>点赞，还差<font color=\"#f51305\">%d个赞</font>",
                         praiseDetail.getAlreadyLikeCount(), praiseDetail.getRemainLikeCount());
                 llPraising.setVisibility(View.VISIBLE);
-                int[] deadlineDate = DateUtil.getDeadlineDate(praiseDetail.getEndDateTime());
-                stvDateDay.setText(String.valueOf(deadlineDate[0]));
-                stvDateHour.setText(String.valueOf(deadlineDate[1]));
-                stvDateMin.setText(String.valueOf(deadlineDate[2]));
+
+                stopTimer();
+
+
+                timer = new Timer();
+                timer.schedule(new TimerTask() {
+                    @Override
+                    public void run() {
+                        int[] deadlineDate = DateUtil.getDeadlineDayDate(praiseDetail.getEndDateTime());
+                        stvDateHour.setText(String.format("%02d", deadlineDate[0]));
+                        stvDateMin.setText(String.format("%02d", deadlineDate[1]));
+                        stvDateSec.setText(String.format("%02d", deadlineDate[2]));
+                        Log.e(TAG, String.format("%d：%d：%d", deadlineDate[0], deadlineDate[1], deadlineDate[2]));
+
+                    }
+                }, 0, 1000);
+
                 btnAgainPraise.setOnClickListener(new NoDoubleClickListener() {
                     @Override
                     public void onNoDoubleClick(View v) {
@@ -262,6 +287,8 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
 
     @Override
     public void onCheckPraiseSuccess(String shareUrl, PraiseItem praiseItem) {
+        String likeUserId = shareUrl.substring(shareUrl.indexOf("="));
+        LogUtil.e(TAG, "onCheckPraiseSuccess likeUserId:" + likeUserId);
         bottomsheet.showWithSheetView(bottomSheetView);
         this.shareUrl = shareUrl;
         this.shareDes = String.format("集赞%d个以上，即获得价值%d元%s全额抵用券%d张", praiseItem.getLikeCount(),
@@ -269,8 +296,11 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
     }
 
     @Override
-    public void onPraiseSuccess() {
-
+    public void onPraiseSuccess(String shareUrl) {
+        EventBus.getDefault().post(new RefreshPraiseListEvent());
+        String likeUserId = shareUrl.substring(shareUrl.indexOf("=") + 1);
+        LogUtil.e(TAG, "likeUserId:" + likeUserId);
+        praiseDetailPresenter.getPraiseDetail(likeUserId);
     }
 
     @Override
@@ -289,7 +319,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         webpage.webpageUrl = shareUrl;
         //用 WXWebpageObject 对象初始化一个 WXMediaMessage 对象
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = "鸭鹿鸡 ";
+        msg.title = getString(R.string.share_title);
         msg.description = shareDes;
         Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_share);
         msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);
@@ -325,5 +355,17 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         tv_share_cancel.setOnClickListener(v -> {
             bottomsheet.dismissSheet();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        stopTimer();
+    }
+
+    private void stopTimer() {
+        if (timer != null) {
+            timer.cancel();
+        }
     }
 }

@@ -6,11 +6,12 @@
               android:orientation="vertical">
 
     <TextView
+        android:gravity="center"
         style="@style/font_orange_14"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="24dp"
-        android:text="记得提醒好友!须进入“转发链接”点赞有效"/>
+        android:text="记得提醒好友!需进入“转发链接”点赞有效!"/>
 
     <LinearLayout
         android:layout_width="wrap_content"

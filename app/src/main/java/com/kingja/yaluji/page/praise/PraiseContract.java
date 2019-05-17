@@ -20,7 +20,7 @@ public interface PraiseContract {
     interface View extends BaseView {
 
         void onCheckPraiseSuccess(String shareUrl, PraiseItem praiseItem);
-        void onPraiseSuccess();
+        void onPraiseSuccess(String shareUrl);
     }
 
     interface Presenter extends BasePresenter<View> {

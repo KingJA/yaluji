@@ -20,6 +20,7 @@ import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
+import com.kingja.yaluji.event.RefreshPraiseListEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.PraiseItem;
@@ -111,7 +112,7 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
         webpage.webpageUrl = shareUrl;
         //用 WXWebpageObject 对象初始化一个 WXMediaMessage 对象
         WXMediaMessage msg = new WXMediaMessage(webpage);
-        msg.title = "鸭鹿鸡 ";
+        msg.title = getString(R.string.share_title);
         msg.description = shareDes;
         Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_share);
         msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);
@@ -289,5 +290,12 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
         errorDialog.setOnConfirmListener(() -> {
         });
         errorDialog.show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshPraiseList(RefreshPraiseListEvent event) {
+        if (!TextUtils.isEmpty(SpSir.getInstance().getToken())) {
+            initNet();
+        }
     }
 }

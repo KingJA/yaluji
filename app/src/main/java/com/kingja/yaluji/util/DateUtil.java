@@ -14,6 +14,7 @@ public class DateUtil {
     private static final int MILLIS_DAY = 1000 * 60 * 60 * 24;
     private static final int MILLIS_HOUR = 1000 * 60 * 60;
     private static final int MILLIS_MIN = 1000 * 60;
+    private static final int MILLIS_SEC = 1000;
     private static final String FORMAT_DATE_HOUR_MIN_SEC = "yyyy-MM-dd HH:mm:ss";
 
     public static int[] getDeadlineDate(String deadline) {
@@ -28,6 +29,20 @@ public class DateUtil {
         int leftHour = (int) (leftMillis % MILLIS_DAY / MILLIS_HOUR);
         int leftMin = (int) (leftMillis % MILLIS_HOUR / MILLIS_MIN);
         return new int[]{leftDay, leftHour, leftMin};
+    }
+
+    public static int[] getDeadlineDayDate(String deadline) {
+        Date date = getDateFromString(deadline);
+        long deadlineMillis = date.getTime();
+        long nowMillis = System.currentTimeMillis();
+        long leftMillis = deadlineMillis - nowMillis;
+        if (leftMillis < 0) {
+            return new int[]{0, 0, 0};
+        }
+        int leftHour = (int) (leftMillis/ MILLIS_HOUR);
+        int leftMin = (int) (leftMillis % MILLIS_HOUR / MILLIS_MIN);
+        int leftSec = (int) (leftMillis % MILLIS_MIN / MILLIS_SEC);
+        return new int[]{leftHour, leftMin, leftSec};
     }
 
     private static Date getDateFromString(String dateStr) {
