@@ -3,6 +3,7 @@ package com.kingja.yaluji.fragment;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.OrderPageAdapter;
@@ -64,6 +65,14 @@ public class OrderFragment extends BaseFragment {
     @Override
     protected int getContentId() {
         return R.layout.fragment_order;
+    }
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        super.onHiddenChanged(hidden);
+        if (!hidden) {
+            initView();
+        }
     }
 
 }

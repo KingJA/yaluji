@@ -1,5 +1,6 @@
 package com.kingja.yaluji.page.login;
 
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -94,9 +95,10 @@ public class LoginActivity extends BaseTitleActivity implements LoginContract.Vi
                 String username = etLoginName.getText().toString().trim();
                 String password = etLoginPassword.getText().toString().trim();
                 Logger.d("极光id",JPushInterface.getRegistrationID(this));
+                Log.e(TAG, "极光id极光id: "+JPushInterface.getRegistrationID(this) );
                 if (CheckUtil.checkPhoneFormat(username) && CheckUtil.checkEmpty(password, "请输入密码")) {
 //                    JPushInterface.getRegistrationID(this)
-                    mLoginPresenter.login(username, EncryptUtil.getMd5(password), username, "", Constants.OSNAME);
+                    mLoginPresenter.login(username, EncryptUtil.getMd5(password), JPushInterface.getRegistrationID(this), "", Constants.OSNAME);
                 }
                 break;
             default:

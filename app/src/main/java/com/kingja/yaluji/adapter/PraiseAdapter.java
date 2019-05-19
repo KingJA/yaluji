@@ -48,7 +48,7 @@ public class PraiseAdapter extends BaseLvAdapter<PraiseItem> {
         viewHolder.stv_question_title.setString(praiseItem.getTitle());
         viewHolder.stv_praise_require.setString(String.format("集赞%d个以上，即获得价值%d元", praiseItem.getLikeCount(),
                 praiseItem.getCouponAmount()));
-        viewHolder.stv_ticketInfo.setString(String.format("%s全额抵用券%d张", praiseItem.getTitle(),
+        viewHolder.stv_ticketInfo.setString(String.format("%s%d张", praiseItem.getTitle(),
                 praiseItem.getCouponUnitCount()));
         switch (praiseItem.getUserStatus()) {
             case Status.PraiseStatus.Praising:

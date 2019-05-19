@@ -14,12 +14,15 @@ import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.callback.EmptyMsgCallback;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.event.MsgCountEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Message;
 import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.MoveSwipeRefreshLayout;
 import com.kingja.yaluji.view.PullToBottomListView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,6 +95,7 @@ public class MsgActivity extends BaseTitleActivity implements MessageContract.Vi
         mMsgAdapter.setOnVistorOperListener(this);
         srl.setOnRefreshListener(this);
         lv.setOnScrollToBottom(this);
+        EventBus.getDefault().post(new MsgCountEvent());
     }
 
     @Override

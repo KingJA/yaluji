@@ -297,7 +297,7 @@ public class TicketListActivity extends BaseTitleActivity implements InitializeC
         initCityPop();
         initDatePop();
         initDiscountPop();
-        if (SpSir.getInstance().isFirstSee()) {
+        if (SpSir.getInstance().isFirstSee()&&!TextUtils.isEmpty(SpSir.getInstance().getToken())) {
             GoUtil.goActivity(this, FirstDialogActivity.class);
         }
     }
@@ -443,66 +443,69 @@ public class TicketListActivity extends BaseTitleActivity implements InitializeC
 
     @Override
     protected void initNet() {
-        if (SpSir.getInstance().hasRequirePermission()) {
-            //已经询问过
-            applyLocationPermission();
-        } else {
-            //未申请过权限
-            checkLocationPermission();
-            SpSir.getInstance().setRequirePermission(true);
+        if (!TextUtils.isEmpty(SpSir.getInstance().getToken())) {
+            if (SpSir.getInstance().hasRequirePermission()) {
+                //已经询问过
+                applyLocationPermission();
+            } else {
+                //未申请过权限
+
+                checkLocationPermission();
+                SpSir.getInstance().setRequirePermission(true);
+
+            }
+        }
         }
 
-    }
+        public void applyLocationPermission () {
+            if (Build.VERSION.SDK_INT >= 23) {
+                //检查是否已经给了权限
+                int checkpermission = ContextCompat.checkSelfPermission(getApplicationContext(),
+                        Manifest.permission.ACCESS_FINE_LOCATION);
+                if (checkpermission != PackageManager.PERMISSION_GRANTED) {//没有给权限
+                    //显示定位浮标
+                    ivMoreTicket.setVisibility(View.VISIBLE);
+                    moreTicketHandler.postDelayed(moreTicketRunnable, 10 * 1000);
+                } else {
+                    //上传定位
+                    if (!DateUtil.getNowDate().equals(SpSir.getInstance().getLastLocationDate())) {
+                        uploadLocationInfo();
+                    }
 
-    public void applyLocationPermission() {
-        if (Build.VERSION.SDK_INT >= 23) {
-            //检查是否已经给了权限
-            int checkpermission = ContextCompat.checkSelfPermission(getApplicationContext(),
-                    Manifest.permission.ACCESS_FINE_LOCATION);
-            if (checkpermission != PackageManager.PERMISSION_GRANTED) {//没有给权限
-                //显示定位浮标
-                ivMoreTicket.setVisibility(View.VISIBLE);
-                moreTicketHandler.postDelayed(moreTicketRunnable, 10 * 1000);
+                }
             } else {
                 //上传定位
                 if (!DateUtil.getNowDate().equals(SpSir.getInstance().getLastLocationDate())) {
                     uploadLocationInfo();
                 }
-
-            }
-        } else {
-            //上传定位
-            if (!DateUtil.getNowDate().equals(SpSir.getInstance().getLastLocationDate())) {
-                uploadLocationInfo();
             }
         }
-    }
 
-    private Handler moreTicketHandler = new Handler();
-    private Runnable moreTicketRunnable = () -> {
-        ivMoreTicket.setVisibility(View.GONE);
-    };
+        private Handler moreTicketHandler = new Handler();
+        private Runnable moreTicketRunnable = () -> {
+            ivMoreTicket.setVisibility(View.GONE);
+        };
 
-    @Override
-    public void onGetHotSearch(List<HotSearch> hotSearches) {
-        SpSir.getInstance().putHotSearch(new Gson().toJson(hotSearches));
-    }
+        @Override
+        public void onGetHotSearch (List < HotSearch > hotSearches) {
+            SpSir.getInstance().putHotSearch(new Gson().toJson(hotSearches));
+        }
 
-    @Override
-    public void onGetScenicTypeSuccess(List<ScenicType> scenicTypes) {
-        this.scenicTypes = scenicTypes;
-        initScenicTypePop();
-    }
+        @Override
+        public void onGetScenicTypeSuccess (List < ScenicType > scenicTypes) {
+            this.scenicTypes = scenicTypes;
+            initScenicTypePop();
+        }
 
-    @Override
-    public void onGetCitySuccess(List<City> cities) {
-        this.cities = cities;
-        initCityPop();
-    }
+        @Override
+        public void onGetCitySuccess (List < City > cities) {
+            this.cities = cities;
+            initCityPop();
+        }
 
-    @Override
-    public void onUploadLocationSuccess() {
-        LogUtil.e(TAG, "上传成功");
-        SpSir.getInstance().putLastLocationDate(DateUtil.getNowDate());
+        @Override
+        public void onUploadLocationSuccess () {
+            LogUtil.e(TAG, "上传成功");
+            SpSir.getInstance().putLastLocationDate(DateUtil.getNowDate());
+        }
     }
-}

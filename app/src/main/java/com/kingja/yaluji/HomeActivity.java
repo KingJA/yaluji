@@ -1,29 +1,40 @@
 package com.kingja.yaluji;
 
+import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.SparseArray;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
+import com.afollestad.materialdialogs.MaterialDialog;
 import com.kingja.yaluji.activity.FirstDialogActivity;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.fragment.MineFragment;
 import com.kingja.yaluji.fragment.OrderFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.page.home.HomeFragment;
+import com.kingja.yaluji.page.ticket.list.TicketListActivity;
 import com.kingja.yaluji.update.VersionUpdateSir;
+import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
+import com.tbruyelle.rxpermissions2.Permission;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 
 public class HomeActivity extends BaseTitleActivity {
 
@@ -99,6 +110,19 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
+        if (!TextUtils.isEmpty(SpSir.getInstance().getToken())) {
+            checkLocationPermission();
+        }
+    }
+
+    public void checkLocationPermission() {
+        Disposable disposable = new RxPermissions(this).requestEach(Manifest.permission.ACCESS_FINE_LOCATION)
+                .subscribe(new Consumer<Permission>() {
+                    @Override
+                    public void accept(Permission permission) throws Exception {
+                    }
+                });
+
     }
 
     @Override

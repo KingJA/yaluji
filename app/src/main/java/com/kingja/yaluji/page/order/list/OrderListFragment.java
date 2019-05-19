@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -209,4 +210,6 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
     public void refreshOrder(RefreshOrderEvent event) {
         initNet();
     }
+
+
 }
