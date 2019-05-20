@@ -114,6 +114,9 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
         WXMediaMessage msg = new WXMediaMessage(webpage);
         msg.title = getString(R.string.share_title);
         msg.description = shareDes;
+        if (shareTo == SendMessageToWX.Req.WXSceneTimeline) {
+            msg.title = shareDes;
+        }
         Bitmap thumbBmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_share);
         msg.thumbData = ShareUtil.bmpToByteArray(thumbBmp, true);
         //构造一个Req
