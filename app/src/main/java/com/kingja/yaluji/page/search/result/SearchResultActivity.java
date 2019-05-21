@@ -19,6 +19,7 @@ import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
+import com.kingja.yaluji.page.praise.list.PraiseListSearchFragment;
 import com.kingja.yaluji.page.search.article.ArticleListSearchFragment;
 import com.kingja.yaluji.page.search.question.search.QuestionListSearchFragment;
 import com.kingja.yaluji.page.search.ticket.TicketListSearchFragment;
@@ -48,7 +49,7 @@ public class SearchResultActivity extends BaseTitleActivity {
     ViewPager vp;
     @BindView(R.id.tv_search)
     TextView tvSearch;
-    private String[] tabNames = {"鹿券", "美文", "鸡答"};
+    private String[] tabNames = {"鹿券", "美文", "鸡赞"};
     private Fragment[] fragments = new Fragment[3];
     private String keyword;
 
@@ -113,7 +114,7 @@ public class SearchResultActivity extends BaseTitleActivity {
         tab.addTab(tab.newTab().setText(tabNames[2]));
         fragments[0] = TicketListSearchFragment.newInstance(keyword);
         fragments[1] = ArticleListSearchFragment.newInstance(keyword);
-        fragments[2] = QuestionListSearchFragment.newInstance(keyword);
+        fragments[2] = PraiseListSearchFragment.newInstance(keyword);
         CommonPageAdapter commonPageAdapter = new CommonPageAdapter(getSupportFragmentManager(), fragments,
                 tabNames);
         vp.setAdapter(commonPageAdapter);

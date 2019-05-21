@@ -14,7 +14,9 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Article;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
+import com.kingja.yaluji.view.PullToMoreListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
 import java.util.ArrayList;
@@ -34,9 +36,9 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class ArticleListActivity extends BaseTitleActivity implements ArticleListContract.View, SwipeRefreshLayout
-        .OnRefreshListener {
+        .OnRefreshListener, PullToMoreListView.OnScrollToBottom {
     @BindView(R.id.plv)
-    PullToBottomListView plv;
+    PullToMoreListView plv;
     @BindView(R.id.srl)
     RefreshSwipeRefreshLayout srl;
     @BindView(R.id.iv_go_top)
@@ -87,14 +89,19 @@ public class ArticleListActivity extends BaseTitleActivity implements ArticleLis
     @Override
     protected void initData() {
         srl.setOnRefreshListener(this);
+        plv.setOnScrollToBottom(this);
     }
 
     @Override
     protected void initNet() {
+        callNet();
+    }
+
+    private void callNet() {
         articleListPresenter.getArticleList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("categoryId", "")
-                .addFormDataPart("page", String.valueOf(Constants.PAGE_FIRST))
-                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
+                .addFormDataPart("page", String.valueOf(plv.getPageIndex()))
+                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_5))
                 .addFormDataPart("type", "2")
                 .build());
     }
@@ -102,20 +109,37 @@ public class ArticleListActivity extends BaseTitleActivity implements ArticleLis
     @Override
     public void onGetArticleListSuccess(List<Article> articleList) {
         if (articleList != null && articleList.size() > 0) {
-            articleAdapter.setData(articleList);
+            if (plv.getPageIndex() == 1) {
+                articleAdapter.setData(articleList);
+            } else {
+                articleAdapter.addData(articleList);
+            }
         } else {
-            showEmptyCallback();
+            if (plv.getPageIndex() == 1) {
+                showEmptyCallback();
+            } else {
+                ToastUtil.showText("到底啦");
+            }
         }
     }
 
     @Override
     public void onRefresh() {
-        srl.setRefreshing(false);
-        initNet();
+        plv.reset();
+        callNet();
     }
 
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
+    }
+
+    @Override
+    public void onScrollToBottom(int pageIndex) {
+        callNet();
+    }
+
+    @Override
+    public void showLoadingCallback() {
     }
 }

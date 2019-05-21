@@ -16,6 +16,7 @@ import com.kingja.yaluji.constant.Status;
 public class SpSir {
     private static final String FIRSIT_SEE = "FIRSIT_SEE";
     private static final String FIRSIT_BOOT = "FIRSIT_BOOT";
+    private static final String FIRSIT_LOACTION = "FIRSIT_LOACTION";
     private static final String TOKEN = "token";
     private static final String NICKNAME = "nickName";
     private static final String HEADIMG = "headImg";
@@ -55,6 +56,9 @@ public class SpSir {
 
     public boolean isFirstSee() {
         return getBoolean(FIRSIT_SEE, true);
+    }
+    public boolean isFirstLocation() {
+        return getBoolean(FIRSIT_LOACTION, true);
     }
     public boolean isFirstBoot() {
         return getBoolean(FIRSIT_BOOT, true);
@@ -130,6 +134,9 @@ public class SpSir {
         putString(LastLocationDate, lastLocationDate);
     }
 
+    public void putFirstLocation(boolean isFirstLocation) {
+        putBoolean(FIRSIT_LOACTION, isFirstLocation);
+    }
     public void putFirstSee(boolean isFirstSee) {
         putBoolean(FIRSIT_SEE, isFirstSee);
     }

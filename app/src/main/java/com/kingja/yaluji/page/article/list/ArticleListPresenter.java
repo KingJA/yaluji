@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.Article;
+import com.kingja.yaluji.model.entiy.LoadSirObserver;
 import com.kingja.yaluji.model.entiy.ResultObserver;
 import com.kingja.yaluji.page.headimg.PersonalContract;
 
@@ -36,7 +37,7 @@ public class ArticleListPresenter implements ArticleListContract.Presenter {
     public void getArticleList(RequestBody requestBody) {
         mApi.getApiService().getArticleList(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<Article>>(mView) {
+                (new LoadSirObserver<List<Article>>(mView) {
                     @Override
                     protected void onSuccess(List<Article> articleList) {
                         mView.onGetArticleListSuccess(articleList);

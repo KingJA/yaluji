@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
+import com.kingja.yaluji.model.entiy.LoadSirObserver;
 import com.kingja.yaluji.model.entiy.ResultObserver;
 
 import java.util.List;
@@ -34,7 +35,7 @@ public class ArticleListSearchPresenter implements ArticleListSearchContract.Pre
     public void getArticleList(RequestBody requestBody) {
         mApi.getApiService().getArticleSearchList(requestBody).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread()).subscribe
-                (new ResultObserver<List<ArticleSimpleItem>>(mView) {
+                (new LoadSirObserver<List<ArticleSimpleItem>>(mView) {
                     @Override
                     protected void onSuccess(List<ArticleSimpleItem> articleList) {
                         mView.onGetArticleListSuccess(articleList);

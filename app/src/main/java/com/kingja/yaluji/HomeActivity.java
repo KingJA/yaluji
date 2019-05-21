@@ -2,7 +2,6 @@ package com.kingja.yaluji;
 
 import android.Manifest;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,18 +13,12 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
-import com.kingja.yaluji.activity.FirstDialogActivity;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.fragment.MineFragment;
 import com.kingja.yaluji.fragment.OrderFragment;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.page.home.HomeFragment;
-import com.kingja.yaluji.page.ticket.list.TicketListActivity;
 import com.kingja.yaluji.update.VersionUpdateSir;
-import com.kingja.yaluji.util.DialogUtil;
-import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.SpSir;
 import com.kingja.yaluji.util.ToastUtil;
 import com.tbruyelle.rxpermissions2.Permission;
@@ -110,8 +103,9 @@ public class HomeActivity extends BaseTitleActivity {
 
     @Override
     protected void initData() {
-        if (!TextUtils.isEmpty(SpSir.getInstance().getToken())) {
+        if (!TextUtils.isEmpty(SpSir.getInstance().getToken())&&SpSir.getInstance().isFirstLocation()) {
             checkLocationPermission();
+            SpSir.getInstance().putFirstLocation(false);
         }
     }
 

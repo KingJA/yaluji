@@ -104,7 +104,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
                 GoUtil.goActivity(getActivity(), TicketListActivity.class);
                 break;
             case R.id.iv_question:
-                GoUtil.goActivity(getActivity(),PraiseListActivity.class);
+                GoUtil.goActivity(getActivity(), PraiseListActivity.class);
                 break;
             case R.id.rl_msg:
                 LoginChecker.goActivity(getActivity(), MsgActivity.class);
@@ -200,7 +200,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
             if (simpleOnPageChangeListener != null) {
                 vp.removeOnPageChangeListener(simpleOnPageChangeListener);
             }
-            vp.addOnPageChangeListener(simpleOnPageChangeListener=new ViewPager.SimpleOnPageChangeListener() {
+            vp.addOnPageChangeListener(simpleOnPageChangeListener = new ViewPager.SimpleOnPageChangeListener() {
                 @Override
                 public void onPageSelected(int position) {
                     for (int i = 0; i < points.size(); i++) {
@@ -215,7 +215,8 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
         }
 
     }
-  private   ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener;
+
+    private ViewPager.SimpleOnPageChangeListener simpleOnPageChangeListener;
 
     @Override
     public void onGetArticleListSuccess(List<ArticleSimpleItem> articleSimpleItemList) {
@@ -246,7 +247,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
     @Override
     public void onHiddenChanged(boolean hidden) {
         super.onHiddenChanged(hidden);
-        LogUtil.e(TAG,"轮播 onHiddenChanged:"+hidden);
+        LogUtil.e(TAG, "轮播 onHiddenChanged:" + hidden);
         if (hidden) {
             autoHandler.removeCallbacks(autoTask);
         } else {
@@ -256,7 +257,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     @Override
     public void onStart() {
-        LogUtil.e(TAG,"轮播 onStart");
+        LogUtil.e(TAG, "轮播 onStart");
         initHint();
         autoHandler.postDelayed(autoTask, Constants.AUTO_LUNBOTU);
         super.onStart();
@@ -264,7 +265,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     @Override
     public void onPause() {
-        LogUtil.e(TAG,"轮播 onPause");
+        LogUtil.e(TAG, "轮播 onPause");
         autoHandler.removeCallbacks(autoTask);
         super.onPause();
     }
@@ -301,7 +302,7 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void refreshHome(RefreshHome refreshHome) {
-       initNet();
+        initNet();
     }
 
     private void resetMsgCount() {
@@ -314,5 +315,11 @@ public class HomeFragment extends BaseFragment implements HomeContract.View, Swi
         }
     }
 
+    @Override
+    public void showLoading() {
+    }
 
+    @Override
+    public void hideLoading() {
+    }
 }

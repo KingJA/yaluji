@@ -3,6 +3,7 @@ package com.kingja.yaluji.base;
 
 import com.kingja.yaluji.page.praise.detail.PraiseDetailActivity;
 import com.kingja.yaluji.page.praise.list.PraiseListActivity;
+import com.kingja.yaluji.page.praise.list.PraiseListSearchFragment;
 import com.kingja.yaluji.page.ticket.confirm.TicketConfirmActivity;
 import com.kingja.yaluji.injector.annotation.PerActivity;
 import com.kingja.yaluji.injector.component.AppComponent;
@@ -46,6 +47,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(PraiseListSearchFragment target);
+
     void inject(PraiseDetailActivity target);
 
     void inject(PraiseListActivity target);
