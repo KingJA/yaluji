@@ -141,5 +141,12 @@ public class ArticleListActivity extends BaseTitleActivity implements ArticleLis
 
     @Override
     public void showLoadingCallback() {
+        srl.setRefreshing(true);
+    }
+
+    @Override
+    public void showSuccessCallback() {
+        super.showSuccessCallback();
+        srl.setRefreshing(false);
     }
 }

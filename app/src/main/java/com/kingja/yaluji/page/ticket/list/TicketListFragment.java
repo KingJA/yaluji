@@ -165,12 +165,13 @@ public class TicketListFragment extends BaseFragment implements TicketListContra
     }
 
     @Override
-    public void showLoading() {
+    public void showLoadingCallback() {
         srl.setRefreshing(true);
     }
 
     @Override
-    public void hideLoading() {
+    public void showSuccessCallback() {
+        super.showSuccessCallback();
         srl.setRefreshing(false);
     }
 
