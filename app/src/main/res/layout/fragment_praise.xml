@@ -23,7 +23,7 @@
                 android:paddingTop="10dp">
 
 
-                <com.kingja.yaluji.view.PullToBottomListView
+                <com.kingja.yaluji.view.PullToMoreListView
                     android:id="@+id/plv"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

@@ -31,7 +31,9 @@ import com.kingja.yaluji.util.GoUtil;
 import com.kingja.yaluji.util.LoginChecker;
 import com.kingja.yaluji.util.ShareUtil;
 import com.kingja.yaluji.util.SpSir;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
+import com.kingja.yaluji.view.PullToMoreListView;
 import com.kingja.yaluji.view.dialog.ConfirmDialog;
 import com.kingja.yaluji.view.dialog.PraiseExplainDialog;
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
@@ -61,9 +63,9 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class PraiseListSearchFragment extends BaseFragment implements OnSearchListener,
-        SwipeRefreshLayout.OnRefreshListener, PraiseListContract.View {
+        SwipeRefreshLayout.OnRefreshListener, PraiseListContract.View, PullToMoreListView.OnScrollToBottom {
     @BindView(R.id.plv)
-    PullToBottomListView plv;
+    PullToMoreListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     @BindView(R.id.iv_go_top)
@@ -140,6 +142,7 @@ public class PraiseListSearchFragment extends BaseFragment implements OnSearchLi
     protected void initData() {
         initBottomSheet();
         srl.setOnRefreshListener(this);
+        plv.setOnScrollToBottom(this);
     }
 
     private void initBottomSheet() {
@@ -165,14 +168,14 @@ public class PraiseListSearchFragment extends BaseFragment implements OnSearchLi
         if (LoginChecker.isLogin()) {
             praiseListPresenter.getPraiseList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("keyword", keyword)
-                    .addFormDataPart("page", String.valueOf(currentPageSize))
-                    .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
+                    .addFormDataPart("page", String.valueOf(plv.getPageIndex()))
+                    .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_20))
                     .build());
         } else {
             praiseListPresenter.getPraiseListByVisitor(new MultipartBody.Builder().setType(MultipartBody.FORM)
                     .addFormDataPart("keyword", keyword)
-                    .addFormDataPart("page", String.valueOf(currentPageSize))
-                    .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_100))
+                    .addFormDataPart("page", String.valueOf(plv.getPageIndex()))
+                    .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_20))
                     .build());
         }
     }
@@ -198,7 +201,7 @@ public class PraiseListSearchFragment extends BaseFragment implements OnSearchLi
 
     @Override
     public void onRefresh() {
-        srl.setRefreshing(false);
+        plv.reset();
         initNet();
     }
 
@@ -213,9 +216,17 @@ public class PraiseListSearchFragment extends BaseFragment implements OnSearchLi
     @Override
     public void onGetPraiseListSuccess(List<PraiseItem> praiseItemList) {
         if (praiseItemList != null && praiseItemList.size() > 0) {
-            praiseAdapter.setData(praiseItemList);
+            if (plv.getPageIndex() == 1) {
+                praiseAdapter.setData(praiseItemList);
+            } else {
+                praiseAdapter.addData(praiseItemList);
+            }
         } else {
-            showEmptyCallback();
+            if (plv.getPageIndex() == 1) {
+                showEmptyCallback();
+            } else {
+                ToastUtil.showText("到底啦");
+            }
         }
     }
 
@@ -230,10 +241,13 @@ public class PraiseListSearchFragment extends BaseFragment implements OnSearchLi
 
     @Override
     public void showLoadingCallback() {
+        srl.setRefreshing(true);
     }
 
     @Override
-    public void hideLoading() {
+    public void showSuccessCallback() {
+        super.showSuccessCallback();
+        srl.setRefreshing(false);
     }
 
     @Override
@@ -297,16 +311,7 @@ public class PraiseListSearchFragment extends BaseFragment implements OnSearchLi
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // TODO: inflate a fragment view
-        View rootView = super.onCreateView(inflater, container, savedInstanceState);
-        unbinder = ButterKnife.bind(this, rootView);
-        return rootView;
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
+    public void onScrollToBottom(int pageIndex) {
+        initNet();
     }
 }

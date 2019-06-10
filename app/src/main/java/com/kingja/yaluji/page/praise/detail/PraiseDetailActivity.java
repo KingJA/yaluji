@@ -214,7 +214,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                     @Override
                     public void onNoDoubleClick(View v) {
                         shareUrl = praiseDetail.getH5ShareUrl();
-                        shareDes = String.format("集赞%d个以上，即获得价值%d元%s全额抵用券%d张", praiseItem.getLikeCount(),
+                        shareDes = String.format("集赞%d个以上，即获得价值%d元%s%d张", praiseItem.getLikeCount(),
                                 praiseItem.getCouponAmount(), praiseItem.getTitle(), praiseItem.getCouponUnitCount());
                         bottomsheet.showWithSheetView(bottomSheetView);
                     }

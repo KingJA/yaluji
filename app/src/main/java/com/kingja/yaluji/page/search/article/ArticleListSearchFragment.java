@@ -18,7 +18,9 @@ import com.kingja.yaluji.i.OnSearchListener;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.ArticleSimpleItem;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToBottomListView;
+import com.kingja.yaluji.view.PullToMoreListView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,9 +40,9 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class ArticleListSearchFragment extends BaseFragment implements OnSearchListener,
-        SwipeRefreshLayout.OnRefreshListener, ArticleListSearchContract.View {
+        SwipeRefreshLayout.OnRefreshListener, ArticleListSearchContract.View, PullToMoreListView.OnScrollToBottom {
     @BindView(R.id.plv)
-    PullToBottomListView plv;
+    PullToMoreListView plv;
     @BindView(R.id.srl)
     SwipeRefreshLayout srl;
     @BindView(R.id.iv_go_top)
@@ -99,14 +101,15 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
     @Override
     protected void initData() {
         srl.setOnRefreshListener(this);
+        plv.setOnScrollToBottom(this);
     }
 
     @Override
     protected void initNet() {
         articleListSearchPresenter.getArticleList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("keyword", keyword)
-                .addFormDataPart("page", String.valueOf(currentPageSize))
-                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE))
+                .addFormDataPart("page", String.valueOf(plv.getPageIndex()))
+                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_20))
                 .build());
     }
 
@@ -126,7 +129,8 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
 
     @Override
     public void onRefresh() {
-        srl.setRefreshing(false);
+        plv.reset();
+        initNet();
     }
 
     @Override
@@ -137,9 +141,32 @@ public class ArticleListSearchFragment extends BaseFragment implements OnSearchL
     @Override
     public void onGetArticleListSuccess(List<ArticleSimpleItem> articleList) {
         if (articleList != null && articleList.size() > 0) {
-            adapter.setData(articleList);
+            if (plv.getPageIndex() == 1) {
+                adapter.setData(articleList);
+            } else {
+                adapter.addData(articleList);
+            }
         } else {
-            showEmptyCallback();
+            if (plv.getPageIndex() == 1) {
+                showEmptyCallback();
+            } else {
+                ToastUtil.showText("到底啦");
+            }
         }
+    }
+    @Override
+    public void showLoadingCallback() {
+        srl.setRefreshing(true);
+    }
+
+    @Override
+    public void showSuccessCallback() {
+        super.showSuccessCallback();
+        srl.setRefreshing(false);
+    }
+
+    @Override
+    public void onScrollToBottom(int pageIndex) {
+        initNet();
     }
 }

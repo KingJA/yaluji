@@ -177,7 +177,14 @@
         <item name="android:textSize">23sp</item>
         <item name="android:textColor">@color/white_hi</item>
     </style>
-
+    <style name="font_3_11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/c_3</item>
+    </style>
+    <style name="font_c3_11">
+        <item name="android:textSize">11sp</item>
+        <item name="android:textColor">@color/c_c3</item>
+    </style>
     <style name="font_f_18">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/white_hi</item>

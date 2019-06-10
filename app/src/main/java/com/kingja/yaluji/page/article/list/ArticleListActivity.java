@@ -1,6 +1,5 @@
 package com.kingja.yaluji.page.article.list;
 
-import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,7 +14,6 @@ import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Article;
 import com.kingja.yaluji.page.article.detail.ArticleDetailActivity;
 import com.kingja.yaluji.util.ToastUtil;
-import com.kingja.yaluji.view.PullToBottomListView;
 import com.kingja.yaluji.view.PullToMoreListView;
 import com.kingja.yaluji.view.RefreshSwipeRefreshLayout;
 
@@ -25,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnItemClick;
 import okhttp3.MultipartBody;
 

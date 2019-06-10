@@ -20,6 +20,7 @@
     <color name="white_hi">#ffffff</color>
     <color name="tran_hi">#00000000</color>
     <color name="c_3">#333333</color>
+    <color name="c_c3">#cc333333</color>
     <color name="c_6">#666666</color>
     <color name="c_9">#999999</color>
     <color name="c_c">#cccccc</color>

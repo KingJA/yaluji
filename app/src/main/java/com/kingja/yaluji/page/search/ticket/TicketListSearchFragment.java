@@ -18,6 +18,7 @@ import com.kingja.yaluji.model.entiy.Ticket;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.page.ticket.list.TicketListContract;
 import com.kingja.yaluji.page.ticket.list.TicketListPresenter;
+import com.kingja.yaluji.util.ToastUtil;
 import com.kingja.yaluji.view.PullToMoreListView;
 
 import java.util.ArrayList;
@@ -36,7 +37,7 @@ import okhttp3.MultipartBody;
  * Email:kingjavip@gmail.com
  */
 public class TicketListSearchFragment extends BaseFragment implements OnSearchListener, TicketListContract.View,
-        SwipeRefreshLayout.OnRefreshListener {
+        SwipeRefreshLayout.OnRefreshListener, PullToMoreListView.OnScrollToBottom {
     @BindView(R.id.plv)
     PullToMoreListView plv;
     @BindView(R.id.srl)
@@ -89,6 +90,7 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
     @Override
     protected void initData() {
         srl.setOnRefreshListener(this);
+        plv.setOnScrollToBottom(this);
     }
 
     @Override
@@ -96,8 +98,8 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
         ticketListPresenter.getTicketList(new MultipartBody.Builder().setType(MultipartBody.FORM)
                 .addFormDataPart("keyword", keyword)
                 .addFormDataPart("status", String.valueOf(Status.TicketSellStatus.ALL))
-                .addFormDataPart("page", String.valueOf(currentPageSize))
-                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE))
+                .addFormDataPart("page", String.valueOf(plv.getPageIndex()))
+                .addFormDataPart("pageSize", String.valueOf(Constants.PAGE_SIZE_20))
                 .build());
     }
 
@@ -117,21 +119,44 @@ public class TicketListSearchFragment extends BaseFragment implements OnSearchLi
     @Override
     public void onGetTicketListSuccess(List<Ticket> ticketList) {
         if (ticketList != null && ticketList.size() > 0) {
-            ticketAdapter.setData(ticketList);
+            if (plv.getPageIndex() == 1) {
+                ticketAdapter.setData(ticketList);
+            } else {
+                ticketAdapter.addData(ticketList);
+            }
         } else {
-            showEmptyCallback();
+            if (plv.getPageIndex() == 1) {
+                showEmptyCallback();
+            } else {
+                ToastUtil.showText("到底啦");
+            }
         }
 
     }
 
     @Override
     public void onRefresh() {
-        srl.setRefreshing(false);
+        plv.reset();
+        initNet();
     }
 
     @Override
     public boolean ifRegisterLoadSir() {
         return true;
     }
+    @Override
+    public void showLoadingCallback() {
+        srl.setRefreshing(true);
+    }
 
+    @Override
+    public void showSuccessCallback() {
+        super.showSuccessCallback();
+        srl.setRefreshing(false);
+    }
+
+    @Override
+    public void onScrollToBottom(int pageIndex) {
+        initNet();
+    }
 }
