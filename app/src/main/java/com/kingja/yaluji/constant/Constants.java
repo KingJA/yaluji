@@ -10,7 +10,8 @@ import com.kingja.yaluji.R;
  * 修改备注：
  */
 public class Constants {
-    public static final String BASE_URL = "http://api.ddchick.com";
+//    public static final String BASE_URL = "http://api.ddchick.com";
+    public static final String BASE_URL = "https://testapi.ddchick.com";
     public static final int CORNER = 8;
     public static final int PAGE_SIZE = 500;
     public static final int THUMB_SIZE = 150;

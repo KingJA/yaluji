@@ -35,7 +35,43 @@ public class PraiseItem implements Serializable{
     private int userStatus;
     private int status;
     private String statusText;
+    private String couponStartDateStr;
+    private String couponEndDateStr;
+    private String description;
+    private String linkdesc;
     private String likeUserId;
+
+    public String getCouponStartDateStr() {
+        return couponStartDateStr;
+    }
+
+    public void setCouponStartDateStr(String couponStartDateStr) {
+        this.couponStartDateStr = couponStartDateStr;
+    }
+
+    public String getCouponEndDateStr() {
+        return couponEndDateStr;
+    }
+
+    public void setCouponEndDateStr(String couponEndDateStr) {
+        this.couponEndDateStr = couponEndDateStr;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getLinkdesc() {
+        return linkdesc;
+    }
+
+    public void setLinkdesc(String linkdesc) {
+        this.linkdesc = linkdesc;
+    }
 
     public String getId() {
         return id;
