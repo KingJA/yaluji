@@ -3,16 +3,10 @@ package com.kingja.yaluji.page.order.list;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 
-import com.afollestad.materialdialogs.DialogAction;
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.kingja.yaluji.R;
 import com.kingja.yaluji.adapter.OrderAdapter;
 import com.kingja.yaluji.base.BaseFragment;
@@ -24,7 +18,8 @@ import com.kingja.yaluji.event.RefreshOrderEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
-import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
+import com.kingja.yaluji.page.order.orderdetail.normal.OrderDetailNormalActivity;
+import com.kingja.yaluji.page.order.orderdetail.phone.OrderDetailPhoneActivity;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.util.LogUtil;
@@ -42,9 +37,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
-import butterknife.Unbinder;
 
 /**
  * Description:全部订单列表
@@ -132,8 +125,13 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
             }
 
             @Override
-            public void onItemClick(String orderId) {
-                OrderDetailActivity.goActivity(getActivity(), orderId);
+            public void onItemClick(String orderId, int orderType) {
+                if (orderType == Status.OrderType.NORMAL) {
+                    OrderDetailNormalActivity.goActivity(getActivity(), orderId);
+                } else {
+                    OrderDetailPhoneActivity.goActivity(getActivity(), orderId);
+                }
+
             }
         });
         ivService.setVisibility(ticketStatus == Status.TicketStatus.WAIT_USE ? View.VISIBLE : View.GONE);

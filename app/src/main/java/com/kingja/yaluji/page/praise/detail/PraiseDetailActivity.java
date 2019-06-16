@@ -176,8 +176,11 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         praiseDetailPresenter.getPraiseDetail(likeUserId);
     }
 
+    private PraiseDetail praiseDetail;
+
     @Override
     public void onGetPraiseDetailSuccess(PraiseDetail praiseDetail) {
+        this.praiseDetail = praiseDetail;
         llPraising.setVisibility(View.GONE);
         llPraisedSuccess.setVisibility(View.GONE);
         llPraisedFailByDayOver.setVisibility(View.GONE);
@@ -195,27 +198,12 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 llPraising.setVisibility(View.VISIBLE);
 
                 stopTimer();
-
-
-                timer = new Timer();
-                timer.schedule(new TimerTask() {
-                    @Override
-                    public void run() {
-                        int[] deadlineDate = DateUtil.getDeadlineDayDate(praiseDetail.getEndDateTime());
-                        stvDateHour.setText(String.format("%02d", deadlineDate[0]));
-                        stvDateMin.setText(String.format("%02d", deadlineDate[1]));
-                        stvDateSec.setText(String.format("%02d", deadlineDate[2]));
-                        Log.e(TAG, String.format("%d：%d：%d", deadlineDate[0], deadlineDate[1], deadlineDate[2]));
-
-                    }
-                }, 0, 1000);
-
+                startTimer();
                 btnAgainPraise.setOnClickListener(new NoDoubleClickListener() {
                     @Override
                     public void onNoDoubleClick(View v) {
                         shareUrl = praiseDetail.getH5ShareUrl();
-                        shareDes = String.format("集赞%d个以上，即获得价值%d元%s%d张", praiseItem.getLikeCount(),
-                                praiseItem.getCouponAmount(), praiseItem.getTitle(), praiseItem.getCouponUnitCount());
+                        shareDes = praiseItem.getLinkdesc();
                         bottomsheet.showWithSheetView(bottomSheetView);
                     }
                 });
@@ -250,6 +238,24 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                 break;
         }
         tvTip.setText(Html.fromHtml(tip));
+    }
+
+    private void startTimer() {
+        if (praiseDetail == null) {
+            return;
+        }
+        timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                int[] deadlineDate = DateUtil.getDeadlineDayDate(praiseDetail.getEndDateTime());
+                stvDateHour.setText(String.format("%02d", deadlineDate[0]));
+                stvDateMin.setText(String.format("%02d", deadlineDate[1]));
+                stvDateSec.setText(String.format("%02d", deadlineDate[2]));
+                Log.e(TAG, String.format("%d：%d：%d", deadlineDate[0], deadlineDate[1], deadlineDate[2]));
+
+            }
+        }, 0, 1000);
     }
 
     public static void goActivity(Activity context, String likeUserId, String likeId, PraiseItem praiseItem) {
@@ -291,8 +297,7 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         LogUtil.e(TAG, "onCheckPraiseSuccess likeUserId:" + likeUserId);
         bottomsheet.showWithSheetView(bottomSheetView);
         this.shareUrl = shareUrl;
-        this.shareDes = String.format("集赞%d个以上，即获得价值%d元%s%d张", praiseItem.getLikeCount(),
-                praiseItem.getCouponAmount(), praiseItem.getTitle(), praiseItem.getCouponUnitCount());
+        this.shareDes = praiseItem.getLinkdesc();
     }
 
     @Override
@@ -370,5 +375,17 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         if (timer != null) {
             timer.cancel();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startTimer();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        stopTimer();
     }
 }

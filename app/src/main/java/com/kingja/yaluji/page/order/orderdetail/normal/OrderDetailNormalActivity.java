@@ -1,4 +1,4 @@
-package com.kingja.yaluji.page.order.orderdetail;
+package com.kingja.yaluji.page.order.orderdetail.normal;
 
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +18,8 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.imgaeloader.ImageLoader;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.OrderDetail;
+import com.kingja.yaluji.page.order.orderdetail.OrderDetailContract;
+import com.kingja.yaluji.page.order.orderdetail.OrderDetailPresenter;
 import com.kingja.yaluji.util.AppUtil;
 import com.kingja.yaluji.view.DeleteTextView;
 import com.kingja.yaluji.view.StringTextView;
@@ -36,7 +38,7 @@ import butterknife.ButterKnife;
  * Author:KingJA
  * Email:kingjavip@gmail.com
  */
-public class OrderDetailActivity extends BaseTitleActivity implements OrderDetailContract.View {
+public class OrderDetailNormalActivity extends BaseTitleActivity implements OrderDetailContract.View {
 
     @BindView(R.id.tv_subject)
     StringTextView tvSubject;
@@ -85,7 +87,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
 
     @Override
     protected int getContentView() {
-        return R.layout.activity_order_detail;
+        return R.layout.activity_order_detail_normal;
     }
 
     @Override
@@ -99,7 +101,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
 
     @Override
     protected String getContentTitle() {
-        return "详情";
+        return "订单详情";
     }
 
     @Override
@@ -196,7 +198,7 @@ public class OrderDetailActivity extends BaseTitleActivity implements OrderDetai
     }
 
     public static void goActivity(Context context, String orderId) {
-        Intent intent = new Intent(context, OrderDetailActivity.class);
+        Intent intent = new Intent(context, OrderDetailNormalActivity.class);
         intent.putExtra(Constants.Extra.OrderId, orderId);
         context.startActivity(intent);
     }

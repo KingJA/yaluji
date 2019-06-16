@@ -29,6 +29,15 @@ public class Order {
     private String visitDate;
     private String productid;
     private String statusText;
+    private int orderType;
+
+    public int getOrderType() {
+        return orderType;
+    }
+
+    public void setOrderType(int orderType) {
+        this.orderType = orderType;
+    }
 
     public String getId() {
         return id;

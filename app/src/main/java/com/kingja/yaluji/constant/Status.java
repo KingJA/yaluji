@@ -86,12 +86,17 @@ public class Status {
         int ARTICLE_BIG = 1;
     }
 
+    public interface OrderType {
+        int NORMAL = 1;
+        int PHONE = 2;
+    }
 
     public enum OrderStatus implements CodeEnum {
         WAIT_PAY(0, "待支付"),
+        WAIT_USE(3, "待出票"),
+
         TO_USED(1, "待使用"),
         USED(2, "已使用"),
-        WAIT_USE(3, "待出票"),
         OVER_TIME(4, "已过期"),
         CANCELED(8, "已取消");
         private Integer code;
@@ -162,6 +167,7 @@ public class Status {
         //3 已结束 未参加：盖章,变灰，按钮显示去转发（不可点击)
         int OverUnpraised = 3;
     }
+
     public interface PraiseDetailStatus {
         //1代表 用户集赞进行中
         int Praising = 1;

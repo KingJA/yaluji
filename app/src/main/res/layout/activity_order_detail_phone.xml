@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_hi">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="12dp">
+
+
+        <com.kingja.supershapeview.view.SuperShapeLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            app:super_cornerRadius="4dp"
+            app:super_solidColor="@color/white_hi"
+            app:super_strokeColor="@color/gray_hi"
+            app:super_strokeWidth="1px">
+
+            <com.kingja.yaluji.view.StringTextView
+                android:id="@+id/tv_subject"
+                style="@style/font_3_14"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="12dp"
+                android:text="20元话费"/>
+
+
+            <View style="@style/div_hor_gray"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="12dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="用户"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_tourists"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="张三 18888888888"/>
+                </LinearLayout>
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="数量"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_quantity"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="2张"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="金额"/>
+
+                    <com.kingja.yaluji.view.DeleteTextView
+                        android:id="@+id/tv_marketPrice"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="0元"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="使用限期"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_useDate"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="2018-10-11至2018-12-11"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="6dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="领券时间"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_paidAt"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="2018-07-22"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="使用说明"/>
+
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_useRemarks"
+                        style="@style/font_6_13"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:text="抢购3小时后生效"/>
+                </LinearLayout>
+            </LinearLayout>
+        </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+
+        <com.kingja.supershapeview.view.SuperShapeLinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:layout_marginTop="8dp"
+            app:super_cornerRadius="4dp"
+            app:super_solidColor="@color/white_hi"
+            app:super_strokeColor="@color/gray_hi"
+            app:super_strokeWidth="1px">
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingBottom="32dp"
+                android:paddingTop="32dp">
+
+
+                <TextView
+                    style="@style/font_orange_15"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="充值手机号码："/>
+
+                <com.kingja.supershapeview.view.SuperShapeEditText
+                    android:id="@+id/set_phone"
+                    android:layout_width="214dp"
+                    android:layout_height="36dp"
+                    android:layout_marginTop="12dp"
+                    android:gravity="start|center_vertical"
+                    android:orientation="vertical"
+                    android:padding="8dp"
+                    app:super_cornerRadius="8dp"
+                    app:super_solidColor="@color/white_hi"
+                    app:super_strokeColor="@color/orange_hi"
+                    app:super_strokeWidth="1dp">
+
+
+                </com.kingja.supershapeview.view.SuperShapeEditText>
+
+                <com.kingja.supershapeview.view.SuperShapeTextView
+                    android:id="@+id/stv_confirm"
+                    style="@style/font_f_15"
+                    android:layout_width="160dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="32dp"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:text="确定充值"
+                    app:super_cornerRadius="80dp"
+                    app:super_solidColor="@color/c_disable"/>
+            </LinearLayout>
+        </com.kingja.supershapeview.view.SuperShapeLinearLayout>
+    </LinearLayout>
+</ScrollView>

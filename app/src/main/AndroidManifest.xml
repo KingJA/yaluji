@@ -57,7 +57,7 @@
             android:launchMode="singleTask"/>
         <activity android:name=".page.answer.detail.QuestionDetailActivity"/>
         <activity android:name=".page.ticket.success.TicketSuccessActivity"/>
-        <activity android:name=".page.order.orderdetail.OrderDetailActivity"/>
+        <activity android:name=".page.order.orderdetail.normal.OrderDetailNormalActivity"/>
         <activity android:name=".page.feedback.FeedbackActivity"/>
         <activity android:name=".page.business.BusinessActivity"/>
         <activity android:name=".page.business.BusinessDetailActivity"/>
@@ -77,6 +77,7 @@
         <activity android:name=".page.praise.list.PraiseListActivity"/>
         <activity android:name=".activity.GuideActivity"/>
         <activity android:name=".page.praise.detail.PraiseDetailActivity"/>
+        <activity android:name=".page.order.orderdetail.phone.OrderDetailPhoneActivity"/>
 
         <service android:name=".service.initialize.InitializeService"/>
 

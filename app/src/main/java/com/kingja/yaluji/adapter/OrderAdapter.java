@@ -51,10 +51,10 @@ public class OrderAdapter extends BaseLvAdapter<Order> {
     public View simpleGetView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
         FinishedViewHolder finishViewHolder = null;
-        int orderType = getItemViewType(position);
+        int orderStatusType = getItemViewType(position);
         Order order = list.get(position);
         if (convertView == null) {
-            if (orderType == TYPE_FINISHED) {
+            if (orderStatusType == TYPE_FINISHED) {
                 convertView = View.inflate(context, R.layout.item_order_finish, null);
                 finishViewHolder = new FinishedViewHolder(convertView);
                 convertView.setTag(finishViewHolder);
@@ -64,22 +64,22 @@ public class OrderAdapter extends BaseLvAdapter<Order> {
                 convertView.setTag(viewHolder);
             }
         } else {
-            if (orderType == TYPE_FINISHED) {
+            if (orderStatusType == TYPE_FINISHED) {
                 finishViewHolder = (FinishedViewHolder) convertView.getTag();
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
         }
-        if (orderType == TYPE_FINISHED) {
+        if (orderStatusType == TYPE_FINISHED) {
             finishViewHolder.tv_ticket_payamount.setText(String.valueOf(order.getPayamount()));
             finishViewHolder.tv_ticket_subject.setText(order.getSubject());
             finishViewHolder.tv_ticket_quantity.setText(String.valueOf(order.getQuantity()));
             finishViewHolder.tv_ticket_visitDate.setText(order.getVisitDate());
             finishViewHolder.drawHelperLayout.setDragable(!(order.getStatus() == Status.OrderStatus.TO_USED.getCode()));
             finishViewHolder.drawHelperLayout.setOnRootClickListener(() -> {
-                if (onItemOperateListener != null) {
-                    onItemOperateListener.onItemClick(order.getId());
-                }
+//                if (onItemOperateListener != null) {
+//                    onItemOperateListener.onItemClick(order.getId());
+//                }
             });
             finishViewHolder.tv_delete.setOnClickListener(new NoDoubleClickListener() {
                 @Override
@@ -104,7 +104,7 @@ public class OrderAdapter extends BaseLvAdapter<Order> {
             viewHolder.drawHelperLayout.setDragable(false);
             viewHolder.drawHelperLayout.setOnRootClickListener(() -> {
                 if (onItemOperateListener != null) {
-                    onItemOperateListener.onItemClick(order.getId());
+                    onItemOperateListener.onItemClick(order.getId(),order.getOrderType());
                 }
             });
         }
@@ -168,7 +168,7 @@ public class OrderAdapter extends BaseLvAdapter<Order> {
     public interface OnItemOperateListener {
         void onDelete(int position, String orderId);
 
-        void onItemClick(String orderId);
+        void onItemClick(String orderId,int orderType);
     }
 
     public void setOnItemOperateListener(OnItemOperateListener onItemOperateListener) {

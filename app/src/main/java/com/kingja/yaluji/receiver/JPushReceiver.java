@@ -12,7 +12,7 @@ import com.google.gson.Gson;
 import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.event.MsgCountEvent;
 import com.kingja.yaluji.model.entiy.Notification;
-import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
+import com.kingja.yaluji.page.order.orderdetail.normal.OrderDetailNormalActivity;
 import com.kingja.yaluji.page.ticket.detail.TicketDetailActivity;
 import com.kingja.yaluji.util.SpSir;
 import com.orhanobut.logger.Logger;
@@ -81,7 +81,7 @@ public class JPushReceiver extends BroadcastReceiver {
             String orderId = notification.getOrderId();
             if (!TextUtils.isEmpty(orderId)) {
                 Log.e(TAG, "orderId : " + productId);
-                Intent intent = new Intent(context, OrderDetailActivity.class);
+                Intent intent = new Intent(context, OrderDetailNormalActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 intent.putExtra(Constants.Extra.OrderId, productId);
                 context.startActivity(intent);

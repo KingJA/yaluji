@@ -1,6 +1,7 @@
 package com.kingja.yaluji.base;
 
 
+import com.kingja.yaluji.page.order.orderdetail.phone.OrderDetailPhoneActivity;
 import com.kingja.yaluji.page.praise.detail.PraiseDetailActivity;
 import com.kingja.yaluji.page.praise.list.PraiseListActivity;
 import com.kingja.yaluji.page.praise.list.PraiseListSearchFragment;
@@ -23,7 +24,7 @@ import com.kingja.yaluji.page.message.MsgActivity;
 import com.kingja.yaluji.page.modifynickname.ModifyNicknameActivity;
 import com.kingja.yaluji.page.modifypassword.ModifyPasswordActivity;
 import com.kingja.yaluji.page.order.list.OrderListFragment;
-import com.kingja.yaluji.page.order.orderdetail.OrderDetailActivity;
+import com.kingja.yaluji.page.order.orderdetail.normal.OrderDetailNormalActivity;
 import com.kingja.yaluji.page.register.RegisterActivity;
 import com.kingja.yaluji.page.search.article.ArticleListSearchFragment;
 import com.kingja.yaluji.page.search.question.list.QuestionListActivity;
@@ -47,6 +48,8 @@ import dagger.Component;
 @PerActivity
 @Component(dependencies = AppComponent.class, modules = {ActivityModule.class})
 public interface BaseCompnent {
+    void inject(OrderDetailPhoneActivity target);
+
     void inject(PraiseListSearchFragment target);
 
     void inject(PraiseDetailActivity target);
@@ -59,7 +62,7 @@ public interface BaseCompnent {
 
     void inject(OrderListFragment target);
 
-    void inject(OrderDetailActivity target);
+    void inject(OrderDetailNormalActivity target);
 
     void inject(LoginActivity target);
 

@@ -298,10 +298,14 @@ public interface ApiService {
     @POST("/app/like/successShare")
     Observable<HttpResult<String>> onPraiseSuccess(@Field("likeId") String likeId);
 
-   /*鸡赞详情*/
+    /*鸡赞详情*/
     @FormUrlEncoded
     @POST("/app/like/likeUserDetail")
     Observable<HttpResult<PraiseDetail>> getPraiseDetail(@Field("likeUserId") String likeUserId);
 
+    /*充值*/
+    @FormUrlEncoded
+    @POST("/app/order/rechargeMobile")
+    Observable<HttpResult<Object>> rechargeMobile(@Field("orderId") String orderId, @Field("mobile") String mobile);
 
 }
