@@ -247,6 +247,9 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         if (praiseDetail == null) {
             return;
         }
+        if (timer != null) {
+            timer.cancel();
+        }
         timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
