@@ -151,7 +151,6 @@ public class OrderDetailPhoneActivity extends BaseTitleActivity implements Order
         message = message.replace("#", "\n");
         ConfirmDialog errorDialog = new ConfirmDialog(this, message);
         errorDialog.setOnConfirmListener(() -> {
-            finish();
         });
         errorDialog.show();
     }
