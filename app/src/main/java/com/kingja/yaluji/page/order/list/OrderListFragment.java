@@ -15,6 +15,7 @@ import com.kingja.yaluji.constant.Constants;
 import com.kingja.yaluji.constant.Status;
 import com.kingja.yaluji.event.AddOrderEvent;
 import com.kingja.yaluji.event.RefreshOrderEvent;
+import com.kingja.yaluji.event.RefreshOrderListEvent;
 import com.kingja.yaluji.event.ResetLoginStatusEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.Order;
@@ -209,5 +210,9 @@ public class OrderListFragment extends BaseFragment implements OrderListContract
         initNet();
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void refreshOrderListEvent(RefreshOrderListEvent refreshOrderListEvent) {
+        initNet();
+    }
 
 }

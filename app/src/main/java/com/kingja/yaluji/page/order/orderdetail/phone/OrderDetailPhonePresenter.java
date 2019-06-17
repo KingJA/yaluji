@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 
 import com.kingja.yaluji.model.api.UserApi;
 import com.kingja.yaluji.model.entiy.LoadSirObserver;
+import com.kingja.yaluji.model.entiy.ResultObserver;
 
 import javax.inject.Inject;
 
@@ -41,7 +42,7 @@ public class OrderDetailPhonePresenter implements OrderDetailPhoneContract.Prese
     public void rechargeMobile(String orderId, String mobile) {
         mApi.getApiService().rechargeMobile(orderId, mobile).subscribeOn(Schedulers.io()).observeOn
                 (AndroidSchedulers.mainThread()).subscribe
-                (new LoadSirObserver<Object>(mView) {
+                (new ResultObserver<Object>(mView) {
                     @Override
                     protected void onSuccess(Object o) {
                         mView.onRechargeMobileSuccess();

@@ -9,6 +9,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical"
         android:padding="12dp">
 
@@ -59,9 +61,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="张三 18888888888"/>
+                        android:text="--"/>
                 </LinearLayout>
-
 
 
                 <LinearLayout
@@ -83,7 +84,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="2张"/>
+                        android:text="--"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -99,13 +100,13 @@
                         android:layout_weight="1"
                         android:text="金额"/>
 
-                    <com.kingja.yaluji.view.DeleteTextView
-                        android:id="@+id/tv_marketPrice"
+                    <com.kingja.yaluji.view.StringTextView
+                        android:id="@+id/tv_payamount"
                         style="@style/font_6_13"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="0元"/>
+                        android:text="--"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -119,7 +120,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="使用限期"/>
+                        android:text="使用日期"/>
 
                     <com.kingja.yaluji.view.StringTextView
                         android:id="@+id/tv_useDate"
@@ -127,7 +128,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="2018-10-11至2018-12-11"/>
+                        android:text="--"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -149,7 +150,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="2018-07-22"/>
+                        android:text="--"/>
                 </LinearLayout>
 
 
@@ -171,7 +172,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="3"
-                        android:text="抢购3小时后生效"/>
+                        android:text="--"/>
                 </LinearLayout>
             </LinearLayout>
         </com.kingja.supershapeview.view.SuperShapeLinearLayout>
@@ -179,9 +180,9 @@
         <com.kingja.supershapeview.view.SuperShapeLinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
             android:gravity="center"
             android:orientation="vertical"
-            android:layout_marginTop="8dp"
             app:super_cornerRadius="4dp"
             app:super_solidColor="@color/white_hi"
             app:super_strokeColor="@color/gray_hi"
@@ -204,6 +205,8 @@
                     android:text="充值手机号码："/>
 
                 <com.kingja.supershapeview.view.SuperShapeEditText
+                    android:maxLength="11"
+                    android:inputType="number"
                     android:id="@+id/set_phone"
                     android:layout_width="214dp"
                     android:layout_height="36dp"
@@ -229,7 +232,7 @@
                     android:orientation="vertical"
                     android:text="确定充值"
                     app:super_cornerRadius="80dp"
-                    app:super_solidColor="@color/c_disable"/>
+                    app:super_solidColor="@color/orange_hi"/>
             </LinearLayout>
         </com.kingja.supershapeview.view.SuperShapeLinearLayout>
     </LinearLayout>

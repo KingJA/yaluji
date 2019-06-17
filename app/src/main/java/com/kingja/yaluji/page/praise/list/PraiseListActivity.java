@@ -268,7 +268,9 @@ public class PraiseListActivity extends BaseTitleActivity implements SwipeRefres
     public void onCheckPraiseSuccess(String shareUrl, PraiseItem praiseItem) {
         likeId = praiseItem.getId();
         this.shareUrl = shareUrl;
-        this.shareDes = praiseItem.getLinkdesc();
+        this.shareDes = !TextUtils.isEmpty(praiseItem.getLinkdesc()) ? praiseItem.getLinkdesc() : String.format
+                ("集赞%d个以上，即获得价值%d元%s%d张", praiseItem.getLikeCount(),
+                praiseItem.getCouponAmount(), praiseItem.getTitle(), praiseItem.getCouponUnitCount());
         bottomsheet.showWithSheetView(bottomSheetView);
     }
 

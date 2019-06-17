@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -203,7 +204,9 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
                     @Override
                     public void onNoDoubleClick(View v) {
                         shareUrl = praiseDetail.getH5ShareUrl();
-                        shareDes = praiseItem.getLinkdesc();
+                        shareDes = !TextUtils.isEmpty(praiseItem.getLinkdesc()) ? praiseItem.getLinkdesc() : String
+                                .format("集赞%d个以上，即获得价值%d元%s%d张", praiseItem.getLikeCount(), praiseItem
+                                        .getCouponAmount(), praiseItem.getTitle(), praiseItem.getCouponUnitCount());
                         bottomsheet.showWithSheetView(bottomSheetView);
                     }
                 });
@@ -297,7 +300,9 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         LogUtil.e(TAG, "onCheckPraiseSuccess likeUserId:" + likeUserId);
         bottomsheet.showWithSheetView(bottomSheetView);
         this.shareUrl = shareUrl;
-        this.shareDes = praiseItem.getLinkdesc();
+        this.shareDes = !TextUtils.isEmpty(praiseItem.getLinkdesc()) ? praiseItem.getLinkdesc() : String.format
+                ("集赞%d个以上，即获得价值%d元%s%d张", praiseItem.getLikeCount(),
+                        praiseItem.getCouponAmount(), praiseItem.getTitle(), praiseItem.getCouponUnitCount());
     }
 
     @Override

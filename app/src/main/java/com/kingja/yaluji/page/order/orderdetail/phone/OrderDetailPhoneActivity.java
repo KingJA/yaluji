@@ -11,6 +11,7 @@ import com.kingja.yaluji.R;
 import com.kingja.yaluji.base.BaseTitleActivity;
 import com.kingja.yaluji.base.DaggerBaseCompnent;
 import com.kingja.yaluji.constant.Constants;
+import com.kingja.yaluji.event.RefreshOrderListEvent;
 import com.kingja.yaluji.injector.component.AppComponent;
 import com.kingja.yaluji.model.entiy.OrderDetail;
 import com.kingja.yaluji.page.order.orderdetail.OrderDetailContract;
@@ -20,6 +21,9 @@ import com.kingja.yaluji.util.CheckUtil;
 import com.kingja.yaluji.util.DialogUtil;
 import com.kingja.yaluji.view.DeleteTextView;
 import com.kingja.yaluji.view.StringTextView;
+import com.kingja.yaluji.view.dialog.ConfirmDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import javax.inject.Inject;
 
@@ -45,8 +49,8 @@ public class OrderDetailPhoneActivity extends BaseTitleActivity implements Order
     StringTextView tvTourists;
     @BindView(R.id.tv_quantity)
     StringTextView tvQuantity;
-    @BindView(R.id.tv_marketPrice)
-    DeleteTextView tvMarketPrice;
+    @BindView(R.id.tv_payamount)
+    StringTextView tvPayamount;
     @BindView(R.id.tv_useDate)
     StringTextView tvUseDate;
     @BindView(R.id.tv_paidAt)
@@ -55,6 +59,7 @@ public class OrderDetailPhoneActivity extends BaseTitleActivity implements Order
     StringTextView tvUseRemarks;
     @BindView(R.id.set_phone)
     SuperShapeEditText setPhone;
+    private String orderId;
 
     @OnClick({R.id.stv_confirm})
     public void onViewClicked(View view) {
@@ -62,8 +67,7 @@ public class OrderDetailPhoneActivity extends BaseTitleActivity implements Order
             case R.id.stv_confirm:
                 String phone = setPhone.getText().toString().trim();
                 if (CheckUtil.checkPhoneFormat(phone)) {
-
-
+                    orderDetailPhonePresenter.rechargeMobile(orderId, phone);
                 }
                 break;
             default:
@@ -73,7 +77,7 @@ public class OrderDetailPhoneActivity extends BaseTitleActivity implements Order
 
     @Override
     public void initVariable() {
-
+        orderId = getIntent().getStringExtra(Constants.Extra.OrderId);
     }
 
     @Override
@@ -108,22 +112,47 @@ public class OrderDetailPhoneActivity extends BaseTitleActivity implements Order
 
     @Override
     protected void initNet() {
-
+        orderDetailPresenter.getOrderDetail(orderId);
     }
 
     @Override
     public void onGetOrderDetailSuccess(OrderDetail orderDetail) {
-
+        tvSubject.setString(orderDetail.getSubject());
+        tvTourists.setString(orderDetail.getTourists());
+        tvQuantity.setString(String.format("%d张", orderDetail.getQuantity()));
+        tvPayamount.setString(String.format("%d元", orderDetail.getPayamount()));
+        tvUseDate.setString(orderDetail.getUseDate());
+        tvPaidAt.setString(orderDetail.getPaidAt());
+        tvUseRemarks.setString(orderDetail.getUseRemarks());
     }
 
     @Override
     public void onRechargeMobileSuccess() {
-        DialogUtil.showQuitDialog(this, "充值成功");
+        EventBus.getDefault().post(new RefreshOrderListEvent());
+        ConfirmDialog successDialog = new ConfirmDialog(this, "充值成功");
+        successDialog.setOnConfirmListener(() -> {
+            finish();
+        });
+        successDialog.show();
     }
 
     public static void goActivity(Context context, String orderId) {
         Intent intent = new Intent(context, OrderDetailPhoneActivity.class);
         intent.putExtra(Constants.Extra.OrderId, orderId);
         context.startActivity(intent);
+    }
+
+    @Override
+    public boolean ifRegisterLoadSir() {
+        return true;
+    }
+    @Override
+    public void showErrorMessage(int code, String message) {
+        message = message.replace("#", "\n");
+        ConfirmDialog errorDialog = new ConfirmDialog(this, message);
+        errorDialog.setOnConfirmListener(() -> {
+            finish();
+        });
+        errorDialog.show();
     }
 }
