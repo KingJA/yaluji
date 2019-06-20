@@ -61,8 +61,6 @@ public class Status {
 //    }
 
     public interface TicketStatus {
-        //待支付
-        int WAIT_PAY = 0;
         //待使用
         int WAIT_USE = 1;
         //已使用
@@ -92,13 +90,10 @@ public class Status {
     }
 
     public enum OrderStatus implements CodeEnum {
-        WAIT_PAY(0, "待支付"),
         WAIT_USE(3, "待出票"),
-
         TO_USED(1, "待使用"),
         USED(2, "已使用"),
-        OVER_TIME(4, "已过期"),
-        CANCELED(8, "已取消");
+        OVER_TIME(4, "已过期");
         private Integer code;
         private String msg;
 
