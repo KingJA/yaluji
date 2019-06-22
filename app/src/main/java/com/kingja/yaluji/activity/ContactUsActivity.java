@@ -39,10 +39,10 @@ public class ContactUsActivity extends BaseTitleActivity {
                 tvVersion.setText(VersionUtil.getVerName(this) + "/" + VersionUtil.getVersionCode(this));
                 System.arraycopy(mHits, 1, mHits, 0, mHits.length - 1);
                 mHits[mHits.length - 1] = SystemClock.uptimeMillis();
-                if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)) {
-                    Log.e(TAG, "检查更新: " );
-                    Beta.checkUpgrade(false,false);
-                }
+//                if (mHits[0] >= (SystemClock.uptimeMillis() - 1000)) {
+//                    Log.e(TAG, "检查更新: " );
+//                    Beta.checkUpgrade(false,false);
+//                }
                 break;
 
         }

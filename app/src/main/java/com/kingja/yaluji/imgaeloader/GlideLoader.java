@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -35,7 +36,6 @@ public class GlideLoader implements IImageLoader {
 
     @Override
     public void loadRoundImage(Context context, String url, int resourceId, ImageView view, int connerWidth) {
-//        LogUtil.e(TAG,"图片地址:"+Constants.BASE_URL + url);
         Glide.with(context)
                 .load(getWholeUrl(url))
                 .placeholder(resourceId == -1 ? R.drawable.ic_placeholder : resourceId)
@@ -58,6 +58,9 @@ public class GlideLoader implements IImageLoader {
     }
 
     private String getWholeUrl(String url) {
+        if (TextUtils.isEmpty(url)) {
+            return "";
+        }
         return url.startsWith("http") ? url : Constants.BASE_URL + url;
 
     }

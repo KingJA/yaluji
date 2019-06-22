@@ -254,12 +254,16 @@ public class PraiseDetailActivity extends BaseTitleActivity implements PraiseDet
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                int[] deadlineDate = DateUtil.getDeadlineDayDate(praiseDetail.getEndDateTime());
-                stvDateHour.setText(String.format("%02d", deadlineDate[0]));
-                stvDateMin.setText(String.format("%02d", deadlineDate[1]));
-                stvDateSec.setText(String.format("%02d", deadlineDate[2]));
-                Log.e(TAG, String.format("%d：%d：%d", deadlineDate[0], deadlineDate[1], deadlineDate[2]));
-
+                PraiseDetailActivity.this.runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        int[] deadlineDate = DateUtil.getDeadlineDayDate(praiseDetail.getEndDateTime());
+                        stvDateHour.setText(String.format("%02d", deadlineDate[0]));
+                        stvDateMin.setText(String.format("%02d", deadlineDate[1]));
+                        stvDateSec.setText(String.format("%02d", deadlineDate[2]));
+                        Log.e(TAG, String.format("%d：%d：%d", deadlineDate[0], deadlineDate[1], deadlineDate[2]));
+                    }
+                });
             }
         }, 0, 1000);
     }
