@@ -53,13 +53,13 @@ public class VisitorPrefectActivity extends BaseTitleActivity implements Visitor
         if (CheckUtil.checkEmpty(name, "请输入姓名")
                 && CheckUtil.checkPhoneFormat(phone)
                 && CheckUtil.checkIdCard(idcode, "身份证格式有误")) {
-            editVisitor(name,phone,idcode);
+            editVisitor(name, phone, idcode);
         }
 
     }
 
     private void editVisitor(String name, String phone, String idcode) {
-        visitorEditPresenter.editVisitor(visitor.getId(),name,phone,idcode);
+        visitorEditPresenter.editVisitor(visitor.getId(), name, phone, idcode);
     }
 
     @Override
@@ -92,9 +92,11 @@ public class VisitorPrefectActivity extends BaseTitleActivity implements Visitor
 
     @Override
     protected void initData() {
-         etVisitorName.setText(visitor.getName());
-         etVisitorPhone.setText(visitor.getMobile());
-         etVisitorIdcode.setText(visitor.getIdcode());
+        if (visitor != null) {
+            etVisitorName.setText(visitor.getName());
+            etVisitorPhone.setText(visitor.getMobile());
+            etVisitorIdcode.setText(visitor.getIdcode());
+        }
         etVisitorIdcode.requestFocus();
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
@@ -125,7 +127,7 @@ public class VisitorPrefectActivity extends BaseTitleActivity implements Visitor
 
     public static void goActivity(Context context, Visitor visitor) {
         Intent intent = new Intent(context, VisitorPrefectActivity.class);
-        intent.putExtra("visitor",visitor);
+        intent.putExtra("visitor", visitor);
         context.startActivity(intent);
     }
 }

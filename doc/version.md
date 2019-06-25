@@ -38,5 +38,6 @@
 1.2.5
 图片加载优化，按控件尺寸加载
 版本显示和异常捕捉
+DateUtil日期如果为null判断PraiseDetailActivity
 
 
