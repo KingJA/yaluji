@@ -89,9 +89,11 @@ public class VisitorEditActivity extends BaseTitleActivity implements VisitorEdi
 
     @Override
     protected void initData() {
-         etVisitorName.setText(visitor.getName());
-         etVisitorPhone.setText(visitor.getMobile());
-         etVisitorIdcode.setText(visitor.getIdcode());
+        if (visitor != null) {
+            etVisitorName.setText(visitor.getName());
+            etVisitorPhone.setText(visitor.getMobile());
+            etVisitorIdcode.setText(visitor.getIdcode());
+        }
     }
 
     @Override

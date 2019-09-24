@@ -45,7 +45,7 @@ public class Visitor implements Serializable {
     }
 
     public String getName() {
-        return name;
+        return null == name ? "" : name;
     }
 
     public void setName(String name) {
@@ -53,7 +53,7 @@ public class Visitor implements Serializable {
     }
 
     public String getMobile() {
-        return mobile;
+        return null == mobile ? "" : mobile;
     }
 
     public void setMobile(String mobile) {
@@ -61,7 +61,7 @@ public class Visitor implements Serializable {
     }
 
     public String getIdcode() {
-        return idcode;
+        return null == idcode ? "" : idcode;
     }
 
     public void setIdcode(String idcode) {
